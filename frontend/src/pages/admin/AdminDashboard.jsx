@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchProducts, deleteProduct, createProduct, fetchCategories } from '../../services/api';
-import { Plus, Trash2, Edit, Save, X } from 'lucide-react';
+import { Plus, Trash2, Edit, Save, X, Settings, Image, MessageSquare, Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -91,8 +92,43 @@ const AdminDashboard = () => {
 
     return (
         <div className="bg-white rounded-xl shadow p-6">
+            {/* CMS Navigation */}
+            <div className="mb-6 p-4 bg-gradient-brand rounded-xl">
+                <h3 className="text-white font-bold mb-3">CMS Manager</h3>
+                <div className="flex flex-wrap gap-3">
+                    <Link
+                        to="/admin/settings"
+                        className="flex items-center space-x-2 bg-white text-brand-dark px-4 py-2 rounded-lg hover:bg-gray-100 transition font-medium"
+                    >
+                        <Settings size={18} />
+                        <span>Site Settings</span>
+                    </Link>
+                    <Link
+                        to="/admin/hero-slides"
+                        className="flex items-center space-x-2 bg-white text-brand-dark px-4 py-2 rounded-lg hover:bg-gray-100 transition font-medium"
+                    >
+                        <Image size={18} />
+                        <span>Hero Slides</span>
+                    </Link>
+                    <Link
+                        to="/admin/leads"
+                        className="flex items-center space-x-2 bg-white text-brand-dark px-4 py-2 rounded-lg hover:bg-gray-100 transition font-medium"
+                    >
+                        <MessageSquare size={18} />
+                        <span>Leads</span>
+                    </Link>
+                    <Link
+                        to="/admin/menu"
+                        className="flex items-center space-x-2 bg-white text-brand-dark px-4 py-2 rounded-lg hover:bg-gray-100 transition font-medium"
+                    >
+                        <Menu size={18} />
+                        <span>Menu</span>
+                    </Link>
+                </div>
+            </div>
+
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-                <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+                <h1 className="text-3xl font-bold text-gray-900">Product Management</h1>
                 <div className="flex space-x-2">
                     <button
                         onClick={() => setShowCategoryForm(!showCategoryForm)}

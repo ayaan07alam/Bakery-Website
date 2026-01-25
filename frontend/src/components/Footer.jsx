@@ -1,7 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, ChevronRight, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Footer = () => {
+    const [siteSettings, setSiteSettings] = useState({
+        phone: '+91 98765 43210',
+        email: 'contact@sahabakery.com',
+        address: '123 Bakery Street, Park Street, Kolkata, WB 700016',
+        facebookUrl: '#',
+        instagramUrl: '#',
+        twitterUrl: '#'
+    });
+    const [newsletterEmail, setNewsletterEmail] = useState('');
+    const [newsletterLoading, setNewsletterLoading] = useState(false);
+    const [newsletterMessage, setNewsletterMessage] = useState('');
+
+    useEffect(() => {
+        fetchSiteSettings();
+    }, []);
+
+    const fetchSiteSettings = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/site-settings');
+            setSiteSettings(response.data);
+        } catch (error) {
+            console.error('Error fetching site settings:', error);
+        }
+    };
+
+    const handleNewsletterSubmit = async (e) => {
+        e.preventDefault();
+        setNewsletterLoading(true);
+        setNewsletterMessage('');
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/newsletter/subscribe', {
+                email: newsletterEmail
+            });
+            setNewsletterMessage(response.data.message || 'Successfully subscribed!');
+            setNewsletterEmail('');
+        } catch (error) {
+            setNewsletterMessage('Failed to subscribe. Please try again.');
+        } finally {
+            setNewsletterLoading(false);
+        }
+    };
     return (
         <footer className="relative mt-24">
 
@@ -16,7 +60,7 @@ const Footer = () => {
                 {/* Texture Overlay */}
                 <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/food.png')] opacity-10 pointer-events-none"></div>
 
-                <div className="container mx-auto px-6 md:px-12 relative z-10">
+                <div className="w-full px-6 md:px-12 relative z-10">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12 border-b border-red-400/30 pb-12">
                         {/* Brand */}
                         <div className="space-y-6">
@@ -27,24 +71,40 @@ const Footer = () => {
                                 "The heart of Kolkata's baking tradition. Authentic tastes, pure ingredients, and a whole lot of love."
                             </p>
                             <div className="flex space-x-3 pt-2">
-                                {[Facebook, Instagram, Twitter].map((Icon, i) => (
-                                    <a key={i} href="#" className="h-10 w-10 rounded-full bg-white text-brand-red flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-110 shadow-sm">
+                                {[
+                                    { Icon: Facebook, url: siteSettings.facebookUrl },
+                                    { Icon: Instagram, url: siteSettings.instagramUrl },
+                                    { Icon: Twitter, url: siteSettings.twitterUrl }
+                                ].map(({ Icon, url }, i) => (
+                                    <a key={i} href={url || '#'} target="_blank" rel="noopener noreferrer" className="h-10 w-10 rounded-full bg-white text-brand-red flex items-center justify-center hover:bg-brand-yellow hover:text-brand-dark transition-all transform hover:scale-110 shadow-sm">
                                         <Icon size={18} />
                                     </a>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Links */}
+                        {/* Franchise Opportunity */}
                         <div>
-                            <h4 className="text-2xl font-logo text-brand-yellow mb-6 drop-shadow-sm">Explore</h4>
+                            <h4 className="text-2xl font-logo text-brand-yellow mb-6 drop-shadow-sm">Franchise With Us</h4>
+                            <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20 mb-6">
+                                <p className="text-red-100 text-sm mb-4 leading-relaxed">
+                                    💼 <strong>Join Our Growing Family!</strong><br />
+                                    Looking to own a successful bakery? Explore our franchise opportunities.
+                                </p>
+                                <Link
+                                    to="/contact"
+                                    className="inline-block bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 px-6 rounded-xl text-sm transition-all shadow-md hover:shadow-lg"
+                                >
+                                    Inquire Now
+                                </Link>
+                            </div>
                             <ul className="space-y-3">
-                                {['Our Story', 'Menu', 'Special Offers', 'Locations'].map((item) => (
+                                {['Shop', 'Contact'].map((item) => (
                                     <li key={item}>
-                                        <a href="#" className="text-white hover:text-brand-yellow transition-colors flex items-center text-sm group font-medium">
+                                        <Link to={`/${item.toLowerCase()}`} className="text-white hover:text-brand-yellow transition-colors flex items-center text-sm group font-medium">
                                             <ChevronRight size={16} className="mr-2 text-brand-yellow group-hover:translate-x-1 transition-transform" />
                                             {item}
-                                        </a>
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -56,11 +116,15 @@ const Footer = () => {
                             <ul className="space-y-4 text-sm text-white font-medium">
                                 <li className="flex items-start space-x-3 bg-red-700/30 p-3 rounded-xl">
                                     <MapPin size={18} className="text-brand-yellow mt-0.5 shrink-0" />
-                                    <span>123 Bakery Street, Park Street,<br />Kolkata, WB 700016</span>
+                                    <span>{siteSettings.address}</span>
                                 </li>
                                 <li className="flex items-center space-x-3 bg-red-700/30 p-3 rounded-xl">
                                     <Phone size={18} className="text-brand-yellow shrink-0" />
-                                    <span>+91 98765 43210</span>
+                                    <span>{siteSettings.phone}</span>
+                                </li>
+                                <li className="flex items-center space-x-3 bg-red-700/30 p-3 rounded-xl">
+                                    <Mail size={18} className="text-brand-yellow shrink-0" />
+                                    <span>{siteSettings.email}</span>
                                 </li>
                             </ul>
                         </div>
@@ -70,16 +134,27 @@ const Footer = () => {
                             <h4 className="text-2xl font-logo text-brand-yellow mb-6 drop-shadow-sm">Fresh Updates</h4>
                             <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
                                 <p className="text-red-100 text-sm mb-4">Get sweet deals right in your inbox!</p>
-                                <form className="space-y-3">
+                                <form onSubmit={handleNewsletterSubmit} className="space-y-3">
                                     <input
                                         type="email"
+                                        value={newsletterEmail}
+                                        onChange={(e) => setNewsletterEmail(e.target.value)}
                                         placeholder="Your email address"
+                                        required
                                         className="w-full bg-white border-2 border-transparent rounded-xl px-4 py-3 text-sm text-brand-dark placeholder-gray-400 focus:outline-none focus:border-brand-yellow transition-all shadow-inner"
                                     />
-                                    <button className="w-full bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 rounded-xl text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
-                                        <span>Subscribe</span>
+                                    <button
+                                        type="submit"
+                                        disabled={newsletterLoading}
+                                        className="w-full bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 rounded-xl text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50">
+                                        <span>{newsletterLoading ? 'Subscribing...' : 'Subscribe'}</span>
                                         <ArrowRight size={16} />
                                     </button>
+                                    {newsletterMessage && (
+                                        <p className={`text-xs ${newsletterMessage.includes('success') ? 'text-green-300' : 'text-yellow-200'}`}>
+                                            {newsletterMessage}
+                                        </p>
+                                    )}
                                 </form>
                             </div>
                         </div>

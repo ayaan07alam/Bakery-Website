@@ -1,34 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import axios from 'axios';
 
 const Home = () => {
     // Hero Slider State
     const [currentSlide, setCurrentSlide] = useState(0);
-    const slides = [
+    const [slides, setSlides] = useState([
+        // Fallback default slides
         {
-            image: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=2380',
+            imageUrl: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=2380',
             title: 'Artisanal Excellence',
-            subtitle: 'Baking happiness with traditional recipes since 1978.'
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1627834377411-8da5f4f09de8?q=80&w=2380',
-            title: 'Sweet Celebrations',
-            subtitle: 'Crafting memories with our signature custom cakes.'
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2380',
-            title: 'Morning Freshness',
-            subtitle: 'Start your day with the warmth of freshly baked bread.'
+            subtitle: 'Baking happiness with traditional recipes since 1978.',
+            ctaText: 'Order Now',
+            ctaLink: '/shop'
         }
-    ];
+    ]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        fetchHeroSlides();
+    }, []);
+
+    const fetchHeroSlides = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/hero-slides/active');
+            if (response.data && response.data.length > 0) {
+                setSlides(response.data);
+            }
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching hero slides:', error);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        if (slides.length === 0) return;
         const timer = setInterval(() => {
             setCurrentSlide(prev => (prev + 1) % slides.length);
         }, 6000);
         return () => clearInterval(timer);
-    }, []);
+    }, [slides]);
 
     const nextSlide = () => setCurrentSlide((currentSlide + 1) % slides.length);
     const prevSlide = () => setCurrentSlide((currentSlide - 1 + slides.length) % slides.length);
@@ -63,7 +76,7 @@ const Home = () => {
                         >
                             <div
                                 className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-100"
-                                style={{ backgroundImage: `url('${slide.image}')` }}
+                                style={{ backgroundImage: `url('${slide.imageUrl}')` }}
                             ></div>
                             {/* Gradient Overlay for better text readability */}
                             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
@@ -71,16 +84,14 @@ const Home = () => {
                             <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 text-left max-w-6xl">
                                 <span className="font-logo text-4xl md:text-5xl mb-4 animate-fade-in-up text-brand-yellow drop-shadow-md tracking-wide">Welcome to Saha Bakery</span>
                                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-8 drop-shadow-2xl animate-fade-in-up delay-100 leading-tight text-white tracking-tight">
-                                    {slide.title === 'Artisanal Excellence' ? (
-                                        <>Artisanal <br /><span className="text-transparent bg-clip-text bg-gradient-sunshine">Excellence</span></>
-                                    ) : slide.title}
+                                    {slide.title}
                                 </h1>
                                 <p className="text-xl md:text-2xl mb-10 max-w-2xl font-light tracking-wide animate-fade-in-up delay-200 text-white/90 drop-shadow-md leading-relaxed border-l-4 border-brand-yellow pl-6">
                                     {slide.subtitle}
                                 </p>
                                 <div>
-                                    <Link to="/shop" className="group relative inline-flex items-center space-x-4 bg-white text-brand-dark font-bold py-4 px-10 rounded-full overflow-hidden transition-all hover:shadow-[0_20px_50px_-10px_rgba(255,255,255,0.3)] animate-fade-in-up delay-300 transform hover:-translate-y-1 hover:scale-105">
-                                        <span className="relative z-10 text-lg uppercase tracking-widest">Order Now</span>
+                                    <Link to={slide.ctaLink || '/shop'} className="group relative inline-flex items-center space-x-4 bg-white text-brand-dark font-bold py-4 px-10 rounded-full overflow-hidden transition-all hover:shadow-[0_20px_50px_-10px_rgba(255,255,255,0.3)] animate-fade-in-up delay-300 transform hover:-translate-y-1 hover:scale-105">
+                                        <span className="relative z-10 text-lg uppercase tracking-widest">{slide.ctaText || 'Order Now'}</span>
                                         <div className="bg-brand-yellow rounded-full p-2 group-hover:translate-x-1 transition-transform">
                                             <ArrowRight size={20} className="text-brand-dark" />
                                         </div>
@@ -143,10 +154,10 @@ const Home = () => {
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 perspective-1000">
                             {[
-                                { name: 'Black Forest Cake', price: 450, rating: 4.8, img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476d?q=80&w=1000' },
-                                { name: 'Gourmet Chicken Puff', price: 45, rating: 4.5, img: 'https://images.unsplash.com/photo-1626078302170-a3bc54cd10c4?q=80&w=1000' },
-                                { name: 'Red Velvet Supreme', price: 600, rating: 4.9, img: 'https://images.unsplash.com/photo-1586788680434-30d324436323?q=80&w=1000' },
-                                { name: 'Fresh Fruit Tart', price: 120, rating: 4.7, img: 'https://images.unsplash.com/photo-1519915093138-5f662d91d91b?q=80&w=1000' }
+                                { name: 'Black Forest Cake', price: 450, rating: 4.8, img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=800&fit=crop' },
+                                { name: 'Gourmet Chicken Puff', price: 45, rating: 4.5, img: 'https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=800&h=800&fit=crop' },
+                                { name: 'Red Velvet Supreme', price: 600, rating: 4.9, img: 'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=800&h=800&fit=crop' },
+                                { name: 'Fresh Fruit Tart', price: 120, rating: 4.7, img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=800&fit=crop' }
                             ].map((item, idx) => (
                                 <div key={idx} className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500 group cursor-pointer border border-gray-100 transform hover:-translate-y-2 hover:rotate-1">
                                     <div className="h-72 overflow-hidden relative">
