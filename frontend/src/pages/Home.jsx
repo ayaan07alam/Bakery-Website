@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Star, Sparkles, Award, Truck } from 'lucide-react';
 import axios from 'axios';
 
 const Home = () => {
     // Hero Slider State
     const [currentSlide, setCurrentSlide] = useState(0);
     const [slides, setSlides] = useState([
-        // Fallback default slides
+        // Fallback default slide
         {
             imageUrl: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=2380',
             title: 'Artisanal Excellence',
@@ -39,7 +39,7 @@ const Home = () => {
         if (slides.length === 0) return;
         const timer = setInterval(() => {
             setCurrentSlide(prev => (prev + 1) % slides.length);
-        }, 6000);
+        }, 7000);
         return () => clearInterval(timer);
     }, [slides]);
 
@@ -47,184 +47,336 @@ const Home = () => {
     const prevSlide = () => setCurrentSlide((currentSlide - 1 + slides.length) % slides.length);
 
     return (
-        <div className="pb-20 relative overflow-x-hidden min-h-screen">
-            {/* Decorative Side Art - Bakery Theme - Left (Visible on Desktop) */}
-            <div className="hidden lg:block absolute top-[15%] left-4 w-40 h-auto opacity-15 pointer-events-none z-0 transform -rotate-12">
-                <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-brand-dark">
-                    <path d="M50 150 Q100 100 150 50 M140 40 L160 60 M40 140 L60 160" /> {/* Rolling Pin */}
-                    <path d="M100 120 C80 140 60 140 40 120 M160 60 C180 80 180 100 160 120" /> {/* Dough Curves */}
-                    <path d="M80 50 Q100 20 120 50 T160 50" />
-                </svg>
-            </div>
-            {/* Decorative Side Art - Bakery Theme - Right (Visible on Desktop) */}
-            <div className="hidden lg:block absolute top-[15%] right-4 w-40 h-auto opacity-15 pointer-events-none z-0 transform rotate-12">
-                <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-brand-dark">
-                    <path d="M60 40 L60 100 Q60 150 100 150 Q140 150 140 100 L140 40" /> {/* Whisk Wires */}
-                    <path d="M80 40 L80 100 M100 40 L100 110 M120 40 L120 100" />
-                    <rect x="90" y="20" width="20" height="20" rx="5" /> {/* Handle */}
-                </svg>
-            </div>
+        <div className="relative overflow-hidden min-h-screen">
+            {/* === FULLSCREEN HERO SLIDER === */}
+            <section className="relative w-full h-screen min-h-[600px] max-h-[900px] overflow-hidden">
+                {slides.map((slide, index) => (
+                    <div
+                        key={index}
+                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                            }`}
+                    >
+                        {/* Hero Image with Premium Treatment */}
+                        <div className="absolute inset-0 will-animate">
+                            <img
+                                src={slide.imageUrl}
+                                alt={slide.title}
+                                className={`w-full h-full object-cover transition-all duration-[10000ms] ${index === currentSlide ? 'scale-110' : 'scale-100'
+                                    }`}
+                            />
+                        </div>
 
-            {/* Main Content Wrapper */}
-            <div>
-                {/* Floating Hero Slider - Adjusted for NO CROP (Aspect Ratio) */}
-                <section className="relative w-full max-w-[95%] mx-auto mt-28 rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-black/5 aspect-[16/9] md:aspect-[21/9] min-h-[500px]">
-                    {slides.map((slide, index) => (
-                        <div
-                            key={index}
-                            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-                        >
-                            <div
-                                className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-100"
-                                style={{ backgroundImage: `url('${slide.imageUrl}')` }}
-                            ></div>
-                            {/* Gradient Overlay for better text readability */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+                        {/* Premium Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
 
-                            <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 lg:px-24 text-left max-w-6xl">
-                                <span className="font-logo text-4xl md:text-5xl mb-4 animate-fade-in-up text-brand-yellow drop-shadow-md tracking-wide">Welcome to Saha Bakery</span>
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-8 drop-shadow-2xl animate-fade-in-up delay-100 leading-tight text-white tracking-tight">
+                        {/* Content with Stagger Animation */}
+                        <div className="relative z-10 h-full flex items-center px-6 md:px-12 lg:px-20 xl:px-32">
+                            <div className="max-w-4xl space-y-6 md:space-y-8">
+                                <div className="flex items-center gap-4 mb-2 animate-fade-in-up">
+                                    <div className="h-px w-12 bg-brand-yellow"></div>
+                                    <span className="inline-block font-sans text-sm md:text-base text-white/95 tracking-[0.3em] uppercase font-medium drop-shadow-sm">
+                                        Welcome to Saha Bakery
+                                    </span>
+                                </div>
+
+                                <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold drop-shadow-2xl animate-fade-in-up delay-100 leading-[1.1] text-white tracking-tight">
                                     {slide.title}
                                 </h1>
-                                <p className="text-xl md:text-2xl mb-10 max-w-2xl font-light tracking-wide animate-fade-in-up delay-200 text-white/90 drop-shadow-md leading-relaxed border-l-4 border-brand-yellow pl-6">
+
+                                <p className="text-lg md:text-xl lg:text-2xl max-w-2xl font-light tracking-wide animate-fade-in-up delay-200 text-white/95 drop-shadow-lg leading-relaxed border-l-4 border-brand-yellow pl-6 py-2">
                                     {slide.subtitle}
                                 </p>
-                                <div>
-                                    <Link to={slide.ctaLink || '/shop'} className="group relative inline-flex items-center space-x-4 bg-white text-brand-dark font-bold py-4 px-10 rounded-full overflow-hidden transition-all hover:shadow-[0_20px_50px_-10px_rgba(255,255,255,0.3)] animate-fade-in-up delay-300 transform hover:-translate-y-1 hover:scale-105">
-                                        <span className="relative z-10 text-lg uppercase tracking-widest">{slide.ctaText || 'Order Now'}</span>
-                                        <div className="bg-brand-yellow rounded-full p-2 group-hover:translate-x-1 transition-transform">
-                                            <ArrowRight size={20} className="text-brand-dark" />
+
+                                <div className="animate-fade-in-up delay-300 pt-4">
+                                    <Link
+                                        to={slide.ctaLink || '/shop'}
+                                        className="btn-shimmer group relative inline-flex items-center gap-3 md:gap-4 bg-white text-brand-dark font-bold py-4 md:py-5 px-8 md:px-12 rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_rgba(255,255,255,0.3)] transform hover:-translate-y-1 hover:pr-16"
+                                    >
+                                        <span className="relative z-10 text-base md:text-lg uppercase tracking-widest">
+                                            {slide.ctaText || 'Order Now'}
+                                        </span>
+                                        <div className="bg-brand-yellow rounded-full p-2.5 transition-all duration-500 group-hover:translate-x-2 group-hover:scale-110 relative z-10">
+                                            <ArrowRight size={22} className="text-brand-dark" />
                                         </div>
                                     </Link>
                                 </div>
                             </div>
                         </div>
+
+                        {/* Navigation Controls - Premium Style */}
+                        {slides.length > 1 && index === currentSlide && (
+                            <>
+                                <button
+                                    onClick={prevSlide}
+                                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 glass text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 hover:bg-white/30 backdrop-blur-md"
+                                    aria-label="Previous slide"
+                                >
+                                    <ChevronLeft size={28} strokeWidth={2.5} />
+                                </button>
+                                <button
+                                    onClick={nextSlide}
+                                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 glass text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 hover:bg-white/30 backdrop-blur-md"
+                                    aria-label="Next slide"
+                                >
+                                    <ChevronRight size={28} strokeWidth={2.5} />
+                                </button>
+
+                                {/* Slide Indicators - Premium Dots */}
+                                <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+                                    {slides.map((_, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => setCurrentSlide(idx)}
+                                            className={`transition-all duration-500 rounded-full ${idx === currentSlide
+                                                ? 'w-12 md:w-16 h-2.5 bg-white shadow-lg'
+                                                : 'w-2.5 h-2.5 bg-white/50 hover:bg-white/75 hover:scale-125'
+                                                }`}
+                                            aria-label={`Go to slide ${idx + 1}`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                ))}
+            </section>
+
+            {/* === PREMIUM MARQUEE BANNER === */}
+            <div className="relative overflow-hidden bg-gradient-to-r from-brand-red via-red-600 to-brand-red py-6 md:py-8 shadow-luxury">
+                <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJWMTRoMnYyMHptLTYgMEgyMFYxNGgydjIwem02LTZ2LTJoLTJ2Mmgyem0tNiAwdi0yaC0ydjJoMnoiLz48L2c+PC9nPjwvc3ZnPg==')]"></div>
+                <div className="animate-marquee whitespace-nowrap flex gap-16 items-center">
+                    {[...Array(12)].map((_, i) => (
+                        <React.Fragment key={i}>
+                            <span className="text-2xl md:text-3xl font-display font-bold text-white tracking-wider flex items-center gap-4">
+                                <Sparkles className="text-brand-yellow" size={28} />
+                                FRESHLY BAKED DAILY
+                            </span>
+                            <span className="text-2xl md:text-3xl font-display font-bold text-white tracking-wider flex items-center gap-4">
+                                <Award className="text-brand-yellow" size={28} />
+                                100% EGGLESS
+                            </span>
+                            <span className="text-2xl md:text-3xl font-display font-bold text-white tracking-wider flex items-center gap-4">
+                                <Star className="text-brand-yellow fill-brand-yellow" size={28} />
+                                ORGANIC INGREDIENTS
+                            </span>
+                        </React.Fragment>
                     ))}
-                </section>
-
-                {/* Infinite Marquee - Visual "Wow" Factor */}
-                <div className="bg-brand-red py-6 overflow-hidden relative shadow-xl mx-4 md:mx-8 my-12 rounded-[2rem] ring-4 ring-white border-y-4 border-brand-yellow z-30">
-                    <div className="animate-marquee whitespace-nowrap flex space-x-16 items-center">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                            <React.Fragment key={i}>
-                                <span className="text-3xl font-display font-bold text-white tracking-wider flex items-center">
-                                    <span className="text-brand-yellow mr-4">★</span> FRESHLY BAKED
-                                </span>
-                                <span className="text-3xl font-display font-bold text-white tracking-wider flex items-center">
-                                    <span className="text-brand-yellow mr-4">✦</span> 100% EGGLESS
-                                </span>
-                                <span className="text-3xl font-display font-bold text-white tracking-wider flex items-center">
-                                    <span className="text-brand-yellow mr-4">☀</span> ORGANIC INGREDIENTS
-                                </span>
-                            </React.Fragment>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="container mx-auto px-6 relative z-20">
-                    {/* Trust Signals Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-white p-10 rounded-3xl shadow-soft">
-                        {[
-                            { icon: '🌾', title: 'Premium Ingredients', desc: 'Sourced from the finest local farms.' },
-                            { icon: '👨‍🍳', title: 'Master Bakers', desc: 'Crafted with passion and expertise.' },
-                            { icon: '🚚', title: 'Fresh Delivery', desc: 'From our oven straight to your door.' }
-                        ].map((item, idx) => (
-                            <div key={idx} className="text-center group p-6 rounded-2xl hover:bg-gradient-soft transition-colors duration-300">
-                                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300 animate-float">{item.icon}</div>
-                                <h3 className="text-xl font-display font-bold mb-2 text-brand-dark">{item.title}</h3>
-                                <p className="text-gray-500 font-light">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-
-                    <section className="mt-24 relative">
-                        {/* Decorative Background Element */}
-                        <div className="absolute top-0 right-0 -z-10 opacity-5 pointer-events-none">
-                            <img src="/logo.png" className="w-96 h-96 object-contain rotate-12" alt="" />
-                        </div>
-
-                        <div className="flex flex-col items-center text-center mb-16">
-                            <span className="text-brand-red font-bold tracking-widest text-sm uppercase mb-2 font-sans bg-red-50 px-4 py-1 rounded-full">Customer Favorites</span>
-                            <h2 className="text-4xl md:text-6xl font-logo font-bold text-transparent bg-clip-text bg-gradient-brand mb-4 tracking-wide relative">
-                                Trending Now
-                                <span className="absolute -top-6 -right-8 animate-bounce text-4xl">🔥</span>
-                            </h2>
-                            <div className="w-24 h-1 bg-gradient-sunshine rounded-full"></div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 perspective-1000">
-                            {[
-                                { name: 'Black Forest Cake', price: 450, rating: 4.8, img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=800&fit=crop' },
-                                { name: 'Gourmet Chicken Puff', price: 45, rating: 4.5, img: 'https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=800&h=800&fit=crop' },
-                                { name: 'Red Velvet Supreme', price: 600, rating: 4.9, img: 'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=800&h=800&fit=crop' },
-                                { name: 'Fresh Fruit Tart', price: 120, rating: 4.7, img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=800&fit=crop' }
-                            ].map((item, idx) => (
-                                <div key={idx} className="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500 group cursor-pointer border border-gray-100 transform hover:-translate-y-2 hover:rotate-1">
-                                    <div className="h-72 overflow-hidden relative">
-                                        <img src={item.img} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-                                        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-bold shadow-md flex items-center">
-                                            <Star size={14} className="text-brand-yellow fill-brand-yellow mr-1" />
-                                            {item.rating}
-                                        </div>
-                                        {/* Quick Add Overlay - Circular Button */}
-                                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                            <button className="bg-white text-brand-dark h-14 w-14 rounded-full flex items-center justify-center font-medium transform translate-y-8 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-red hover:text-white shadow-xl">
-                                                <ArrowRight size={24} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div className="p-8">
-                                        <h3 className="font-logo text-3xl mb-2 group-hover:text-brand-red transition-colors tracking-wide leading-tight">{item.name}</h3>
-                                        <div className="flex justify-between items-end mt-4">
-                                            <div>
-                                                <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Price</p>
-                                                <span className="text-2xl font-bold text-brand-dark">₹{item.price}</span>
-                                            </div>
-                                            <button className="bg-gray-50 hover:bg-brand-yellow text-brand-dark h-10 w-10 rounded-full flex items-center justify-center transition-colors">
-                                                <span className="text-xl font-bold">+</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="text-center mt-12">
-                            <Link to="/shop" className="inline-block border-b-2 border-brand-red text-transparent bg-clip-text bg-gradient-brand font-bold text-lg hover:text-brand-dark hover:border-brand-dark transition-all pb-1">View Full Menu</Link>
-                        </div>
-                    </section>
-
-                    {/* Categories - Masonry/Grid Feel */}
-                    <section className="mt-32">
-                        <div className="flex flex-col items-center text-center mb-16">
-                            <h2 className="text-4xl md:text-6xl font-logo font-bold text-brand-dark mb-4 tracking-wide">Our Specialties</h2>
-                            <p className="text-gray-500 max-w-2xl">Discover the diverse range of freshly baked goods we offer daily.</p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="relative h-[400px] rounded-3xl overflow-hidden group cursor-pointer">
-                                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000" className="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Cakes" />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
-                                    <h3 className="text-3xl font-display font-bold text-white mb-2">Signature Cakes</h3>
-                                    <p className="text-white/80 mb-4 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">Perfect for weddings, birthdays, and anniversaries.</p>
-                                    <span className="text-brand-yellow font-bold uppercase tracking-widest text-sm">Explore Series &rarr;</span>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-1 gap-8">
-                                {[
-                                    { title: 'Artisan Breads', img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000' },
-                                    { title: 'Savory Pastries', img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=1000' }
-                                ].map((cat, idx) => (
-                                    <div key={idx} className="relative h-[184px] rounded-3xl overflow-hidden group cursor-pointer">
-                                        <img src={cat.img} className="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt={cat.title} />
-                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
-                                            <h3 className="text-2xl font-display font-bold text-white tracking-wide">{cat.title}</h3>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
                 </div>
             </div>
+
+            {/* === TRUST SIGNALS - PREMIUM CARDS === */}
+            <section className="px-4 md:px-6 lg:px-8 xl:px-12 pt-8 relative z-30">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                        {[
+                            {
+                                icon: '🌾',
+                                title: 'Premium Ingredients',
+                                desc: 'Sourced from the finest local farms for exceptional quality.'
+                            },
+                            {
+                                icon: '👨‍🍳',
+                                title: 'Master Bakers',
+                                desc: 'Crafted with passion and decades of expertise.'
+                            },
+                            {
+                                icon: '🚚',
+                                title: 'Fresh Delivery',
+                                desc: 'From our oven straight to your door, always fresh.'
+                            }
+                        ].map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="group bg-white rounded-3xl p-8 md:p-10 shadow-soft hover:shadow-luxury transition-all duration-500 hover:-translate-y-2 border border-gray-100 animate-scale-in will-animate"
+                                style={{ animationDelay: `${idx * 0.1}s` }}
+                            >
+                                <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-500 animate-float">
+                                    {item.icon}
+                                </div>
+                                <h3 className="text-2xl font-display font-bold mb-3 text-brand-dark group-hover:text-brand-red transition-colors duration-300">
+                                    {item.title}
+                                </h3>
+                                <p className="text-gray-600 leading-relaxed font-light">{item.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* === FEATURED PRODUCTS - PREMIUM SHOWCASE === */}
+            <section className="px-4 md:px-6 lg:px-8 xl:px-12 py-24 md:py-32">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16 md:mb-20 space-y-4 animate-fade-in-up">
+                        <span className="inline-block text-brand-red font-bold tracking-[0.3em] text-sm uppercase bg-red-50 px-6 py-2 rounded-full">
+                            Customer Favorites
+                        </span>
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-red-950">
+                            Trending Now
+                            <Sparkles className="inline-block ml-4 text-brand-yellow animate-pulse" size={40} />
+                        </h2>
+                        <div className="w-24 h-1.5 bg-gradient-to-r from-brand-red to-brand-yellow rounded-full mx-auto mt-4"></div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+                        {[
+                            {
+                                name: 'Black Forest Cake',
+                                price: 450,
+                                rating: 4.8,
+                                img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=800&fit=crop'
+                            },
+                            {
+                                name: 'Gourmet Chicken Puff',
+                                price: 45,
+                                rating: 4.5,
+                                img: 'https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=800&h=800&fit=crop'
+                            },
+                            {
+                                name: 'Red Velvet Supreme',
+                                price: 600,
+                                rating: 4.9,
+                                img: 'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=800&h=800&fit=crop'
+                            },
+                            {
+                                name: 'Fresh Fruit Tart',
+                                price: 120,
+                                rating: 4.7,
+                                img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=800&fit=crop'
+                            }
+                        ].map((item, idx) => (
+                            <div
+                                key={idx}
+                                className="group bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-luxury transition-all duration-700 cursor-pointer border border-gray-100 hover-lift will-animate animate-scale-in"
+                                style={{ animationDelay: `${idx * 0.15}s` }}
+                            >
+                                {/* Image Container with Gradient Overlay */}
+                                <div className="relative h-80 overflow-hidden bg-gray-100">
+                                    <img
+                                        src={item.img}
+                                        alt={item.name}
+                                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
+                                        loading="lazy"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                    {/* Rating Badge */}
+                                    <div className="absolute top-4 right-4 glass text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                                        <Star size={16} className="text-brand-yellow fill-brand-yellow" />
+                                        <span>{item.rating}</span>
+                                    </div>
+
+                                    {/* Quick View Button */}
+                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                        <button className="bg-white text-brand-dark h-16 w-16 rounded-full flex items-center justify-center font-medium transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:scale-110 shadow-2xl">
+                                            <ArrowRight size={28} strokeWidth={2.5} />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Product Info */}
+                                <div className="p-6 md:p-8 space-y-4">
+                                    <h3 className="font-display font-bold text-2xl md:text-3xl text-yellow-950 group-hover:text-brand-red transition-colors duration-300 leading-tight">
+                                        {item.name}
+                                    </h3>
+                                    <div className="flex justify-between items-end">
+                                        <div>
+                                            <p className="text-xs text-amber-900/60 font-bold uppercase tracking-wider mb-1">
+                                                Price
+                                            </p>
+                                            <span className="text-3xl font-bold text-red-900">₹{item.price}</span>
+                                        </div>
+                                        <button className="bg-gray-50 hover:bg-brand-yellow text-brand-dark h-12 w-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-sm hover:shadow-md">
+                                            <span className="text-2xl font-bold">+</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="text-center mt-16 animate-fade-in-up delay-500">
+                        <Link
+                            to="/shop"
+                            className="group inline-flex items-center gap-3 text-brand-dark font-bold text-lg border-b-3 border-brand-red pb-2 transition-all duration-300 hover:gap-5 hover:text-brand-red"
+                        >
+                            <span>View Full Menu</span>
+                            <ArrowRight
+                                size={20}
+                                className="transition-transform duration-300 group-hover:translate-x-1"
+                            />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* === CATEGORIES - PREMIUM GRID === */}
+            <section className="px-4 md:px-6 lg:px-8 xl:px-12 py-16 md:py-24">
+                <div className="text-center mb-16 space-y-4 animate-fade-in-up">
+                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-red-950">
+                        Our Specialties
+                    </h2>
+                    <p className="text-amber-900/80 text-lg max-w-2xl mx-auto leading-relaxed">
+                        Discover the diverse range of freshly baked goods we offer daily.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Featured Category - Large */}
+                    <div className="relative h-[450px] rounded-3xl overflow-hidden group cursor-pointer shadow-soft hover:shadow-luxury transition-all duration-700 animate-scale-in">
+                        <img
+                            src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000"
+                            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                            alt="Signature Cakes"
+                            loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20 group-hover:from-black/95 transition-all duration-500"></div>
+                        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
+                            <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-3 transform transition-transform duration-500 group-hover:-translate-y-2">
+                                Signature Cakes
+                            </h3>
+                            <p className="text-white/90 text-lg mb-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                Perfect for weddings, birthdays, and special celebrations.
+                            </p>
+                            <span className="inline-flex items-center gap-2 text-brand-yellow font-bold uppercase tracking-widest text-sm group-hover:gap-4 transition-all duration-300">
+                                Explore Series
+                                <ArrowRight size={18} />
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Small Categories Grid */}
+                    <div className="grid grid-cols-1 gap-8">
+                        {[
+                            {
+                                title: 'Artisan Breads',
+                                img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000'
+                            },
+                            {
+                                title: 'Savory Pastries',
+                                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=1000'
+                            }
+                        ].map((cat, idx) => (
+                            <div
+                                key={idx}
+                                className="relative h-[207px] rounded-3xl overflow-hidden group cursor-pointer shadow-soft hover:shadow-luxury transition-all duration-700 animate-scale-in"
+                                style={{ animationDelay: `${(idx + 1) * 0.1}s` }}
+                            >
+                                <img
+                                    src={cat.img}
+                                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                                    alt={cat.title}
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500 flex items-center justify-center">
+                                    <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-wide transform group-hover:scale-110 transition-transform duration-500">
+                                        {cat.title}
+                                    </h3>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };

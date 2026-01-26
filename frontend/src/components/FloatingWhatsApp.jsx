@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import axios from 'axios';
 
-const FloatingWhatsApp = () => {
+const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [phone, setPhone] = useState('+919876543210');
 
@@ -23,8 +23,17 @@ const FloatingWhatsApp = () => {
     };
 
     const openWhatsApp = () => {
-        const message = encodeURIComponent('Hello! I would like to inquire about your bakery products.');
-        const whatsappUrl = `https://wa.me/${phone}?text=${message}`;
+        let message = 'Hello! I would like to inquire about your bakery products.';
+
+        // Customize message based on context
+        if (productName) {
+            message = `Hello! I'm interested in "${productName}". Could you provide more details?`;
+        } else if (currentPage) {
+            message = `Hello! I was browsing ${currentPage} and would like to know more.`;
+        }
+
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
         window.open(whatsappUrl, '_blank');
     };
 

@@ -79,13 +79,34 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Main Navbar - WITH PREMIUM SVG WAVE DESIGN */}
-            <nav className={`w-full transition-all duration-300 relative z-20 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg py-1' : 'bg-white py-2'}`}>
-                <div className="w-full px-6 md:px-12 flex justify-between items-center">
+            {/* Main Navbar - PREMIUM RED GRADIENT */}
+            <nav className={`w-full transition-all duration-300 relative z-20 bg-gradient-to-r from-brand-red via-red-500 to-brand-red ${scrolled ? 'py-2' : 'py-3'}`}>
+                {/* Yellow Wave Decoration - Cinema Curtain Scallops */}
+                <div className="absolute top-full left-0 right-0 w-full leading-none z-20 pointer-events-none">
+                    <svg className="relative block w-full h-6 md:h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 30" preserveAspectRatio="none">
+                        <defs>
+                            <linearGradient id="navGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style={{ stopColor: '#E31E24', stopOpacity: 1 }} />
+                                <stop offset="50%" style={{ stopColor: '#ef4444', stopOpacity: 1 }} />
+                                <stop offset="100%" style={{ stopColor: '#E31E24', stopOpacity: 1 }} />
+                            </linearGradient>
+                            <filter id="gold-glow">
+                                <feDropShadow dx="0" dy="1" stdDeviation="0.5" floodColor="#000000" floodOpacity="0.3" />
+                            </filter>
+                        </defs>
+                        {/* Red Drapes Background - Seamless Blend */}
+                        <path d="M0,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 V-5 H0 Z" fill="url(#navGradient)"></path>
+
+                        {/* Gold Fringe Trim - Yellow Stroke */}
+                        <path d="M0,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0 q 30,25 60,0" fill="none" stroke="#FFED00" strokeWidth="3" strokeLinecap="round" filter="url(#gold-glow)"></path>
+                    </svg>
+                </div>
+
+                <div className="w-full px-6 md:px-12 flex justify-between items-center relative z-10">
 
                     {/* Logo - Compact Height */}
                     <Link to="/" className="flex items-center group relative">
-                        <img src="/logo.png" alt="Saha Bakery" className={`object-contain transition-all duration-300 ${scrolled ? 'h-10' : 'h-14'}`} />
+                        <img src="/logo.png" alt="Saha Bakery" className={`object-contain transition-all duration-300 drop-shadow-lg ${scrolled ? 'h-10' : 'h-12'}`} />
                     </Link>
 
                     {/* Desktop Menu - DYNAMIC */}
@@ -104,7 +125,7 @@ const Navbar = () => {
                                         <Link
                                             to={item.link}
                                             target={item.openInNewTab ? '_blank' : '_self'}
-                                            className="px-6 py-2 rounded-full text-brand-dark font-logo text-xl tracking-wide hover:bg-brand-yellow/20 hover:text-brand-red transition-all duration-300 relative inline-block"
+                                            className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative inline-block"
                                         >
                                             <span className="relative z-10">{item.name}</span>
                                         </Link>
@@ -135,7 +156,7 @@ const Navbar = () => {
                                         key={item.id}
                                         to={item.link}
                                         target={item.openInNewTab ? '_blank' : '_self'}
-                                        className="px-6 py-2 rounded-full text-brand-dark font-logo text-xl tracking-wide hover:bg-brand-yellow/20 hover:text-brand-red transition-all duration-300 relative group"
+                                        className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative group"
                                     >
                                         <span className="relative z-10">{item.name}</span>
                                     </Link>
@@ -144,7 +165,7 @@ const Navbar = () => {
                         ) : (
                             // Fallback menu when database is empty
                             <>
-                                <Link to="/" className="px-6 py-2 rounded-full text-brand-dark font-logo text-xl tracking-wide hover:bg-brand-yellow/20 hover:text-brand-red transition-all duration-300 relative group">
+                                <Link to="/" className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative group">
                                     <span className="relative z-10">Home</span>
                                 </Link>
 
@@ -156,7 +177,7 @@ const Navbar = () => {
                                 >
                                     <Link
                                         to="/shop"
-                                        className="px-6 py-2 rounded-full text-brand-dark font-logo text-xl tracking-wide hover:bg-brand-yellow/20 hover:text-brand-red transition-all duration-300 relative inline-block"
+                                        className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative inline-block"
                                     >
                                         <span className="relative z-10">Our Menu</span>
                                     </Link>
@@ -191,19 +212,19 @@ const Navbar = () => {
                                     </div>
                                 </div>
 
-                                <Link to="/contact" className="px-6 py-2 rounded-full text-brand-dark font-logo text-xl tracking-wide hover:bg-brand-yellow/20 hover:text-brand-red transition-all duration-300 relative group">
+                                <Link to="/contact" className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative group">
                                     <span className="relative z-10">Contact</span>
                                 </Link>
                             </>
                         )}
                     </div>
 
-                    {/* Icons - Playful & Branded */}
+                    {/* Icons - Premium White/Yellow Theme */}
                     <div className="flex items-center space-x-4">
-                        <button className="h-10 w-10 flex items-center justify-center rounded-full bg-red-50 text-brand-red hover:bg-brand-red hover:text-white transition-all">
+                        <button className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-brand-yellow hover:text-brand-dark transition-all">
                             <Search size={18} strokeWidth={2.5} />
                         </button>
-                        <Link to="/admin" className="h-10 w-10 flex items-center justify-center rounded-full bg-blue-50 text-brand-blue hover:bg-brand-blue hover:text-white transition-all">
+                        <Link to="/admin" className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm text-white hover:bg-brand-yellow hover:text-brand-dark transition-all">
                             <User size={18} strokeWidth={2.5} />
                         </Link>
 
@@ -214,7 +235,7 @@ const Navbar = () => {
                         >
                             <ShoppingCart size={20} className="fill-current" />
                             {cartCount > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-brand-red text-white text-xs font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white animate-bounce shadow-sm">
+                                <span className="absolute -top-1 -right-1 bg-white text-brand-red text-xs font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-brand-red animate-bounce shadow-sm">
                                     {cartCount}
                                 </span>
                             )}
@@ -230,12 +251,7 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* CLEAN SCALLOPED EDGE */}
-            <div className="relative w-full h-2 bg-white">
-                <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 1200 8" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0,0 Q15,6 30,0 T60,0 T90,0 T120,0 T150,0 T180,0 T210,0 T240,0 T270,0 T300,0 T330,0 T360,0 T390,0 T420,0 T450,0 T480,0 T510,0 T540,0 T570,0 T600,0 T630,0 T660,0 T690,0 T720,0 T750,0 T780,0 T810,0 T840,0 T870,0 T900,0 T930,0 T960,0 T990,0 T1020,0 T1050,0 T1080,0 T1110,0 T1140,0 T1170,0 T1200,0 L1200,8 L0,8 Z" className="fill-brand-yellow" />
-                </svg>
-            </div>
+
 
             {/* Mobile Drawer */}
             {isMobileMenuOpen && (

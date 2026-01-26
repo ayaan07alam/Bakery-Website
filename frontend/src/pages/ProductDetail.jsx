@@ -1,62 +1,156 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Star, ShoppingCart, ArrowLeft, Plus, Minus } from 'lucide-react';
+import axios from 'axios';
 import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
     const { id } = useParams();
-    const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     const { addToCart } = useCart();
+    const [product, setProduct] = useState(null);
+    const [quantity, setQuantity] = useState(1);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const loadProduct = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/api/products/${id}`);
-                const data = await response.json();
-                setProduct(data);
-            } catch (error) {
-                console.error("Error loading product", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadProduct();
+        fetchProduct();
     }, [id]);
 
-    if (loading) return <div className="text-center py-20">Loading...</div>;
-    if (!product) return <div className="text-center py-20">Product not found.</div>;
+    const fetchProduct = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/products/${id}`);
+            setProduct(response.data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching product:', error);
+            setLoading(false);
+        }
+    };
+
+    const handleAddToCart = () => {
+        for (let i = 0; i < quantity; i++) {
+            addToCart(product);
+        }
+        navigate('/shop');
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-2xl font-logo text-brand-dark animate-pulse">Loading...</div>
+            </div>
+        );
+    }
+
+    if (!product) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center">
+                <p className="text-2xl text-gray-600 mb-6">Product not found</p>
+                <button
+                    onClick={() => navigate('/shop')}
+                    className="px-6 py-3 bg-brand-red text-white rounded-full font-bold hover:bg-red-600 transition-colors"
+                >
+                    Back to Shop
+                </button>
+            </div>
+        );
+    }
 
     return (
-        <div className="grid md:grid-cols-2 gap-12 bg-white p-8 rounded-2xl shadow-sm animate-fade-in-up">
-            <div className="h-[400px] bg-gray-100 rounded-xl overflow-hidden">
-                <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
-            </div>
-            <div className="flex flex-col justify-center">
-                <span className="inline-block bg-brand-blue/10 text-brand-blue px-3 py-1 rounded-full text-sm font-bold w-fit mb-4">{product.category?.name}</span>
-                <h1 className="text-4xl font-bold mb-4 font-display">{product.name}</h1>
-                <p className="text-gray-600 text-lg mb-8 leading-relaxed">{product.description}</p>
+        <div className="min-h-screen py-12">
+            <div className="container mx-auto px-6">
+                {/* Back Button */}
+                <button
+                    onClick={() => navigate('/shop')}
+                    className="flex items-center gap-2 text-brand-dark font-bold mb-8 hover:text-brand-red transition-colors group animate-fade-in-up"
+                >
+                    <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+                    <span>Back to Shop</span>
+                </button>
 
-                <div className="flex items-center justify-between mb-8 border-t border-b border-gray-100 py-6">
-                    <span className="text-4xl font-bold text-brand-red">₹{product.price}</span>
-                    <div className="flex items-center space-x-4">
-                        <div className="flex items-center border rounded-lg">
-                            <button className="px-4 py-2 hover:bg-gray-100">-</button>
-                            <span className="px-4 font-bold">1</span>
-                            <button className="px-4 py-2 hover:bg-gray-100">+</button>
+                {/* Product Details */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                    {/* Image Section */}
+                    <div className="animate-scale-in">
+                        <div className="relative rounded-3xl overflow-hidden shadow-luxury bg-gray-100 aspect-square">
+                            <img
+                                src={product.imageUrl || 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1200'}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                            />
+                            {product.rating && (
+                                <div className="absolute top-6 right-6 glass text-white px-4 py-2 rounded-full text-lg font-bold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                                    <Star size={20} className="text-brand-yellow fill-brand-yellow" />
+                                    <span>{product.rating}</span>
+                                </div>
+                            )}
                         </div>
                     </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button
-                        onClick={() => addToCart(product)}
-                        className="flex-1 bg-gradient-brand text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg hover:shadow-red-500/30 transition-all transform hover:-translate-y-0.5"
-                    >
-                        Add to Cart
-                    </button>
-                    <button className="flex-1 bg-white border-2 border-brand-dark text-brand-dark py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition">
-                        Order on WhatsApp
-                    </button>
+                    {/* Info Section */}
+                    <div className="flex flex-col justify-center space-y-6 animate-fade-in-up delay-200">
+                        <div>
+                            <span className="inline-block bg-brand-red/10 text-brand-red px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider mb-4">
+                                {product.category?.name || 'Bakery'}
+                            </span>
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-logo font-bold text-red-950 mb-4">
+                                {product.name}
+                            </h1>
+                            <p className="text-amber-900/80 text-lg leading-relaxed">
+                                {product.description || 'Freshly baked with premium ingredients'}
+                            </p>
+                        </div>
+
+                        {/* Price */}
+                        <div className="bg-white rounded-2xl p-6 shadow-soft">
+                            <p className="text-sm text-amber-900/60 font-bold uppercase tracking-wider mb-2">Price</p>
+                            <p className="text-5xl font-bold text-red-900">₹{product.price}</p>
+                        </div>
+
+                        {/* Quantity Selector */}
+                        <div className="bg-white rounded-2xl p-6 shadow-soft">
+                            <p className="text-sm text-gray-500 font-bold uppercase tracking-wider mb-4">Quantity</p>
+                            <div className="flex items-center gap-4">
+                                <button
+                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                    className="h-12 w-12 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                    disabled={quantity <= 1}
+                                >
+                                    <Minus size={20} />
+                                </button>
+                                <span className="text-3xl font-bold text-brand-dark w-16 text-center">{quantity}</span>
+                                <button
+                                    onClick={() => setQuantity(quantity + 1)}
+                                    className="h-12 w-12 rounded-full bg-gray-100 hover:bg-brand-red hover:text-white flex items-center justify-center transition-all duration-300 hover:scale-110"
+                                >
+                                    <Plus size={20} />
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Total */}
+                        <div className="bg-gradient-to-r from-brand-red to-red-600 rounded-2xl p-6 text-white shadow-luxury">
+                            <p className="text-sm font-bold uppercase tracking-wider mb-2 opacity-90">Total</p>
+                            <p className="text-5xl font-bold">₹{product.price * quantity}</p>
+                        </div>
+
+                        {/* Add to Cart Button */}
+                        <button
+                            onClick={handleAddToCart}
+                            className="group w-full bg-brand-yellow hover:bg-brand-red text-brand-dark hover:text-white font-bold py-6 px-8 rounded-full text-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1"
+                        >
+                            <ShoppingCart size={24} />
+                            <span>Add to Cart</span>
+                        </button>
+
+                        {/* Product Info */}
+                        {product.available && (
+                            <div className="flex items-center gap-2 text-green-600 font-bold">
+                                <div className="h-2 w-2 bg-green-600 rounded-full animate-pulse"></div>
+                                <span>Available Now</span>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

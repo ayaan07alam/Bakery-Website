@@ -56,7 +56,7 @@ const Footer = () => {
                 </svg>
             </div>
 
-            <div className="bg-brand-red text-white pt-16 pb-10 relative z-0">
+            <div className="bg-gradient-to-r from-brand-red via-red-600 to-brand-red text-white pt-16 pb-10 relative z-0">
                 {/* Texture Overlay */}
                 <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/food.png')] opacity-10 pointer-events-none"></div>
 
@@ -85,7 +85,7 @@ const Footer = () => {
 
                         {/* Franchise Opportunity */}
                         <div>
-                            <h4 className="text-2xl font-logo text-brand-yellow mb-6 drop-shadow-sm">Franchise With Us</h4>
+                            <h4 className="font-sans uppercase tracking-widest text-brand-yellow font-bold text-lg mb-6 drop-shadow-sm">Franchise With Us</h4>
                             <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20 mb-6">
                                 <p className="text-red-100 text-sm mb-4 leading-relaxed">
                                     💼 <strong>Join Our Growing Family!</strong><br />
@@ -93,7 +93,7 @@ const Footer = () => {
                                 </p>
                                 <Link
                                     to="/contact"
-                                    className="inline-block bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 px-6 rounded-xl text-sm transition-all shadow-md hover:shadow-lg"
+                                    className="inline-block bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 px-6 rounded-xl text-sm transition-all shadow-md hover:shadow-lg btn-shimmer"
                                 >
                                     Inquire Now
                                 </Link>
@@ -112,7 +112,7 @@ const Footer = () => {
 
                         {/* Contact */}
                         <div>
-                            <h4 className="text-2xl font-logo text-brand-yellow mb-6 drop-shadow-sm">Visit Us</h4>
+                            <h4 className="font-sans uppercase tracking-widest text-brand-yellow font-bold text-lg mb-6 drop-shadow-sm">Visit Us</h4>
                             <ul className="space-y-4 text-sm text-white font-medium">
                                 <li className="flex items-start space-x-3 bg-red-700/30 p-3 rounded-xl">
                                     <MapPin size={18} className="text-brand-yellow mt-0.5 shrink-0" />
@@ -131,7 +131,7 @@ const Footer = () => {
 
                         {/* Newsletter */}
                         <div>
-                            <h4 className="text-2xl font-logo text-brand-yellow mb-6 drop-shadow-sm">Fresh Updates</h4>
+                            <h4 className="font-sans uppercase tracking-widest text-brand-yellow font-bold text-lg mb-6 drop-shadow-sm">Fresh Updates</h4>
                             <div className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm border border-white/20">
                                 <p className="text-red-100 text-sm mb-4">Get sweet deals right in your inbox!</p>
                                 <form onSubmit={handleNewsletterSubmit} className="space-y-3">
@@ -146,7 +146,7 @@ const Footer = () => {
                                     <button
                                         type="submit"
                                         disabled={newsletterLoading}
-                                        className="w-full bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 rounded-xl text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50">
+                                        className="w-full bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold py-3 rounded-xl text-sm uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center space-x-2 disabled:opacity-50 btn-shimmer">
                                         <span>{newsletterLoading ? 'Subscribing...' : 'Subscribe'}</span>
                                         <ArrowRight size={16} />
                                     </button>

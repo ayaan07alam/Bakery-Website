@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Send, Mail, Phone as PhoneIcon, User, MessageSquare, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, Mail, Phone as PhoneIcon, User, MessageSquare, CheckCircle, AlertCircle, MapPin } from 'lucide-react';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -37,134 +37,149 @@ const Contact = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-red-50 via-yellow-50 to-orange-50 py-16">
-            <div className="w-full max-w-4xl mx-auto px-6">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-5xl font-logo text-brand-dark mb-4">Get In Touch</h1>
-                    <p className="text-gray-600 text-lg">We'd love to hear from you! Send us a message.</p>
+        <div className="min-h-screen pt-24 pb-16">
+            <div className="w-full px-4 md:px-6 lg:px-8 xl:px-12">
+                {/* Compact Header */}
+                <div className="text-center mb-10 animate-fade-in-up">
+                    <span className="inline-block text-brand-red font-bold tracking-[0.3em] text-xs uppercase bg-red-50 px-4 py-1.5 rounded-full mb-3">
+                        Contact Us
+                    </span>
+                    <h1 className="text-4xl md:text-5xl font-logo text-red-950 mb-4">Get In Touch</h1>
+                    <p className="text-amber-900/80 text-base max-w-2xl mx-auto">
+                        Have a question about our cakes or want to place a custom order? We'd love to hear from you!
+                    </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
                     {/* Contact Info */}
-                    <div className="space-y-6">
-                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                            <div className="flex items-start space-x-4">
-                                <div className="bg-brand-yellow/20 p-3 rounded-full">
-                                    <PhoneIcon size={24} className="text-brand-red" />
+                    <div className="space-y-8 animate-slide-in-left">
+                        <div className="bg-white p-8 rounded-3xl shadow-soft hover:shadow-premium transition-all duration-500 border border-gray-100 group">
+                            <div className="flex items-start space-x-6">
+                                <div className="bg-brand-yellow/10 p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+                                    <PhoneIcon size={32} className="text-brand-red" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-brand-dark mb-1">Phone</h3>
-                                    <p className="text-gray-600">+91 98765 43210</p>
+                                    <h3 className="font-display font-bold text-2xl text-yellow-950 mb-2">Phone</h3>
+                                    <p className="text-amber-900/80 text-lg mb-1">+91 98765 43210</p>
+                                    <p className="text-amber-900/50 text-sm">Mon-Sun 9am to 6pm</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                            <div className="flex items-start space-x-4">
-                                <div className="bg-brand-yellow/20 p-3 rounded-full">
-                                    <Mail size={24} className="text-brand-red" />
+                        <div className="bg-white p-8 rounded-3xl shadow-soft hover:shadow-premium transition-all duration-500 border border-gray-100 group">
+                            <div className="flex items-start space-x-6">
+                                <div className="bg-brand-yellow/10 p-4 rounded-2xl group-hover:scale-110 transition-transform duration-300">
+                                    <Mail size={32} className="text-brand-red" />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-brand-dark mb-1">Email</h3>
-                                    <p className="text-gray-600">contact@sahabakery.com</p>
+                                    <h3 className="font-display font-bold text-2xl text-yellow-950 mb-2">Email</h3>
+                                    <p className="text-amber-900/80 text-lg mb-1">contact@sahabakery.com</p>
+                                    <p className="text-amber-900/50 text-sm">Online support 24/7</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-gradient-brand text-white p-8 rounded-2xl shadow-lg">
-                            <h3 className="font-logo text-2xl mb-3">Visit Our Bakery</h3>
-                            <p className="mb-4">123 Bakery Street, Park Street,<br />Kolkata, WB 700016</p>
-                            <p className="font-semibold">Open: 7:00 AM - 10:00 PM</p>
+                        <div className="bg-gradient-brand text-white p-10 rounded-3xl shadow-luxury relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 p-8 opacity-10 transform translate-x-10 -translate-y-10 group-hover:scale-110 transition-transform duration-700">
+                                <MapPin size={120} />
+                            </div>
+                            <div className="relative z-10">
+                                <h3 className="font-display font-bold text-3xl mb-4">Visit Our Bakery</h3>
+                                <p className="mb-6 text-lg leading-relaxed text-red-50">123 Bakery Street, Park Street,<br />Kolkata, WB 700016</p>
+                                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-lg font-bold">
+                                    <CheckCircle size={18} />
+                                    <span>Open: 7:00 AM - 10:00 PM</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
-                        <h2 className="text-2xl font-bold text-brand-dark mb-6">Send a Message</h2>
+                    <div className="bg-white p-8 md:p-10 rounded-3xl shadow-premium border border-gray-100 animate-slide-in-right">
+                        <h2 className="text-3xl font-display font-bold text-red-950 mb-8">Send a Message</h2>
 
                         {status.message && (
-                            <div className={`mb-6 p-4 rounded-xl flex items-center space-x-3 ${status.type === 'success' ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'
-                                }`}>
-                                {status.type === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
-                                <span>{status.message}</span>
+                            <div className={`mb-8 p-6 rounded-2xl flex items-center space-x-4 ${status.type === 'success' ? 'bg-green-50 text-green-800 border-green-100' : 'bg-red-50 text-red-800 border-red-100'
+                                } border animate-fade-in`}>
+                                {status.type === 'success' ? <CheckCircle size={24} /> : <AlertCircle size={24} />}
+                                <span className="font-medium">{status.message}</span>
                             </div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Name *</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Name</label>
                                 <input
                                     type="text"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
-                                    placeholder="Your name"
+                                    className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all outline-none"
+                                    placeholder="Your full name"
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Email *</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Email</label>
                                     <input
                                         type="email"
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
+                                        className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all outline-none"
                                         placeholder="you@example.com"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-2">Phone</label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Phone</label>
                                     <input
                                         type="tel"
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
-                                        placeholder="+91 98765 43210"
+                                        className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all outline-none"
+                                        placeholder="+91..."
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Subject *</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Subject</label>
                                 <input
                                     type="text"
                                     name="subject"
                                     value={formData.subject}
                                     onChange={handleChange}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
-                                    placeholder="What is this about?"
+                                    className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all outline-none"
+                                    placeholder="How can we help?"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Message *</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Message</label>
                                 <textarea
                                     name="message"
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
-                                    rows="4"
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
-                                    placeholder="Tell us more..."
+                                    rows="5"
+                                    className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-all outline-none resize-none"
+                                    placeholder="Your message here..."
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-brand-red hover:bg-red-600 text-white font-bold py-4 px-6 rounded-xl transition-all flex items-center justify-center space-x-2 disabled:opacity-50"
+                                className="w-full bg-brand-red hover:bg-red-600 text-white font-bold py-5 px-8 rounded-xl transition-all duration-300 flex items-center justify-center space-x-3 disabled:opacity-70 hover:-translate-y-1 shadow-lg hover:shadow-xl"
                             >
-                                <Send size={20} />
-                                <span>{loading ? 'Sending...' : 'Send Message'}</span>
+                                <Send size={22} className={loading ? 'animate-pulse' : ''} />
+                                <span className="text-lg uppercase tracking-wider">{loading ? 'Sending Message...' : 'Send Message'}</span>
                             </button>
                         </form>
                     </div>

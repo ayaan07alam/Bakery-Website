@@ -15,7 +15,7 @@ const CartDrawer = () => {
             <div className="absolute inset-y-0 right-0 max-w-full flex transition-transform transform translate-x-0">
                 <div className="w-screen max-w-md bg-white shadow-xl flex flex-col">
                     <div className="flex items-center justify-between px-4 py-6 bg-gray-50 border-b">
-                        <h2 className="text-lg font-medium text-gray-900 flex items-center">
+                        <h2 className="text-lg font-medium text-red-950 flex items-center">
                             <ShoppingBag className="mr-2" size={20} />
                             Shopping Cart
                         </h2>
@@ -45,11 +45,11 @@ const CartDrawer = () => {
                                         </div>
                                         <div className="ml-4 flex-1 flex flex-col">
                                             <div>
-                                                <div className="flex justify-between text-base font-medium text-gray-900">
+                                                <div className="flex justify-between text-base font-medium text-red-950">
                                                     <h3>{item.name}</h3>
                                                     <p className="ml-4">₹{item.price * item.quantity}</p>
                                                 </div>
-                                                <p className="mt-1 text-sm text-gray-500">{item.category?.name}</p>
+                                                <p className="mt-1 text-sm text-yellow-950/60">{item.category?.name}</p>
                                             </div>
                                             <div className="flex-1 flex items-end justify-between text-sm">
                                                 <div className="flex items-center border rounded">

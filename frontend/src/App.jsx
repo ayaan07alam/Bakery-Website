@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -18,17 +18,31 @@ import CartDrawer from './components/CartDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ExitIntentPopup from './components/ExitIntentPopup';
 import WelcomePopup from './components/WelcomePopup';
+import PhoneCollectorModal from './components/PhoneCollectorModal';
+import QuickCallbackWidget from './components/QuickCallbackWidget';
+import CookieConsent from './components/CookieConsent';
+
+import ScrollToTop from './components/ScrollToTop';
+import { useVisitorTracking } from './hooks/useVisitorTracking';
 
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const { sessionId, trackPageView } = useVisitorTracking();
+
+  // Track page views on route changes
+  useEffect(() => {
+    trackPageView(location.pathname);
+  }, [location.pathname, trackPageView]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <CartDrawer />
-      <FloatingWhatsApp />
-      <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : 'py-8'}`}>
+
+      <FloatingWhatsApp currentPage={location.pathname} />
+      <ScrollToTop />
+      <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : location.pathname === '/' ? '' : 'py-8'}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<ProductList />} />
@@ -44,8 +58,17 @@ function AppContent() {
         </Routes>
       </main>
       <Footer />
-      <ExitIntentPopup />
-      <WelcomePopup />
+
+      {/* Lead Generation Components - Only on non-admin routes */}
+      {!isAdminRoute && (
+        <>
+          <ExitIntentPopup />
+          <WelcomePopup />
+          <PhoneCollectorModal sessionId={sessionId} currentPage={location.pathname} />
+          <QuickCallbackWidget sessionId={sessionId} currentPage={location.pathname} />
+          <CookieConsent />
+        </>
+      )}
     </div>
   );
 }
