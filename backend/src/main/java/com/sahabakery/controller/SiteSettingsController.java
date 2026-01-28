@@ -16,8 +16,19 @@ public class SiteSettingsController {
 
     @GetMapping
     public ResponseEntity<SiteSettings> getSettings() {
-        SiteSettings settings = siteSettingsRepository.findById(1L)
-                .orElse(new SiteSettings());
+        // Force update the settings for the user
+        SiteSettings settings = new SiteSettings();
+        settings.setId(1L);
+        settings.setPhone("+91 95631 71459");
+        settings.setEmail("bakerysaha18@gmail.com");
+        settings.setAddress("Gorabazar, Berhampore, West Bengal 742101");
+        settings.setFacebookUrl("#");
+        settings.setInstagramUrl("#");
+        settings.setTwitterUrl("#");
+
+        // Save these correct settings back to DB so we don't need this hardcode forever
+        siteSettingsRepository.save(settings);
+
         return ResponseEntity.ok(settings);
     }
 

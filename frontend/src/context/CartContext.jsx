@@ -10,9 +10,14 @@ export const CartProvider = ({ children }) => {
 
     // Load cart from local storage on mount
     useEffect(() => {
-        const savedCart = localStorage.getItem('sahaBakeryCart');
-        if (savedCart) {
-            setCart(JSON.parse(savedCart));
+        try {
+            const savedCart = localStorage.getItem('sahaBakeryCart');
+            if (savedCart) {
+                setCart(JSON.parse(savedCart));
+            }
+        } catch (error) {
+            console.error('Failed to parse cart from local storage:', error);
+            localStorage.removeItem('sahaBakeryCart'); // Clear corrupted data
         }
     }, []);
 

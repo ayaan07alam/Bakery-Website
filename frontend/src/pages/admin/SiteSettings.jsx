@@ -69,7 +69,7 @@ const SiteSettings = () => {
             <div className="max-w-4xl mx-auto px-6">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-logo text-brand-dark mb-2">Site Settings</h1>
+                        <h1 className="text-3xl font-display text-brand-dark mb-2">Site Settings</h1>
                         <p className="text-gray-600">Manage your website's core information</p>
                     </div>
 

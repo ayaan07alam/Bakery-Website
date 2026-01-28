@@ -33,4 +33,11 @@ public class ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    public List<Product> searchProducts(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return productRepository.findAll();
+        }
+        return productRepository.searchProducts(query.trim());
+    }
 }

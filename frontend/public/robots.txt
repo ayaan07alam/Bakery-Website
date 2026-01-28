@@ -1,0 +1,18 @@
+# Robots.txt for Saha Bakery
+# Allow all search engines to crawl the entire site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sahabakery.com/sitemap.xml
+
+# Disallow admin routes from being indexed
+Disallow: /admin/
+Disallow: /admin/*
+
+# Disallow checkout pages from being indexed (privacy)
+Disallow: /checkout
+
+# Crawl-delay (optional, helps prevent overload)
+Crawl-delay: 1

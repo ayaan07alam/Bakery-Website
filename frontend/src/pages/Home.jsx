@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ChevronLeft, ChevronRight, Star, Sparkles, Award, Truck } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, Star, Sparkles, Award, Truck, Wheat, ChefHat } from 'lucide-react';
 import axios from 'axios';
+import VideoGallery from '../components/VideoGallery';
+import SEO from '../components/SEO';
 
 const Home = () => {
     // Hero Slider State
@@ -47,7 +49,45 @@ const Home = () => {
     const prevSlide = () => setCurrentSlide((currentSlide - 1 + slides.length) % slides.length);
 
     return (
-        <div className="relative overflow-hidden min-h-screen">
+        <div className="relative overflow-hidden min-h-screen page-transition">
+            <SEO
+                title="Best Bakery in Berhampore Since 1978"
+                description="Authentic baked goods and traditional Bengali sweets since 1978. Fresh cakes, pastries, cookies, and handcrafted delicacies in Berhampore, West Bengal. Visit Saha Bakery for premium quality baked products."
+                keywords="Saha Bakery, Bakery Berhampore, Best Bakery Kolkata, Fresh Baked Goods, Bengali Sweets, Birthday Cakes, Pastries, Cookies, Berhampore Bakery, Traditional Bakery, Murshidabad Bakery"
+                structuredData={{
+                    "@context": "https://schema.org",
+                    "@type": "Bakery",
+                    "name": "Saha Bakery",
+                    "image": "https://sahabakery.com/logo-transparent.png",
+                    "description": "Premium bakery serving authentic baked goods and traditional Bengali sweets since 1978.",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "Khagra Road",
+                        "addressLocality": "Berhampore",
+                        "addressRegion": "West Bengal",
+                        "postalCode": "742101",
+                        "addressCountry": "IN"
+                    },
+                    "geo": {
+                        "@type": "GeoCoordinates",
+                        "latitude": 24.1027,
+                        "longitude": 88.2535
+                    },
+                    "telephone": "+91-XXXXXXXXXX",
+                    "priceRange": "₹₹",
+                    "openingHoursSpecification": [
+                        {
+                            "@type": "OpeningHoursSpecification",
+                            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                            "opens": "08:00",
+                            "closes": "21:00"
+                        }
+                    ],
+                    "servesCuisine": "Bakery, Bengali Sweets",
+                    "foundingDate": "1978",
+                    "url": "https://sahabakery.com"
+                }}
+            />
             {/* === FULLSCREEN HERO SLIDER === */}
             <section className="relative w-full h-screen min-h-[600px] max-h-[900px] overflow-hidden">
                 {slides.map((slide, index) => (
@@ -74,33 +114,40 @@ const Home = () => {
                             <div className="max-w-4xl space-y-6 md:space-y-8">
                                 <div className="flex items-center gap-4 mb-2 animate-fade-in-up">
                                     <div className="h-px w-12 bg-brand-yellow"></div>
-                                    <span className="inline-block font-sans text-sm md:text-base text-white/95 tracking-[0.3em] uppercase font-medium drop-shadow-sm">
+                                    <span className="inline-block font-sans text-xs md:text-sm lg:text-base text-white/95 tracking-[0.2em] md:tracking-[0.3em] uppercase font-medium drop-shadow-sm">
                                         Welcome to Saha Bakery
                                     </span>
                                 </div>
 
-                                <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold drop-shadow-2xl animate-fade-in-up delay-100 leading-[1.1] text-white tracking-tight">
+                                <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold drop-shadow-2xl animate-fade-in-up delay-100 leading-[1.1] text-white tracking-tight text-balance">
                                     {slide.title}
                                 </h1>
 
-                                <p className="text-lg md:text-xl lg:text-2xl max-w-2xl font-light tracking-wide animate-fade-in-up delay-200 text-white/95 drop-shadow-lg leading-relaxed border-l-4 border-brand-yellow pl-6 py-2">
+                                <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl font-light tracking-wide animate-fade-in-up delay-200 text-white/90 drop-shadow-lg leading-relaxed pl-1">
                                     {slide.subtitle}
                                 </p>
 
-                                <div className="animate-fade-in-up delay-300 pt-4">
+                                <div className="animate-fade-in-up delay-300 pt-6 sm:pt-8">
                                     <Link
                                         to={slide.ctaLink || '/shop'}
-                                        className="btn-shimmer group relative inline-flex items-center gap-3 md:gap-4 bg-white text-brand-dark font-bold py-4 md:py-5 px-8 md:px-12 rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_20px_50px_rgba(255,255,255,0.3)] transform hover:-translate-y-1 hover:pr-16"
+                                        className="btn-premium-gold btn-shimmer group relative inline-flex items-center gap-3 sm:gap-4 py-4 sm:py-5 px-8 sm:px-12 rounded-full transition-all duration-500 hover:shadow-[0_20px_50px_rgba(255,237,0,0.3)] transform hover:-translate-y-1 hover:pr-16 shadow-luxury btn-press"
                                     >
-                                        <span className="relative z-10 text-base md:text-lg uppercase tracking-widest">
+                                        <span className="relative z-10 text-base sm:text-lg uppercase tracking-widest font-display font-bold text-brand-dark">
                                             {slide.ctaText || 'Order Now'}
                                         </span>
-                                        <div className="bg-brand-yellow rounded-full p-2.5 transition-all duration-500 group-hover:translate-x-2 group-hover:scale-110 relative z-10">
-                                            <ArrowRight size={22} className="text-brand-dark" />
+                                        <div className="bg-white/20 rounded-full p-2.5 sm:p-3 transition-all duration-500 group-hover:translate-x-2 group-hover:scale-110 relative z-10 shadow-sm border border-white/20">
+                                            <ArrowRight size={20} className="sm:hidden text-brand-dark" />
+                                            <ArrowRight size={24} className="hidden sm:block text-brand-dark" />
                                         </div>
                                     </Link>
                                 </div>
                             </div>
+                        </div>
+
+                        {/* Premium Scroll Indicator */}
+                        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 animate-bounce-slow opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+                            <span className="text-white/80 text-xs font-bold tracking-[0.2em] uppercase">Scroll</span>
+                            <div className="w-[1px] h-12 bg-gradient-to-b from-brand-yellow to-transparent"></div>
                         </div>
 
                         {/* Navigation Controls - Premium Style */}
@@ -170,27 +217,27 @@ const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                         {[
                             {
-                                icon: '🌾',
+                                icon: <Wheat size={48} strokeWidth={1.5} />,
                                 title: 'Premium Ingredients',
                                 desc: 'Sourced from the finest local farms for exceptional quality.'
                             },
                             {
-                                icon: '👨‍🍳',
+                                icon: <ChefHat size={48} strokeWidth={1.5} />,
                                 title: 'Master Bakers',
                                 desc: 'Crafted with passion and decades of expertise.'
                             },
                             {
-                                icon: '🚚',
+                                icon: <Truck size={48} strokeWidth={1.5} />,
                                 title: 'Fresh Delivery',
                                 desc: 'From our oven straight to your door, always fresh.'
                             }
                         ].map((item, idx) => (
                             <div
                                 key={idx}
-                                className="group bg-white rounded-3xl p-8 md:p-10 shadow-soft hover:shadow-luxury transition-all duration-500 hover:-translate-y-2 border border-gray-100 animate-scale-in will-animate"
+                                className="group bg-white rounded-3xl p-8 md:p-10 shadow-soft hover:shadow-luxury transition-all duration-500 hover:-translate-y-2 border border-gray-100 hover:border-brand-yellow/30 animate-scale-in will-animate gpu-accelerate"
                                 style={{ animationDelay: `${idx * 0.1}s` }}
                             >
-                                <div className="text-5xl mb-6 group-hover:scale-110 transition-transform duration-500 animate-float">
+                                <div className="mb-6 text-brand-dark group-hover:text-brand-yellow group-hover:scale-110 transition-all duration-500 animate-float">
                                     {item.icon}
                                 </div>
                                 <h3 className="text-2xl font-display font-bold mb-3 text-brand-dark group-hover:text-brand-red transition-colors duration-300">
@@ -203,6 +250,9 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* === VIDEO GALLERY SECTION === */}
+            <VideoGallery />
+
             {/* === FEATURED PRODUCTS - PREMIUM SHOWCASE === */}
             <section className="px-4 md:px-6 lg:px-8 xl:px-12 py-24 md:py-32">
                 <div className="max-w-7xl mx-auto">
@@ -210,7 +260,7 @@ const Home = () => {
                         <span className="inline-block text-brand-red font-bold tracking-[0.3em] text-sm uppercase bg-red-50 px-6 py-2 rounded-full">
                             Customer Favorites
                         </span>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-red-950">
+                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-red-950 text-balance">
                             Trending Now
                             <Sparkles className="inline-block ml-4 text-brand-yellow animate-pulse" size={40} />
                         </h2>

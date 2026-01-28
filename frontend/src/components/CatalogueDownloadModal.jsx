@@ -55,7 +55,7 @@ const CatalogueDownloadModal = ({ isOpen, onClose }) => {
 
                 <div className="relative p-8 bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 text-white text-center">
                     <Download size={56} className="mx-auto mb-4 drop-shadow-lg" />
-                    <h2 className="text-3xl font-logo mb-2">Download Our Full Catalogue</h2>
+                    <h2 className="text-3xl font-display mb-2">Download Our Full Catalogue</h2>
                     <p className="text-white/90">Browse 100+ premium bakery items!</p>
                 </div>
 

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
@@ -14,6 +15,8 @@ import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import Footer from './components/Footer';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import CartDrawer from './components/CartDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ExitIntentPopup from './components/ExitIntentPopup';
@@ -21,8 +24,12 @@ import WelcomePopup from './components/WelcomePopup';
 import PhoneCollectorModal from './components/PhoneCollectorModal';
 import QuickCallbackWidget from './components/QuickCallbackWidget';
 import CookieConsent from './components/CookieConsent';
+import About from './pages/About';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 
 import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import { useVisitorTracking } from './hooks/useVisitorTracking';
 
 function AppContent() {
@@ -42,6 +49,7 @@ function AppContent() {
 
       <FloatingWhatsApp currentPage={location.pathname} />
       <ScrollToTop />
+      <ScrollToTopButton />
       <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : location.pathname === '/' ? '' : 'py-8'}`}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -49,12 +57,19 @@ function AppContent() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/checkout" element={<Checkout />} />
-          <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* Admin Routes - Protected */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin/settings" element={<SiteSettings />} />
-          <Route path="/admin/hero-slides" element={<HeroManager />} />
-          <Route path="/admin/leads" element={<LeadManager />} />
-          <Route path="/admin/menu" element={<MenuManager />} />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/settings" element={<ProtectedRoute><SiteSettings /></ProtectedRoute>} />
+          <Route path="/admin/hero-slides" element={<ProtectedRoute><HeroManager /></ProtectedRoute>} />
+          <Route path="/admin/leads" element={<ProtectedRoute><LeadManager /></ProtectedRoute>} />
+          <Route path="/admin/menu" element={<ProtectedRoute><MenuManager /></ProtectedRoute>} />
+
+          {/* Public Pages */}
+          <Route path="/about" element={<About />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
       </main>
       <Footer />
@@ -75,11 +90,15 @@ function AppContent() {
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <AppContent />
-      </Router>
-    </CartProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Router>
+            <AppContent />
+          </Router>
+        </CartProvider>
+      </AuthProvider>
+    </HelmetProvider>
   );
 }
 

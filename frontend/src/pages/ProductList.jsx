@@ -3,6 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Star, Search, Filter, ShoppingCart } from 'lucide-react';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import SEO from '../components/SEO';
+import PremiumLoader from '../components/PremiumLoader';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -51,14 +53,19 @@ const ProductList = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-2xl font-logo text-brand-dark animate-pulse">Loading...</div>
+            <div className="min-h-screen flex items-center justify-center pt-20">
+                <PremiumLoader />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen pt-20 pb-16 bg-gradient-to-br from-red-50/30 via-yellow-50/20 to-white">
+        <div className="min-h-screen pt-20 pb-16 bg-gradient-to-br from-red-50/30 via-yellow-50/20 to-white page-transition">
+            <SEO
+                title="Our Menu - Premium Baked Goods & Sweets"
+                description="Explore our extensive menu of freshly baked cakes, pastries, cookies, and traditional Bengali sweets. Order online for delivery or pickup in Berhampore."
+                keywords="Saha Bakery Menu, Cakes Berhampore, Pastries Online, Birthday Cakes, Cookies, Bengali Sweets, Order Bakery Online"
+            />
             <div className="w-full px-4 md:px-6 lg:px-8 xl:px-12">
                 {/* PREMIUM Gradient Header */}
                 <div className="sticky top-20 z-30 -mx-4 md:-mx-6 lg:-mx-8 xl:-mx-12 px-4 md:px-6 lg:px-8 xl:px-12 py-6 mb-10 bg-white/95 backdrop-blur-xl shadow-luxury border-y-4 border-brand-yellow">
@@ -66,7 +73,7 @@ const ProductList = () => {
                         {/* Title & Count */}
                         <div className="flex items-center gap-4">
                             <div>
-                                <h1 className="text-4xl font-logo font-bold text-red-950 drop-shadow-sm flex items-center gap-3">
+                                <h1 className="text-4xl font-display font-bold text-red-950 drop-shadow-sm flex items-center gap-3">
                                     Our Menu
                                     <span className="text-sm font-bold text-white bg-brand-red px-4 py-1.5 rounded-full shadow-lg animate-pulse">
                                         {filteredProducts.length} items
@@ -128,27 +135,29 @@ const ProductList = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                         {filteredProducts.map((product, idx) => (
                             <div
                                 key={product.id}
-                                className="group bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-luxury transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-brand-yellow hover:-translate-y-2 animate-scale-in"
+                                className="group bg-white rounded-2xl overflow-hidden shadow-ultra shadow-ultra-hover transition-all duration-500 cursor-pointer border-2 border-transparent hover:border-brand-yellow hover:-translate-y-2 stagger-item gpu-accelerate"
                                 style={{ animationDelay: `${(idx % 10) * 0.05}s` }}
                             >
-                                <Link to={`/product/${product.id}`} className="block">
+                                <Link to={`/product/${product.id}`} className="block ripple">
                                     <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                                         <img
                                             src={product.imageUrl || `https://images.unsplash.com/photo-${['1578985545062-69928b1d9587', '1486427944299-d1955d23c990', '1558961363-fa8fdf82db35', '1557925923-34b7179877a7'][idx % 4]}?w=500&q=80`}
                                             alt={product.name}
-                                            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                                            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 gpu-accelerate"
                                             loading="lazy"
                                             onError={(e) => {
                                                 e.target.src = 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&q=80';
                                             }}
                                         />
 
-                                        <div className="absolute inset-0 bg-gradient-to-t from-brand-red/80 via-brand-red/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        {/* Premium Gradient Overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-brand-red/90 via-brand-red/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
+                                        {/* Rating Badge */}
                                         {product.rating && (
                                             <div className="absolute top-3 right-3 bg-gradient-to-r from-brand-yellow to-yellow-400 text-brand-dark px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">
                                                 <Star size={12} className="fill-current" />
@@ -156,13 +165,14 @@ const ProductList = () => {
                                             </div>
                                         )}
 
-                                        <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                        {/* Quick Add Button */}
+                                        <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                                             <button
                                                 onClick={(e) => {
                                                     e.preventDefault();
                                                     addToCart(product);
                                                 }}
-                                                className="w-full bg-brand-yellow hover:bg-yellow-400 text-brand-dark py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                                                className="w-full btn-premium-gold py-3 sm:py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl btn-press text-sm"
                                             >
                                                 <ShoppingCart size={16} />
                                                 Add to Cart
@@ -173,7 +183,7 @@ const ProductList = () => {
 
                                 <div className="p-4 space-y-2">
                                     <Link to={`/product/${product.id}`}>
-                                        <h3 className="font-logo text-lg font-bold text-yellow-950 group-hover:text-brand-red transition-colors duration-300 line-clamp-2 leading-tight">
+                                        <h3 className="font-display text-lg font-bold text-yellow-950 group-hover:text-brand-red transition-colors duration-300 line-clamp-2 leading-tight">
                                             {product.name}
                                         </h3>
                                     </Link>

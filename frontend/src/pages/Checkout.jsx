@@ -48,7 +48,7 @@ const Checkout = () => {
         <div className="min-h-screen py-24 md:py-32">
             <div className="container mx-auto px-6 max-w-6xl">
                 <div className="text-center mb-12 animate-fade-in-up">
-                    <h1 className="text-4xl md:text-5xl font-logo text-red-950 mb-4">Checkout</h1>
+                    <h1 className="text-4xl md:text-5xl font-display text-red-950 mb-4">Checkout</h1>
                     <p className="text-amber-900/80 text-lg">Detailed shipping info.</p>
                 </div>
 

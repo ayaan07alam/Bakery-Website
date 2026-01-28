@@ -10,9 +10,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Outfit', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #FFFDF7;
@@ -101,21 +99,250 @@ html {
     position: relative;
     overflow: hidden;
 }
+
+/* 6. Premium Button System */
+.btn-premium {
+  background: linear-gradient(135deg, #E31E24 0%, #D32F2F 100%);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 14px 0 rgba(227, 30, 36, 0.39);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+}
+.btn-premium:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(227, 30, 36, 0.3);
+  background: linear-gradient(135deg, #EF4444 0%, #C62828 100%);
+}
+.btn-premium:active {
+  transform: scale(0.98);
+}
+
+.btn-premium-gold {
+  background: linear-gradient(135deg, #FFED00 0%, #FDD835 100%);
+  color: #2D2D2D;
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 4px 14px 0 rgba(255, 237, 0, 0.5);
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  font-weight: 700;
+}
+.btn-premium-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 237, 0, 0.4);
+  background: linear-gradient(135deg, #FFF176 0%, #FBC02D 100%);
+}
+.btn-premium-gold:active {
+  transform: scale(0.98);
+}
+
+/* 7. Typography Utilities */
+.text-balance {
+  text-wrap: balance;
+}
+.text-pretty {
+  text-wrap: pretty;
+}
+.font-display-premium {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: -0.02em;
+}
+
 .btn-shimmer::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    top: -50%;
+    left: -50%;
     width: 200%;
-    height: 100%;
-    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
-    transform: skewX(-20deg);
-    animation: shimmer 3s infinite linear;
-    pointer-events: none;
+    height: 200%;
+    background: linear-gradient(to bottom right, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+    animation: shimmer 3s infinite;
 }
 @keyframes shimmer {
-    0% { left: -100%; }
-    20% { left: 100%; }
-    100% { left: 100%; }
+    0% { transform: translateX(-100%) translateY(-100%); }
+    100% { transform: translateX(100%) translateY(100%); }
 }
 
+/* === PREMIUM MOBILE ENHANCEMENTS === */
+
+/* Premium Touch Feedback */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"] {
+    -webkit-tap-highlight-color: rgba(227, 30, 36, 0.1);
+  }
+  
+  button:active, a:active, [role="button"]:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease-out;
+  }
+}
+
+/* Premium Button Press Effect */
+.btn-press {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-press:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+/* Premium Multi-Layer Shadows */
+.shadow-ultra {
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.04),
+    0 16px 32px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-ultra-hover:hover {
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 8px 16px rgba(0, 0, 0, 0.06),
+    0 16px 32px rgba(0, 0, 0, 0.06),
+    0 32px 64px rgba(0, 0, 0, 0.08);
+}
+
+/* Premium Card Glow */
+.card-glow {
+  position: relative;
+}
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(227, 30, 36, 0.3), rgba(255, 237, 0, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* Smooth Page Transitions */
+.page-transition {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stagger Animation for Lists */
+.stagger-item {
+  animation: staggerIn 0.4s ease-out backwards;
+}
+
+@keyframes staggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Skeleton Loading Animation */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Premium Pulse Animation */
+.pulse-premium {
+  animation: pulsePremium 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulsePremium {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* Smooth Bounce Animation */
+.bounce-smooth {
+  animation: bounceSmooth 1s ease-in-out infinite;
+}
+
+@keyframes bounceSmooth {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Premium Ripple Effect */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Safe Area for Notched Devices */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
+/* Smooth Hardware Acceleration */
+.gpu-accelerate {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}

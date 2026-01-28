@@ -61,7 +61,7 @@ const WelcomePopup = () => {
                     <div className="flex justify-center mb-4">
                         <Sparkles size={56} className="text-white drop-shadow-lg" />
                     </div>
-                    <h2 className="text-4xl font-logo mb-3">Welcome to Saha Bakery! 🍰</h2>
+                    <h2 className="text-4xl font-display mb-3">Welcome to Saha Bakery! 🍰</h2>
                     <p className="text-lg text-gray-800">Join our family & get exclusive weekly deals</p>
                 </div>
 

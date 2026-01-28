@@ -108,7 +108,7 @@ const LeadManager = () => {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="mb-8 flex justify-between items-center">
                     <div>
-                        <h1 className="text-3xl font-logo text-brand-dark mb-2">Lead Manager</h1>
+                        <h1 className="text-3xl font-display text-brand-dark mb-2">Lead Manager</h1>
                         <p className="text-gray-600">Manage all customer interactions and visitor tracking</p>
                     </div>
                     <button
@@ -268,9 +268,9 @@ const LeadManager = () => {
                                                 </div>
                                             </div>
                                             <span className={`px-3 py-1 rounded-full text-xs font-bold ${callback.status === 'PENDING' ? 'bg-yellow-100 text-yellow-800' :
-                                                    callback.status === 'CONTACTED' ? 'bg-blue-100 text-blue-800' :
-                                                        callback.status === 'COMPLETED' ? 'bg-green-100 text-green-800' :
-                                                            'bg-gray-100 text-gray-800'
+                                                callback.status === 'CONTACTED' ? 'bg-blue-100 text-blue-800' :
+                                                    callback.status === 'COMPLETED' ? 'bg-green-100 text-green-800' :
+                                                        'bg-gray-100 text-gray-800'
                                                 }`}>
                                                 {callback.status}
                                             </span>

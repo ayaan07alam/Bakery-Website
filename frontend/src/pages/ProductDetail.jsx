@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Star, ShoppingCart, ArrowLeft, Plus, Minus } from 'lucide-react';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import SEO from '../components/SEO';
+import PremiumLoader from '../components/PremiumLoader';
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -36,8 +38,8 @@ const ProductDetail = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="text-2xl font-logo text-brand-dark animate-pulse">Loading...</div>
+            <div className="min-h-screen flex items-center justify-center pt-20">
+                <PremiumLoader />
             </div>
         );
     }
@@ -57,7 +59,32 @@ const ProductDetail = () => {
     }
 
     return (
-        <div className="min-h-screen py-12">
+        <div className="min-h-screen py-12 page-transition">
+            {product && (
+                <SEO
+                    title={`${product.name} - ${product.category}`}
+                    description={product.description || `Order ${product.name} from Saha Bakery. ${product.category} made fresh daily in Berhampore.`}
+                    keywords={`${product.name}, ${product.category}, Buy ${product.name} Online, Saha Bakery ${product.category}`}
+                    ogImage={product.imageUrl}
+                    structuredData={{
+                        "@context": "https://schema.org",
+                        "@type": "Product",
+                        "name": product.name,
+                        "image": product.imageUrl,
+                        "description": product.description || `${product.name} from Saha Bakery`,
+                        "brand": {
+                            "@type": "Brand",
+                            "name": "Saha Bakery"
+                        },
+                        "offers": {
+                            "@type": "Offer",
+                            "price": product.price,
+                            "priceCurrency": "INR",
+                            "availability": product.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+                        }
+                    }}
+                />
+            )}
             <div className="container mx-auto px-6">
                 {/* Back Button */}
                 <button
@@ -93,7 +120,7 @@ const ProductDetail = () => {
                             <span className="inline-block bg-brand-red/10 text-brand-red px-4 py-1.5 rounded-full text-sm font-bold uppercase tracking-wider mb-4">
                                 {product.category?.name || 'Bakery'}
                             </span>
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-logo font-bold text-red-950 mb-4">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-red-950 mb-4">
                                 {product.name}
                             </h1>
                             <p className="text-amber-900/80 text-lg leading-relaxed">

@@ -59,7 +59,7 @@ const ExitIntentPopup = () => {
                             <Gift size={48} className="text-white" />
                         </div>
                     </div>
-                    <h2 className="text-3xl font-logo text-center mb-2">Wait! Don't Leave Yet! 🎉</h2>
+                    <h2 className="text-3xl font-display text-center mb-2">Wait! Don't Leave Yet! 🎉</h2>
                     <p className="text-center text-white/90 text-lg">Get 10% OFF your first order!</p>
                 </div>
 

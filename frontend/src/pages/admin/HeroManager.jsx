@@ -118,7 +118,7 @@ const HeroManager = () => {
             <div className="max-w-6xl mx-auto px-6">
                 <div className="flex justify-between items-center mb-8">
                     <div>
-                        <h1 className="text-3xl font-logo text-brand-dark mb-2">Hero Slides</h1>
+                        <h1 className="text-3xl font-display text-brand-dark mb-2">Hero Slides</h1>
                         <p className="text-gray-600">Manage your homepage carousel</p>
                     </div>
                     <button

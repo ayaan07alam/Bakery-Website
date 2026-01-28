@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Send, Mail, Phone as PhoneIcon, User, MessageSquare, CheckCircle, AlertCircle, MapPin } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -38,13 +39,18 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen pt-24 pb-16">
+            <SEO
+                title="Contact Us - Get in Touch"
+                description="Contact Saha Bakery for custom orders, queries, or franchise inquiries. Visit us in Berhampore or call us for fresh cakes, pastries, and traditional sweets."
+                keywords="Contact Saha Bakery, Bakery Contact Berhampore, Order Cakes Online, Custom Cake Orders, Bakery Franchise"
+            />
             <div className="w-full px-4 md:px-6 lg:px-8 xl:px-12">
                 {/* Compact Header */}
                 <div className="text-center mb-10 animate-fade-in-up">
                     <span className="inline-block text-brand-red font-bold tracking-[0.3em] text-xs uppercase bg-red-50 px-4 py-1.5 rounded-full mb-3">
                         Contact Us
                     </span>
-                    <h1 className="text-4xl md:text-5xl font-logo text-red-950 mb-4">Get In Touch</h1>
+                    <h1 className="text-4xl md:text-5xl font-display text-red-950 mb-4">Get In Touch</h1>
                     <p className="text-amber-900/80 text-base max-w-2xl mx-auto">
                         Have a question about our cakes or want to place a custom order? We'd love to hear from you!
                     </p>
@@ -60,7 +66,7 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h3 className="font-display font-bold text-2xl text-yellow-950 mb-2">Phone</h3>
-                                    <p className="text-amber-900/80 text-lg mb-1">+91 98765 43210</p>
+                                    <p className="text-amber-900/80 text-lg mb-1">+91 95631 71459</p>
                                     <p className="text-amber-900/50 text-sm">Mon-Sun 9am to 6pm</p>
                                 </div>
                             </div>
@@ -73,21 +79,30 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h3 className="font-display font-bold text-2xl text-yellow-950 mb-2">Email</h3>
-                                    <p className="text-amber-900/80 text-lg mb-1">contact@sahabakery.com</p>
+                                    <p className="text-amber-900/80 text-lg mb-1">bakerysaha18@gmail.com</p>
                                     <p className="text-amber-900/50 text-sm">Online support 24/7</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-gradient-brand text-white p-10 rounded-3xl shadow-luxury relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-8 opacity-10 transform translate-x-10 -translate-y-10 group-hover:scale-110 transition-transform duration-700">
-                                <MapPin size={120} />
+                        <div className="bg-white p-4 rounded-3xl shadow-soft hover:shadow-premium transition-all duration-500 border border-gray-100 group overflow-hidden">
+                            <h3 className="font-display font-bold text-2xl text-yellow-950 mb-4 px-4 pt-2">Visit Our Bakery</h3>
+                            <div className="w-full h-[300px] rounded-2xl overflow-hidden shadow-inner">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3642.3691689506063!2d88.24516469999999!3d24.0885097!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f97e7f96df04b1%3A0xe3d2901896b57a4d!2sSaha%20Bakery!5e0!3m2!1sen!2sin!4v1769431188587!5m2!1sen!2sin"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0 }}
+                                    allowFullScreen=""
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                    title="Saha Bakery Location"
+                                ></iframe>
                             </div>
-                            <div className="relative z-10">
-                                <h3 className="font-display font-bold text-3xl mb-4">Visit Our Bakery</h3>
-                                <p className="mb-6 text-lg leading-relaxed text-red-50">123 Bakery Street, Park Street,<br />Kolkata, WB 700016</p>
-                                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white px-4 py-2 rounded-lg font-bold">
-                                    <CheckCircle size={18} />
+                            <div className="px-4 pb-2 mt-4">
+                                <p className="mb-2 text-lg leading-relaxed text-amber-900/80">Saha Bakery</p>
+                                <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-lg font-bold text-sm">
+                                    <CheckCircle size={14} />
                                     <span>Open: 7:00 AM - 10:00 PM</span>
                                 </div>
                             </div>

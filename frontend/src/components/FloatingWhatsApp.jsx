@@ -38,11 +38,11 @@ const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-50">
+        <div className="fixed bottom-24 right-5 z-50">
             {/* Main WhatsApp Button */}
             <button
                 onClick={openWhatsApp}
-                className="bg-[#25D366] hover:bg-[#20BA59] text-white rounded-full w-16 h-16 flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 animate-pulse"
+                className="bg-gradient-to-br from-[#25D366] to-[#128C7E] text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg hover:shadow-green-500/50 border border-white/20 hover:scale-110 transition-all duration-300 z-50"
                 aria-label="Contact us on WhatsApp"
             >
                 <MessageCircle size={32} fill="white" />

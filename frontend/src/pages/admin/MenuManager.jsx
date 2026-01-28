@@ -111,7 +111,7 @@ const MenuManager = () => {
             <div className="max-w-6xl mx-auto px-6">
                 <div className="mb-8 flex justify-between items-center">
                     <div>
-                        <h1 className="text-3xl font-logo text-brand-dark mb-2">Menu Manager</h1>
+                        <h1 className="text-3xl font-display text-brand-dark mb-2">Menu Manager</h1>
                         <p className="text-gray-600">Customize your website navigation menu</p>
                     </div>
                     <div className="flex space-x-3">
