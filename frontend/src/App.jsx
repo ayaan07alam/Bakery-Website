@@ -22,7 +22,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CartDrawer from './components/CartDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ExitIntentPopup from './components/ExitIntentPopup';
-import WelcomePopup from './components/WelcomePopup';
 import PhoneCollectorModal from './components/PhoneCollectorModal';
 import QuickCallbackWidget from './components/QuickCallbackWidget';
 import CookieConsent from './components/CookieConsent';
@@ -82,7 +81,6 @@ function AppContent() {
       {!isAdminRoute && (
         <>
           <ExitIntentPopup />
-          <WelcomePopup />
           <PhoneCollectorModal sessionId={sessionId} currentPage={location.pathname} />
           <QuickCallbackWidget sessionId={sessionId} currentPage={location.pathname} />
           <CookieConsent />
