@@ -280,7 +280,8 @@ const Home = () => {
             </section>
 
             {/* === VIDEO GALLERY SECTION === */}
-            <VideoGallery />
+            {/* TODO: Uncomment when videos are ready */}
+            {/* <VideoGallery /> */}
 
             {/* === FEATURED PRODUCTS - PREMIUM SHOWCASE === */}
             <section className="px-4 md:px-6 lg:px-8 xl:px-12 py-24 md:py-32">
