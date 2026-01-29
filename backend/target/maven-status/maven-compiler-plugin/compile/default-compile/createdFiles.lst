@@ -8,6 +8,7 @@ com\sahabakery\BackendApplication.class
 com\sahabakery\entity\OrderItem.class
 com\sahabakery\service\ProductService.class
 com\sahabakery\controller\SiteSettingsController.class
+com\sahabakery\config\WebConfig.class
 com\sahabakery\util\JwtUtil.class
 com\sahabakery\entity\CatalogueDownload.class
 com\sahabakery\entity\MenuItem.class

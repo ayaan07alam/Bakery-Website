@@ -15,13 +15,15 @@ const MenuManager = () => {
         parent: null
     });
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     useEffect(() => {
         fetchMenuItems();
     }, []);
 
     const fetchMenuItems = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/menu-items/admin');
+            const response = await axios.get(`${API_URL}/menu-items/admin`);
             setMenuItems(response.data);
         } catch (error) {
             console.error('Error fetching menu items:', error);
@@ -32,9 +34,9 @@ const MenuManager = () => {
         e.preventDefault();
         try {
             if (editingItem) {
-                await axios.put(`http://localhost:8080/api/menu-items/${editingItem.id}`, formData);
+                await axios.put(`${API_URL}/menu-items/${editingItem.id}`, formData);
             } else {
-                await axios.post('http://localhost:8080/api/menu-items', formData);
+                await axios.post(`${API_URL}/menu-items`, formData);
             }
             fetchMenuItems();
             closeModal();
@@ -46,7 +48,7 @@ const MenuManager = () => {
     const handleDelete = async (id) => {
         if (!confirm('Delete this menu item?')) return;
         try {
-            await axios.delete(`http://localhost:8080/api/menu-items/${id}`);
+            await axios.delete(`${API_URL}/menu-items/${id}`);
             fetchMenuItems();
         } catch (error) {
             alert('Failed to delete menu item');
@@ -55,7 +57,7 @@ const MenuManager = () => {
 
     const toggleVisibility = async (item) => {
         try {
-            await axios.put(`http://localhost:8080/api/menu-items/${item.id}`, {
+            await axios.put(`${API_URL}/menu-items/${item.id}`, {
                 ...item,
                 visible: !item.visible
             });
@@ -98,7 +100,7 @@ const MenuManager = () => {
 
     const initializeMenu = async () => {
         try {
-            await axios.post('http://localhost:8080/api/menu-items/initialize');
+            await axios.post(`${API_URL}/menu-items/initialize`);
             fetchMenuItems();
             alert('Menu initialized with default items');
         } catch (error) {

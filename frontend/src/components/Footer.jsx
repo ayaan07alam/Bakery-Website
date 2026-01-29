@@ -20,9 +20,11 @@ const Footer = () => {
         fetchSiteSettings();
     }, []);
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     const fetchSiteSettings = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/site-settings');
+            const response = await axios.get(`${API_URL}/site-settings`);
             setSiteSettings(response.data);
         } catch (error) {
             console.error('Error fetching site settings:', error);
@@ -35,7 +37,7 @@ const Footer = () => {
         setNewsletterMessage('');
 
         try {
-            const response = await axios.post('http://localhost:8080/api/newsletter/subscribe', {
+            const response = await axios.post(`${API_URL}/newsletter/subscribe`, {
                 email: newsletterEmail
             });
             setNewsletterMessage(response.data.message || 'Successfully subscribed!');

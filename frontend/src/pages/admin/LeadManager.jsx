@@ -10,6 +10,8 @@ const LeadManager = () => {
     const [callbacks, setCallbacks] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -18,10 +20,10 @@ const LeadManager = () => {
         setLoading(true);
         try {
             const [contactRes, subscriberRes, sessionsRes, callbacksRes] = await Promise.all([
-                axios.get('http://localhost:8080/api/contact'),
-                axios.get('http://localhost:8080/api/newsletter/subscribers'),
-                axios.get('http://localhost:8080/api/visitor-sessions'),
-                axios.get('http://localhost:8080/api/callback-requests')
+                axios.get(`${API_URL}/contact`),
+                axios.get(`${API_URL}/newsletter/subscribers`),
+                axios.get(`${API_URL}/visitor-sessions`),
+                axios.get(`${API_URL}/callback-requests`)
             ]);
             setContacts(contactRes.data);
             setSubscribers(subscriberRes.data);
@@ -36,7 +38,7 @@ const LeadManager = () => {
 
     const handleResolve = async (id) => {
         try {
-            await axios.put(`http://localhost:8080/api/contact/${id}/resolve`);
+            await axios.put(`${API_URL}/contact/${id}/resolve`);
             fetchData();
         } catch (error) {
             alert('Failed to resolve inquiry');
@@ -46,7 +48,7 @@ const LeadManager = () => {
     const handleDelete = async (id) => {
         if (!confirm('Delete this inquiry?')) return;
         try {
-            await axios.delete(`http://localhost:8080/api/contact/${id}`);
+            await axios.delete(`${API_URL}/contact/${id}`);
             fetchData();
         } catch (error) {
             alert('Failed to delete inquiry');
@@ -55,7 +57,7 @@ const LeadManager = () => {
 
     const updateCallbackStatus = async (id, status, notes = '') => {
         try {
-            await axios.put(`http://localhost:8080/api/callback-requests/${id}/status`, {
+            await axios.put(`${API_URL}/callback-requests/${id}/status`, {
                 status,
                 notes
             });

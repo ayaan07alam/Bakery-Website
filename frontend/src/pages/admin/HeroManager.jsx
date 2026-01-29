@@ -18,13 +18,15 @@ const HeroManager = () => {
         displayOrder: 0
     });
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     useEffect(() => {
         fetchSlides();
     }, []);
 
     const fetchSlides = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/hero-slides');
+            const response = await axios.get(`${API_URL}/hero-slides`);
             setSlides(response.data);
             setLoading(false);
         } catch (error) {
@@ -42,10 +44,10 @@ const HeroManager = () => {
 
         setUploading(true);
         try {
-            const response = await axios.post('http://localhost:8080/api/hero-slides/upload', formDataUpload, {
+            const response = await axios.post(`${API_URL}/hero-slides/upload`, formDataUpload, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            setFormData({ ...formData, imageUrl: 'http://localhost:8080' + response.data });
+            setFormData({ ...formData, imageUrl: `${API_URL.replace('/api', '')}${response.data}` });
             setUploading(false);
         } catch (error) {
             alert('Image upload failed');
@@ -57,9 +59,9 @@ const HeroManager = () => {
         e.preventDefault();
         try {
             if (editingSlide) {
-                await axios.put(`http://localhost:8080/api/hero-slides/${editingSlide.id}`, formData);
+                await axios.put(`${API_URL}/hero-slides/${editingSlide.id}`, formData);
             } else {
-                await axios.post('http://localhost:8080/api/hero-slides', formData);
+                await axios.post(`${API_URL}/hero-slides`, formData);
             }
             fetchSlides();
             closeModal();
@@ -71,7 +73,7 @@ const HeroManager = () => {
     const handleDelete = async (id) => {
         if (!confirm('Delete this slide?')) return;
         try {
-            await axios.delete(`http://localhost:8080/api/hero-slides/${id}`);
+            await axios.delete(`${API_URL}/hero-slides/${id}`);
             fetchSlides();
         } catch (error) {
             alert('Failed to delete slide');

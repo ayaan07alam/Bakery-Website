@@ -29,6 +29,7 @@ D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\ProductController.
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\SiteSettingsController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\CallbackRequestController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\service\VisitorSessionService.java
+D:\SahaBakery\backend\src\main\java\com\sahabakery\config\WebConfig.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\CatalogueController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\entity\ContactInquiry.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\entity\OrderItem.java

@@ -27,9 +27,10 @@ const ExitIntentPopup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
         try {
-            await axios.post('http://localhost:8080/api/newsletter/subscribe', { email });
+            await axios.post(`${API_URL}/newsletter/subscribe`, { email });
             setSuccess(true);
             setTimeout(() => setIsVisible(false), 2000);
         } catch (error) {

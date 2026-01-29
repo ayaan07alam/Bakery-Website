@@ -25,9 +25,11 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     const validateToken = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/auth/me', {
+            const response = await axios.get(`${API_URL}/auth/me`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (username, password) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/auth/login', {
+            const response = await axios.post(`${API_URL}/auth/login`, {
                 username,
                 password
             });

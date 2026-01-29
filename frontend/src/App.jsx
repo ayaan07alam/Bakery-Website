@@ -11,6 +11,8 @@ import SiteSettings from './pages/admin/SiteSettings';
 import HeroManager from './pages/admin/HeroManager';
 import LeadManager from './pages/admin/LeadManager';
 import MenuManager from './pages/admin/MenuManager';
+import ProductManager from './pages/admin/ProductManager';
+import CategoryManager from './pages/admin/CategoryManager';
 import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import Footer from './components/Footer';
@@ -50,7 +52,7 @@ function AppContent() {
       <FloatingWhatsApp currentPage={location.pathname} />
       <ScrollToTop />
       <ScrollToTopButton />
-      <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : location.pathname === '/' ? '' : 'py-8'}`}>
+      <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : location.pathname === '/' ? '' : 'pt-32 pb-8'}`}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<ProductList />} />
@@ -65,6 +67,8 @@ function AppContent() {
           <Route path="/admin/hero-slides" element={<ProtectedRoute><HeroManager /></ProtectedRoute>} />
           <Route path="/admin/leads" element={<ProtectedRoute><LeadManager /></ProtectedRoute>} />
           <Route path="/admin/menu" element={<ProtectedRoute><MenuManager /></ProtectedRoute>} />
+          <Route path="/admin/products" element={<ProtectedRoute><ProductManager /></ProtectedRoute>} />
+          <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
 
           {/* Public Pages */}
           <Route path="/about" element={<About />} />

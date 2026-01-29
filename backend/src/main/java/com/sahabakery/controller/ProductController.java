@@ -22,8 +22,8 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    // Simple storage for demo purposes. In prod, use S3/Cloudinary.
-    private static final String UPLOAD_DIR = "uploads/";
+    @Autowired
+    private com.sahabakery.service.FileUploadService fileUploadService;
 
     @GetMapping
     public List<Product> getAllProducts() {
@@ -52,9 +52,34 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+        return productService.getProductById(id)
+                .map(existing -> {
+                    existing.setName(product.getName());
+                    existing.setDescription(product.getDescription());
+                    existing.setPrice(product.getPrice());
+                    existing.setImageUrl(product.getImageUrl());
+                    existing.setCategory(product.getCategory());
+                    // existing.setAvailable(product.getAvailable()); // If added later
+                    return ResponseEntity.ok(productService.saveProduct(existing));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileUrl = fileUploadService.uploadFile(file);
+            return ResponseEntity.ok(fileUrl);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body("Upload failed: " + e.getMessage());
+        }
     }
 }

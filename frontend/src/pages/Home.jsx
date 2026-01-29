@@ -9,16 +9,45 @@ const Home = () => {
     // Hero Slider State
     const [currentSlide, setCurrentSlide] = useState(0);
     const [slides, setSlides] = useState([
-        // Fallback default slide
         {
-            imageUrl: 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=2380',
-            title: 'Artisanal Excellence',
-            subtitle: 'Baking happiness with traditional recipes since 1978.',
+            imageUrl: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            title: 'Exquisite Berry Cakes',
+            subtitle: 'Layers of fresh cream and hand-picked berries for pure indulgence.',
             ctaText: 'Order Now',
             ctaLink: '/shop'
+        },
+        {
+            imageUrl: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            title: 'Heritage Sweets & Pastries',
+            subtitle: 'Authentic treats crafted with passion and traditional recipes.',
+            ctaText: 'View Pastries',
+            ctaLink: '/shop'
+        },
+        {
+            imageUrl: 'https://images.unsplash.com/photo-1535141192574-5d4897c12636?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            title: 'Celebration Masterpieces',
+            subtitle: 'Make your special moments unforgettable with our signature custom cakes.',
+            ctaText: 'Book a Cake',
+            ctaLink: '/contact'
+        },
+        {
+            imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            title: 'The Ultimate Chocolate',
+            subtitle: 'Rich, moist, and decadent chocolate cakes made from premium cocoa.',
+            ctaText: 'Indulge Today',
+            ctaLink: '/shop'
+        },
+        {
+            imageUrl: 'https://images.unsplash.com/photo-1519340333755-56e9c1d04579?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            title: 'Delicate Tea Cakes',
+            subtitle: 'Light, fluffy, and perfect for your evening conversations.',
+            ctaText: 'Our Story',
+            ctaLink: '/about'
         }
     ]);
     const [loading, setLoading] = useState(true);
+
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     useEffect(() => {
         fetchHeroSlides();
@@ -26,7 +55,7 @@ const Home = () => {
 
     const fetchHeroSlides = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/hero-slides/active');
+            const response = await axios.get(`${API_URL}/hero-slides/active`);
             if (response.data && response.data.length > 0) {
                 setSlides(response.data);
             }
@@ -107,10 +136,10 @@ const Home = () => {
                         </div>
 
                         {/* Premium Gradient Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
 
                         {/* Content with Stagger Animation */}
-                        <div className="relative z-10 h-full flex items-center px-6 md:px-12 lg:px-20 xl:px-32">
+                        <div className="relative z-10 h-full flex items-center px-6 md:px-12 lg:px-20 xl:px-32 pt-20">
                             <div className="max-w-4xl space-y-6 md:space-y-8">
                                 <div className="flex items-center gap-4 mb-2 animate-fade-in-up">
                                     <div className="h-px w-12 bg-brand-yellow"></div>

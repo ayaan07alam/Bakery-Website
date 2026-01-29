@@ -23,6 +23,7 @@ const Navbar = () => {
         tagline: 'Freshly Baked Happiness!',
         address: 'Gorabazar, Berhampore, West Bengal 742101'
     });
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -37,7 +38,7 @@ const Navbar = () => {
 
     const fetchSiteSettings = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/site-settings');
+            const response = await axios.get(`${API_URL}/site-settings`);
             setSiteSettings(response.data);
         } catch (error) {
             console.error('Error fetching site settings:', error);
@@ -46,7 +47,7 @@ const Navbar = () => {
 
     const fetchMenuItems = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/menu-items');
+            const response = await axios.get(`${API_URL}/menu-items`);
             setMenuItems(response.data);
         } catch (error) {
             console.error('Error fetching menu items:', error);
@@ -55,7 +56,7 @@ const Navbar = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/categories');
+            const response = await axios.get(`${API_URL}/categories`);
             console.log('Categories loaded:', response.data);
             setCategories(response.data);
         } catch (error) {

@@ -13,6 +13,7 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
         try {
             const orderData = {
@@ -23,7 +24,7 @@ const Checkout = () => {
                 }))
             };
 
-            const response = await fetch('http://localhost:8080/api/orders', {
+            const response = await fetch(`${API_URL}/orders`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)

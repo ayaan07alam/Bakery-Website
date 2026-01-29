@@ -26,8 +26,10 @@ const Contact = () => {
         setLoading(true);
         setStatus({ type: '', message: '' });
 
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
         try {
-            await axios.post('http://localhost:8080/api/contact', formData);
+            await axios.post(`${API_URL}/contact`, formData);
             setStatus({ type: 'success', message: 'Thank you! We\'ll get back to you soon.' });
             setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
         } catch (error) {

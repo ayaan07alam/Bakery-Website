@@ -13,6 +13,7 @@ const ProductDetail = () => {
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(true);
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     useEffect(() => {
         fetchProduct();
@@ -20,7 +21,7 @@ const ProductDetail = () => {
 
     const fetchProduct = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/products/${id}`);
+            const response = await axios.get(`${API_URL}/products/${id}`);
             setProduct(response.data);
             setLoading(false);
         } catch (error) {

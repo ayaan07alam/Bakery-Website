@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const API_URL = 'http://localhost:8080/api/visitor-sessions';
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080/api') + '/visitor-sessions';
 
 export const useVisitorTracking = () => {
     const [sessionId, setSessionId] = useState(null);

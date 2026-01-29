@@ -15,6 +15,8 @@ const ProductList = () => {
     const { addToCart } = useCart();
     const [searchParams] = useSearchParams();
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     useEffect(() => {
         fetchProducts();
         fetchCategories();
@@ -26,7 +28,7 @@ const ProductList = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/products');
+            const response = await axios.get(`${API_URL}/products`);
             setProducts(response.data);
             setLoading(false);
         } catch (error) {
@@ -37,7 +39,7 @@ const ProductList = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/categories');
+            const response = await axios.get(`${API_URL}/categories`);
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching categories:', error);

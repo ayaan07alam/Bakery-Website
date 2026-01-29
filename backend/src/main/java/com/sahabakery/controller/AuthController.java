@@ -74,7 +74,6 @@ public class AuthController {
         try {
             String token = authHeader.substring(7); // Remove "Bearer " prefix
             String username = jwtUtil.extractUsername(token);
-            String role = jwtUtil.extractRole(token);
 
             Optional<User> userOptional = userRepository.findByUsername(username);
 

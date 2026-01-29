@@ -11,8 +11,9 @@ const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
     }, []);
 
     const fetchPhoneNumber = async () => {
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
         try {
-            const response = await axios.get('http://localhost:8080/api/site-settings');
+            const response = await axios.get(`${API_URL}/site-settings`);
             if (response.data.phone) {
                 // Remove spaces and special chars for WhatsApp link
                 setPhone(response.data.phone.replace(/[^0-9+]/g, ''));
