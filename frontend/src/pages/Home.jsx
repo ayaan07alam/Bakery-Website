@@ -51,11 +51,16 @@ const Home = () => {
     const [categories, setCategories] = useState([]);
     const [categoriesLoading, setCategoriesLoading] = useState(true);
 
+    // Products State for Trending Section
+    const [products, setProducts] = useState([]);
+    const [productsLoading, setProductsLoading] = useState(true);
+
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     useEffect(() => {
         fetchHeroSlides();
         fetchCategories();
+        fetchProducts();
     }, []);
 
     const fetchHeroSlides = async () => {
@@ -81,6 +86,19 @@ const Home = () => {
         } catch (error) {
             console.error('Error fetching categories:', error);
             setCategoriesLoading(false);
+        }
+    };
+
+    const fetchProducts = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/products`);
+            if (response.data && response.data.length > 0) {
+                setProducts(response.data);
+            }
+            setProductsLoading(false);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            setProductsLoading(false);
         }
     };
 
@@ -315,82 +333,74 @@ const Home = () => {
                         <div className="w-24 h-1.5 bg-gradient-to-r from-brand-red to-brand-yellow rounded-full mx-auto mt-4"></div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-                        {[
-                            {
-                                name: 'Black Forest Cake',
-                                price: 450,
-                                rating: 4.8,
-                                img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=800&fit=crop'
-                            },
-                            {
-                                name: 'Gourmet Chicken Puff',
-                                price: 45,
-                                rating: 4.5,
-                                img: 'https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=800&h=800&fit=crop'
-                            },
-                            {
-                                name: 'Red Velvet Supreme',
-                                price: 600,
-                                rating: 4.9,
-                                img: 'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=800&h=800&fit=crop'
-                            },
-                            {
-                                name: 'Fresh Fruit Tart',
-                                price: 120,
-                                rating: 4.7,
-                                img: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&h=800&fit=crop'
-                            }
-                        ].map((item, idx) => (
-                            <div
-                                key={idx}
-                                className="group bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-luxury transition-all duration-700 cursor-pointer border border-gray-100 hover-lift will-animate animate-scale-in"
-                                style={{ animationDelay: `${idx * 0.15}s` }}
-                            >
-                                {/* Image Container with Gradient Overlay */}
-                                <div className="relative h-80 overflow-hidden bg-gray-100">
-                                    <img
-                                        src={item.img}
-                                        alt={item.name}
-                                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
-                                        loading="lazy"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    {productsLoading ? (
+                        // Loading skeleton for 12 products
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+                            {[...Array(12)].map((_, i) => (
+                                <div key={i} className="h-[450px] bg-gray-200 animate-pulse rounded-3xl"></div>
+                            ))}
+                        </div>
+                    ) : products.length === 0 ? (
+                        // Empty state
+                        <div className="text-center py-20">
+                            <p className="text-amber-900/60 text-lg">No products available yet. Add products in the admin panel!</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+                            {products.slice(0, 12).map((item, idx) => (
+                                <Link
+                                    key={item.id || idx}
+                                    to={`/product/${item.id}`}
+                                    className="group bg-white rounded-3xl overflow-hidden shadow-soft hover:shadow-luxury transition-all duration-700 cursor-pointer border border-gray-100 hover-lift will-animate animate-scale-in"
+                                    style={{ animationDelay: `${idx * 0.05}s` }}
+                                >
+                                    {/* Image Container with Gradient Overlay */}
+                                    <div className="relative h-80 overflow-hidden bg-gray-100">
+                                        <img
+                                            src={item.imageUrl || 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=800&h=800&fit=crop'}
+                                            alt={item.name}
+                                            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
+                                            loading="lazy"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                                    {/* Rating Badge */}
-                                    <div className="absolute top-4 right-4 glass text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg backdrop-blur-md">
-                                        <Star size={16} className="text-brand-yellow fill-brand-yellow" />
-                                        <span>{item.rating}</span>
-                                    </div>
+                                        {/* Rating Badge (if available) */}
+                                        {item.rating && (
+                                            <div className="absolute top-4 right-4 glass text-white px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-lg backdrop-blur-md">
+                                                <Star size={16} className="text-brand-yellow fill-brand-yellow" />
+                                                <span>{item.rating}</span>
+                                            </div>
+                                        )}
 
-                                    {/* Quick View Button */}
-                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                                        <button className="bg-white text-brand-dark h-16 w-16 rounded-full flex items-center justify-center font-medium transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:scale-110 shadow-2xl">
-                                            <ArrowRight size={28} strokeWidth={2.5} />
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {/* Product Info */}
-                                <div className="p-6 md:p-8 space-y-4">
-                                    <h3 className="font-display font-bold text-2xl md:text-3xl text-yellow-950 group-hover:text-brand-red transition-colors duration-300 leading-tight">
-                                        {item.name}
-                                    </h3>
-                                    <div className="flex justify-between items-end">
-                                        <div>
-                                            <p className="text-xs text-amber-900/60 font-bold uppercase tracking-wider mb-1">
-                                                Price
-                                            </p>
-                                            <span className="text-3xl font-bold text-red-900">₹{item.price}</span>
+                                        {/* Quick View Button */}
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                            <button className="bg-white text-brand-dark h-16 w-16 rounded-full flex items-center justify-center font-medium transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:scale-110 shadow-2xl">
+                                                <ArrowRight size={28} strokeWidth={2.5} />
+                                            </button>
                                         </div>
-                                        <button className="bg-gray-50 hover:bg-brand-yellow text-brand-dark h-12 w-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-sm hover:shadow-md">
-                                            <span className="text-2xl font-bold">+</span>
-                                        </button>
                                     </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+
+                                    {/* Product Info */}
+                                    <div className="p-6 md:p-8 space-y-4">
+                                        <h3 className="font-display font-bold text-2xl md:text-3xl text-yellow-950 group-hover:text-brand-red transition-colors duration-300 leading-tight line-clamp-2">
+                                            {item.name}
+                                        </h3>
+                                        <div className="flex justify-between items-end">
+                                            <div>
+                                                <p className="text-xs text-amber-900/60 font-bold uppercase tracking-wider mb-1">
+                                                    Price
+                                                </p>
+                                                <span className="text-3xl font-bold text-red-900">₹{item.price}</span>
+                                            </div>
+                                            <button className="bg-gray-50 hover:bg-brand-yellow text-brand-dark h-12 w-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-sm hover:shadow-md">
+                                                <span className="text-2xl font-bold">+</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
 
                     <div className="text-center mt-16 animate-fade-in-up delay-500">
                         <Link
@@ -433,9 +443,9 @@ const Home = () => {
                 ) : (
                     // Dynamic Grid Layout
                     <div className={`grid gap-8 ${categories.length === 1 ? 'grid-cols-1' :
-                            categories.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
-                                categories.length === 3 ? 'grid-cols-1 md:grid-cols-2' :
-                                    'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                        categories.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                            categories.length === 3 ? 'grid-cols-1 md:grid-cols-2' :
+                                'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
                         }`}>
                         {categories.map((category, index) => {
                             // First category is large if there are exactly 3 categories
