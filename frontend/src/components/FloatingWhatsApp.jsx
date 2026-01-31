@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [phone, setPhone] = useState('+919876543210');
+    const [phone, setPhone] = useState('+919425950010'); // Saha Bakery contact number
 
     useEffect(() => {
         fetchPhoneNumber();

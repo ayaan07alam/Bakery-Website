@@ -10,18 +10,30 @@ const ExitIntentPopup = () => {
 
     useEffect(() => {
         // Check if user has seen this popup
-        const hasSeenExitPopup = localStorage.getItem('hasSeenExitPopup');
+        const hasSeenExitPopup = sessionStorage.getItem('hasSeenExitPopup');
         if (hasSeenExitPopup) return;
 
-        const handleMouseLeave = (e) => {
-            if (e.clientY <= 0) {
+        // Track if user has scrolled or interacted (wait 5 seconds)
+        let hasInteracted = false;
+        const timer = setTimeout(() => { hasInteracted = true; }, 5000);
+
+        const handleBeforeUnload = (e) => {
+            if (hasInteracted && !sessionStorage.getItem('hasSeenExitPopup')) {
+                // Show popup by setting state
                 setIsVisible(true);
-                localStorage.setItem('hasSeenExitPopup', 'true');
+                sessionStorage.setItem('hasSeenExitPopup', 'true');
+
+                // Prevent the browser's default dialog
+                e.preventDefault();
+                e.returnValue = '';
             }
         };
 
-        document.addEventListener('mouseleave', handleMouseLeave);
-        return () => document.removeEventListener('mouseleave', handleMouseLeave);
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
     }, []);
 
     const handleSubmit = async (e) => {
