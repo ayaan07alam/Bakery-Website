@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/visitor-sessions")
-@CrossOrigin(origins = "*")
 public class VisitorSessionController {
 
     @Autowired

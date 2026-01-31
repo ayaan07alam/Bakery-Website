@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/hero-slides")
-@CrossOrigin(origins = "*")
 public class HeroSlideController {
 
     @Autowired

@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/callback-requests")
-@CrossOrigin(origins = "*")
 public class CallbackRequestController {
 
     @Autowired

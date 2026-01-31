@@ -12,7 +12,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/newsletter")
-@CrossOrigin(origins = "*")
 public class NewsletterController {
 
     @Autowired
