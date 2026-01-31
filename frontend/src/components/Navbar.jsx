@@ -72,7 +72,7 @@ const Navbar = () => {
 
     return (
         <>
-            <header className="fixed w-full z-50 top-0 left-0 transition-all duration-300 font-sans">
+            <header className="fixed w-full z-[9999] top-0 left-0 transition-all duration-300 font-sans">
                 {/* Top Bar - Brand Blue for Contrast (Logo Palette) */}
                 <div className="bg-brand-blue text-white py-2 text-xs md:text-sm font-medium tracking-wide relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-10"></div>

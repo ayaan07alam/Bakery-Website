@@ -457,55 +457,80 @@ const Home = () => {
                                     to={`/shop?category=${category.id}`}
                                     className={`
                                         relative rounded-3xl overflow-hidden group cursor-pointer 
-                                        shadow-soft hover:shadow-luxury transition-all duration-700 
+                                        shadow-2xl hover:shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] 
+                                        transition-all duration-700 
                                         animate-scale-in
+                                        border-4 border-transparent hover:border-brand-yellow/50
                                         ${isLargeCard ? 'md:row-span-2 h-[450px]' : 'h-[300px] md:h-[207px]'}
                                         ${categories.length === 3 && index === 0 ? 'md:row-span-2' : ''}
                                     `}
                                     style={{ animationDelay: `${index * 0.1}s` }}
                                 >
+                                    {/* Image with parallax effect */}
                                     <img
                                         src={category.imageUrl || 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=1000'}
-                                        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                                        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-125 group-hover:rotate-3"
                                         alt={category.name}
                                         loading="lazy"
                                     />
+
+                                    {/* Gradient Overlay - More dramatic */}
                                     <div className={`
                                         absolute inset-0 transition-all duration-500
                                         ${isLargeCard
-                                            ? 'bg-gradient-to-t from-black/90 via-black/50 to-black/20 group-hover:from-black/95'
-                                            : 'bg-black/40 group-hover:bg-black/50'
+                                            ? 'bg-gradient-to-t from-black/95 via-black/60 to-transparent group-hover:from-brand-red/90 group-hover:via-black/70'
+                                            : 'bg-gradient-to-br from-black/70 via-black/50 to-transparent group-hover:from-brand-red/80 group-hover:via-black/60'
                                         }
                                     `}></div>
 
+                                    {/* Premium animated border glow */}
+                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-brand-yellow/20 via-brand-red/20 to-brand-yellow/20 animate-pulse"></div>
+                                    </div>
+
                                     {isLargeCard ? (
-                                        // Large card layout (for first of 3)
+                                        // Large card layout (for first of 3) - Premium styling
                                         <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
-                                            <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-3 transform transition-transform duration-500 group-hover:-translate-y-2">
+                                            {/* Decorative line */}
+                                            <div className="w-16 h-1 bg-brand-yellow mb-4 transform origin-left group-hover:w-32 transition-all duration-700"></div>
+
+                                            <h3 className="text-4xl md:text-6xl font-display font-black text-white mb-3 transform transition-all duration-500 group-hover:-translate-y-2 group-hover:text-brand-yellow drop-shadow-2xl">
                                                 {category.name}
                                             </h3>
                                             {category.description && (
-                                                <p className="text-white/90 text-lg mb-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                                <p className="text-white/95 text-lg md:text-xl mb-6 font-medium transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100 max-w-md backdrop-blur-sm bg-black/20 p-3 rounded-xl">
                                                     {category.description}
                                                 </p>
                                             )}
-                                            <span className="inline-flex items-center gap-2 text-brand-yellow font-bold uppercase tracking-widest text-sm group-hover:gap-4 transition-all duration-300">
+                                            <div className="inline-flex items-center gap-2 text-brand-yellow font-bold uppercase tracking-[0.2em] text-sm group-hover:gap-4 transition-all duration-300 bg-brand-yellow/10 backdrop-blur-md px-6 py-3 rounded-full w-fit border-2 border-brand-yellow/50 group-hover:bg-brand-yellow group-hover:text-brand-dark">
                                                 Explore Series
-                                                <ArrowRight size={18} />
-                                            </span>
+                                                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                                            </div>
                                         </div>
                                     ) : (
-                                        // Standard card layout
+                                        // Standard card layout - Premium styling
                                         <div className="absolute inset-0 flex items-center justify-center">
-                                            <div className="text-center px-6">
-                                                <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-wide transform group-hover:scale-110 transition-transform duration-500">
+                                            <div className="text-center px-6 relative">
+                                                {/* Glassmorphism background */}
+                                                <div className="absolute inset-0 bg-white/5 backdrop-blur-md rounded-2xl transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+
+                                                {/* Decorative corner accent */}
+                                                <div className="absolute -top-2 -left-2 w-8 h-8 border-t-4 border-l-4 border-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-4 border-r-4 border-brand-yellow opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"></div>
+
+                                                <h3 className="text-3xl md:text-5xl font-display font-black text-white tracking-wide transform group-hover:scale-110 transition-all duration-500 drop-shadow-2xl relative z-10 group-hover:text-brand-yellow">
                                                     {category.name}
                                                 </h3>
                                                 {category.description && (
-                                                    <p className="text-white/80 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                                    <p className="text-white/90 text-sm md:text-base mt-3 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-100 relative z-10 font-semibold">
                                                         {category.description}
                                                     </p>
                                                 )}
+
+                                                {/* Arrow indicator */}
+                                                <div className="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200 relative z-10">
+                                                    <ArrowRight className="mx-auto text-brand-yellow animate-bounce" size={24} />
+                                                </div>
                                             </div>
                                         </div>
                                     )}
