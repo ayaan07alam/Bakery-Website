@@ -33,9 +33,19 @@ public class DataInitializer implements CommandLineRunner {
 
         @Override
         public void run(String... args) throws Exception {
+                System.out.println("🚀 Starting Data Initialization...");
+
                 // Initialize admin users
                 createAdminUserIfMissing("admin", "admin123");
                 createAdminUserIfMissing("sahaadmin", "saha@2026");
+
+                // Initialize hero slides
+                initializeHeroSlides();
+
+                // Initialize products and categories
+                initializeProductsAndCategories();
+
+                System.out.println("✅ Data Initialization Complete!");
         }
 
         private void createAdminUserIfMissing(String username, String password) {
@@ -46,14 +56,20 @@ public class DataInitializer implements CommandLineRunner {
                         user.setRole("ADMIN");
                         userRepository.save(user);
                         System.out.println("✅ Admin user created: " + username);
+                } else {
+                        System.out.println("ℹ️  Admin user already exists: " + username);
                 }
+        }
 
+        private void initializeHeroSlides() {
                 // Initialize Hero Slides (PREMIUM CONTENT)
                 if (heroSlideRepository.count() == 0) {
                         seedHeroSlides();
                         System.out.println("✅ Premium Hero Slides initialized!");
                 }
+        }
 
+        private void initializeProductsAndCategories() {
                 // Initialize categories and products
                 if (categoryRepository.count() == 0) {
                         seedProducts();
