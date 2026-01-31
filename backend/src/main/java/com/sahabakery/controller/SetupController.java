@@ -24,7 +24,7 @@ public class SetupController {
      * Manual admin user creation endpoint - only use for initial setup
      * After creating admin, you should disable or remove this endpoint
      */
-    @PostMapping("/create-admin")
+    @GetMapping("/create-admin")
     public ResponseEntity<?> createAdminUser(@RequestParam String username, @RequestParam String password) {
         Map<String, Object> response = new HashMap<>();
 
