@@ -47,10 +47,15 @@ const Home = () => {
     ]);
     const [loading, setLoading] = useState(true);
 
+    // Categories State
+    const [categories, setCategories] = useState([]);
+    const [categoriesLoading, setCategoriesLoading] = useState(true);
+
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     useEffect(() => {
         fetchHeroSlides();
+        fetchCategories();
     }, []);
 
     const fetchHeroSlides = async () => {
@@ -63,6 +68,19 @@ const Home = () => {
         } catch (error) {
             console.error('Error fetching hero slides:', error);
             setLoading(false);
+        }
+    };
+
+    const fetchCategories = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/categories`);
+            if (response.data && response.data.length > 0) {
+                setCategories(response.data);
+            }
+            setCategoriesLoading(false);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            setCategoriesLoading(false);
         }
     };
 
@@ -389,7 +407,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* === CATEGORIES - PREMIUM GRID === */}
+            {/* === CATEGORIES - DYNAMIC PREMIUM GRID === */}
             <section className="px-4 md:px-6 lg:px-8 xl:px-12 py-16 md:py-24">
                 <div className="text-center mb-16 space-y-4 animate-fade-in-up">
                     <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-red-950">
@@ -400,62 +418,92 @@ const Home = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Featured Category - Large */}
-                    <div className="relative h-[450px] rounded-3xl overflow-hidden group cursor-pointer shadow-soft hover:shadow-luxury transition-all duration-700 animate-scale-in">
-                        <img
-                            src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1000"
-                            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
-                            alt="Signature Cakes"
-                            loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20 group-hover:from-black/95 transition-all duration-500"></div>
-                        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
-                            <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-3 transform transition-transform duration-500 group-hover:-translate-y-2">
-                                Signature Cakes
-                            </h3>
-                            <p className="text-white/90 text-lg mb-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                                Perfect for weddings, birthdays, and special celebrations.
-                            </p>
-                            <span className="inline-flex items-center gap-2 text-brand-yellow font-bold uppercase tracking-widest text-sm group-hover:gap-4 transition-all duration-300">
-                                Explore Series
-                                <ArrowRight size={18} />
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Small Categories Grid */}
-                    <div className="grid grid-cols-1 gap-8">
-                        {[
-                            {
-                                title: 'Artisan Breads',
-                                img: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1000'
-                            },
-                            {
-                                title: 'Savory Pastries',
-                                img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=1000'
-                            }
-                        ].map((cat, idx) => (
-                            <div
-                                key={idx}
-                                className="relative h-[207px] rounded-3xl overflow-hidden group cursor-pointer shadow-soft hover:shadow-luxury transition-all duration-700 animate-scale-in"
-                                style={{ animationDelay: `${(idx + 1) * 0.1}s` }}
-                            >
-                                <img
-                                    src={cat.img}
-                                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
-                                    alt={cat.title}
-                                    loading="lazy"
-                                />
-                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-500 flex items-center justify-center">
-                                    <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-wide transform group-hover:scale-110 transition-transform duration-500">
-                                        {cat.title}
-                                    </h3>
-                                </div>
-                            </div>
+                {categoriesLoading ? (
+                    // Loading skeleton
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="h-[300px] bg-gray-200 animate-pulse rounded-3xl"></div>
                         ))}
                     </div>
-                </div>
+                ) : categories.length === 0 ? (
+                    // Empty state
+                    <div className="text-center py-20">
+                        <p className="text-amber-900/60 text-lg">No categories available yet.</p>
+                    </div>
+                ) : (
+                    // Dynamic Grid Layout
+                    <div className={`grid gap-8 ${categories.length === 1 ? 'grid-cols-1' :
+                            categories.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                                categories.length === 3 ? 'grid-cols-1 md:grid-cols-2' :
+                                    'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+                        }`}>
+                        {categories.map((category, index) => {
+                            // First category is large if there are exactly 3 categories
+                            const isLargeCard = categories.length === 3 && index === 0;
+
+                            return (
+                                <Link
+                                    key={category.id}
+                                    to={`/shop?category=${category.id}`}
+                                    className={`
+                                        relative rounded-3xl overflow-hidden group cursor-pointer 
+                                        shadow-soft hover:shadow-luxury transition-all duration-700 
+                                        animate-scale-in
+                                        ${isLargeCard ? 'md:row-span-2 h-[450px]' : 'h-[300px] md:h-[207px]'}
+                                        ${categories.length === 3 && index === 0 ? 'md:row-span-2' : ''}
+                                    `}
+                                    style={{ animationDelay: `${index * 0.1}s` }}
+                                >
+                                    <img
+                                        src={category.imageUrl || 'https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=1000'}
+                                        className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                                        alt={category.name}
+                                        loading="lazy"
+                                    />
+                                    <div className={`
+                                        absolute inset-0 transition-all duration-500
+                                        ${isLargeCard
+                                            ? 'bg-gradient-to-t from-black/90 via-black/50 to-black/20 group-hover:from-black/95'
+                                            : 'bg-black/40 group-hover:bg-black/50'
+                                        }
+                                    `}></div>
+
+                                    {isLargeCard ? (
+                                        // Large card layout (for first of 3)
+                                        <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-10">
+                                            <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-3 transform transition-transform duration-500 group-hover:-translate-y-2">
+                                                {category.name}
+                                            </h3>
+                                            {category.description && (
+                                                <p className="text-white/90 text-lg mb-6 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                                                    {category.description}
+                                                </p>
+                                            )}
+                                            <span className="inline-flex items-center gap-2 text-brand-yellow font-bold uppercase tracking-widest text-sm group-hover:gap-4 transition-all duration-300">
+                                                Explore Series
+                                                <ArrowRight size={18} />
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        // Standard card layout
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="text-center px-6">
+                                                <h3 className="text-3xl md:text-4xl font-display font-bold text-white tracking-wide transform group-hover:scale-110 transition-transform duration-500">
+                                                    {category.name}
+                                                </h3>
+                                                {category.description && (
+                                                    <p className="text-white/80 text-sm mt-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                                        {category.description}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </Link>
+                            );
+                        })}
+                    </div>
+                )}
             </section>
         </div>
     );
