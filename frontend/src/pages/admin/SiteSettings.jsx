@@ -18,13 +18,15 @@ const SiteSettings = () => {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
 
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+
     useEffect(() => {
         fetchSettings();
     }, []);
 
     const fetchSettings = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/site-settings');
+            const response = await axios.get(`${API_URL}/site-settings`);
             setSettings(response.data);
             setLoading(false);
         } catch {
@@ -47,7 +49,7 @@ const SiteSettings = () => {
         setMessage({ type: '', text: '' });
 
         try {
-            await axios.put('http://localhost:8080/api/site-settings', settings);
+            await axios.put(`${API_URL}/site-settings`, settings);
             setMessage({ type: 'success', text: 'Settings saved successfully!' });
         } catch {
             setMessage({ type: 'error', text: 'Failed to save settings' });

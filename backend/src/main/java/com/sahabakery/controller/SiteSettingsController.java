@@ -14,21 +14,29 @@ public class SiteSettingsController {
     private SiteSettingsRepository siteSettingsRepository;
 
     @GetMapping
-    public ResponseEntity<SiteSettings> getSettings() {
-        // Force update the settings for the user
-        SiteSettings settings = new SiteSettings();
-        settings.setId(1L);
-        settings.setPhone("+91 95631 71459");
-        settings.setEmail("bakerysaha18@gmail.com");
-        settings.setAddress("Gorabazar, Berhampore, West Bengal 742101");
-        settings.setFacebookUrl("#");
-        settings.setInstagramUrl("#");
-        settings.setTwitterUrl("#");
-
-        // Save these correct settings back to DB so we don't need this hardcode forever
-        siteSettingsRepository.save(settings);
-
-        return ResponseEntity.ok(settings);
+    public ResponseEntity<?> getSettings() {
+        try {
+            return siteSettingsRepository.findById(1L)
+                    .map(ResponseEntity::ok)
+                    .orElseGet(() -> {
+                        // Create default settings if not exists
+                        SiteSettings settings = new SiteSettings();
+                        settings.setId(1L);
+                        settings.setPhone("+91 95631 71459");
+                        settings.setEmail("bakerysaha18@gmail.com");
+                        settings.setAddress("Gorabazar, Berhampore, West Bengal 742101");
+                        try {
+                            return ResponseEntity.ok(siteSettingsRepository.save(settings));
+                        } catch (Exception e) {
+                            // If table is missing, this will fail
+                            e.printStackTrace();
+                            return ResponseEntity.internalServerError().build();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error fetching settings: " + e.getMessage());
+        }
     }
 
     @PutMapping

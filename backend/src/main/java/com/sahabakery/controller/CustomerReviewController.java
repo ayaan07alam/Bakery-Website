@@ -18,19 +18,34 @@ public class CustomerReviewController {
 
     // Get all reviews (for Admin)
     @GetMapping("/all")
-    public List<CustomerReview> getAllReviews() {
-        return reviewRepository.findAll();
+    public ResponseEntity<?> getAllReviews() {
+        try {
+            return ResponseEntity.ok(reviewRepository.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error fetching all reviews: " + e.getMessage());
+        }
     }
 
     // Get only active reviews (for Public UI)
     @GetMapping
-    public List<CustomerReview> getActiveReviews() {
-        return reviewRepository.findByActiveTrueOrderByCreatedAtDesc();
+    public ResponseEntity<?> getActiveReviews() {
+        try {
+            return ResponseEntity.ok(reviewRepository.findByActiveTrueOrderByCreatedAtDesc());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error fetching active reviews: " + e.getMessage());
+        }
     }
 
     @PostMapping
-    public CustomerReview createReview(@RequestBody CustomerReview review) {
-        return reviewRepository.save(review);
+    public ResponseEntity<?> createReview(@RequestBody CustomerReview review) {
+        try {
+            return ResponseEntity.ok(reviewRepository.save(review));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error creating review: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

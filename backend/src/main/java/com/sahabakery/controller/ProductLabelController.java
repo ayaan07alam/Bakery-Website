@@ -17,8 +17,13 @@ public class ProductLabelController {
     private ProductLabelRepository labelRepository;
 
     @GetMapping
-    public List<ProductLabel> getAllLabels() {
-        return labelRepository.findAll();
+    public ResponseEntity<?> getAllLabels() {
+        try {
+            return ResponseEntity.ok(labelRepository.findAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error fetching labels: " + e.getMessage());
+        }
     }
 
     @PostMapping
