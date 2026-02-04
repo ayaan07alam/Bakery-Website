@@ -77,7 +77,7 @@ public class SecurityConfig {
 
         // Read from environment variable, split by comma
         String[] origins = allowedOrigins.split(",");
-        configuration.setAllowedOrigins(Arrays.asList(origins));
+        configuration.setAllowedOriginPatterns(Arrays.asList(origins));
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
