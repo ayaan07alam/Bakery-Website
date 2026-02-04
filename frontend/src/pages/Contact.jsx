@@ -32,8 +32,8 @@ const Contact = () => {
             await axios.post(`${API_URL}/contact`, formData);
             setStatus({ type: 'success', message: 'Thank you! We\'ll get back to you soon.' });
             setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-        } catch (error) {
-            setStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+        } catch {
+            alert('Something went wrong. Please try again later.');
         } finally {
             setLoading(false);
         }

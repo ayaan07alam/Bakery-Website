@@ -46,7 +46,7 @@ const VideoGallery = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {videos.map((video, idx) => (
+                    {videos.map((video) => (
                         <div
                             key={video.id}
                             className="group relative rounded-3xl overflow-hidden shadow-premium bg-white cursor-pointer hover:-translate-y-2 transition-all duration-500"

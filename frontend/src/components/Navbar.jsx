@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ShoppingCart, Search, Menu, Phone, MapPin, Clock, Download, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import axios from 'axios';
 import CatalogueDownloadModal from './CatalogueDownloadModal';
@@ -10,9 +10,7 @@ import NavbarSearchBar from './NavbarSearchBar';
 const Navbar = () => {
     const { cartCount, setIsCartOpen } = useCart();
     const [scrolled, setScrolled] = useState(false);
-    const location = useLocation();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [catalogueModalOpen, setCatalogueModalOpen] = useState(false);
     const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [menuItems, setMenuItems] = useState([]);
@@ -31,30 +29,25 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        fetchSiteSettings();
-        fetchMenuItems();
-    }, []);
-
-    const fetchSiteSettings = async () => {
+    const fetchSiteSettings = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/site-settings`);
             setSiteSettings(response.data);
         } catch (error) {
             console.error('Error fetching site settings:', error);
         }
-    };
+    }, [API_URL]);
 
-    const fetchMenuItems = async () => {
+    const fetchMenuItems = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/menu-items`);
             setMenuItems(response.data);
         } catch (error) {
             console.error('Error fetching menu items:', error);
         }
-    };
+    }, [API_URL]);
 
-    const fetchCategories = async () => {
+    const fetchCategories = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/categories`);
             console.log('Categories loaded:', response.data);
@@ -62,13 +55,13 @@ const Navbar = () => {
         } catch (error) {
             console.error('Error fetching categories:', error);
         }
-    };
+    }, [API_URL]);
 
     useEffect(() => {
         fetchSiteSettings();
         fetchMenuItems();
         fetchCategories();
-    }, []);
+    }, [fetchSiteSettings, fetchMenuItems, fetchCategories]);
 
     return (
         <>

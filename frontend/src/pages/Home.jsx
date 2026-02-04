@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Star, Sparkles, Award, Truck, Wheat, ChefHat } from 'lucide-react';
 import axios from 'axios';
@@ -45,7 +45,6 @@ const Home = () => {
             ctaLink: '/about'
         }
     ]);
-    const [loading, setLoading] = useState(true);
 
     // Categories State
     const [categories, setCategories] = useState([]);
@@ -57,26 +56,18 @@ const Home = () => {
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
-    useEffect(() => {
-        fetchHeroSlides();
-        fetchCategories();
-        fetchProducts();
-    }, []);
-
-    const fetchHeroSlides = async () => {
+    const fetchHeroSlides = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/hero-slides/active`);
             if (response.data && response.data.length > 0) {
                 setSlides(response.data);
             }
-            setLoading(false);
         } catch (error) {
             console.error('Error fetching hero slides:', error);
-            setLoading(false);
         }
-    };
+    }, [API_URL]);
 
-    const fetchCategories = async () => {
+    const fetchCategories = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/categories`);
             if (response.data && response.data.length > 0) {
@@ -87,9 +78,9 @@ const Home = () => {
             console.error('Error fetching categories:', error);
             setCategoriesLoading(false);
         }
-    };
+    }, [API_URL]);
 
-    const fetchProducts = async () => {
+    const fetchProducts = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/products`);
             if (response.data && response.data.length > 0) {
@@ -100,7 +91,13 @@ const Home = () => {
             console.error('Error fetching products:', error);
             setProductsLoading(false);
         }
-    };
+    }, [API_URL]);
+
+    useEffect(() => {
+        fetchHeroSlides();
+        fetchCategories();
+        fetchProducts();
+    }, [fetchHeroSlides, fetchCategories, fetchProducts]);
 
     useEffect(() => {
         if (slides.length === 0) return;

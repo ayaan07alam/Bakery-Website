@@ -29,8 +29,8 @@ const CatalogueDownloadModal = ({ isOpen, onClose }) => {
                     setFormData({ name: '', email: '' });
                 }, 1500);
             }, 1000);
-        } catch (error) {
-            alert('Failed to process request.');
+        } catch {
+            alert('Failed to process request');
         } finally {
             setLoading(false);
         }

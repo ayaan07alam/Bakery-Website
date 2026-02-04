@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Star, Search, Filter, ShoppingCart } from 'lucide-react';
 import axios from 'axios';
@@ -17,6 +17,26 @@ const ProductList = () => {
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
+    const fetchProducts = useCallback(async () => {
+        try {
+            const response = await axios.get(`${API_URL}/products`);
+            setProducts(response.data);
+            setLoading(false);
+        } catch {
+            console.error('Error fetching products');
+            setLoading(false);
+        }
+    }, [API_URL]);
+
+    const fetchCategories = useCallback(async () => {
+        try {
+            const response = await axios.get(`${API_URL}/categories`);
+            setCategories(response.data);
+        } catch {
+            console.error('Error fetching categories');
+        }
+    }, [API_URL]);
+
     useEffect(() => {
         fetchProducts();
         fetchCategories();
@@ -24,27 +44,7 @@ const ProductList = () => {
         if (categoryParam) {
             setSelectedCategory(categoryParam);
         }
-    }, [searchParams]);
-
-    const fetchProducts = async () => {
-        try {
-            const response = await axios.get(`${API_URL}/products`);
-            setProducts(response.data);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            setLoading(false);
-        }
-    };
-
-    const fetchCategories = async () => {
-        try {
-            const response = await axios.get(`${API_URL}/categories`);
-            setCategories(response.data);
-        } catch (error) {
-            console.error('Error fetching categories:', error);
-        }
-    };
+    }, [searchParams, fetchProducts, fetchCategories]);
 
     const filteredProducts = products.filter(product => {
         const matchesCategory = selectedCategory === 'all' || product.category?.id === parseInt(selectedCategory);

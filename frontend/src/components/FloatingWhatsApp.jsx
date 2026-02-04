@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import axios from 'axios';
 
 const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
-    const [isOpen, setIsOpen] = useState(false);
     const [phone, setPhone] = useState('+919425950010'); // Saha Bakery contact number
 
-    useEffect(() => {
-        fetchPhoneNumber();
-    }, []);
-
-    const fetchPhoneNumber = async () => {
+    const fetchPhoneNumber = useCallback(async () => {
         const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
         try {
             const response = await axios.get(`${API_URL}/site-settings`);
@@ -21,7 +16,11 @@ const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
         } catch (error) {
             console.error('Error fetching phone:', error);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchPhoneNumber();
+    }, [fetchPhoneNumber]);
 
     const openWhatsApp = () => {
         let message = 'Hello! I would like to inquire about your bakery products.';

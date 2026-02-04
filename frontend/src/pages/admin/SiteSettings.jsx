@@ -27,8 +27,8 @@ const SiteSettings = () => {
             const response = await axios.get('http://localhost:8080/api/site-settings');
             setSettings(response.data);
             setLoading(false);
-        } catch (error) {
-            console.error('Error fetching settings:', error);
+        } catch {
+            console.error('Error fetching settings');
             setMessage({ type: 'error', text: 'Failed to load settings' });
             setLoading(false);
         }
@@ -49,7 +49,7 @@ const SiteSettings = () => {
         try {
             await axios.put('http://localhost:8080/api/site-settings', settings);
             setMessage({ type: 'success', text: 'Settings saved successfully!' });
-        } catch (error) {
+        } catch {
             setMessage({ type: 'error', text: 'Failed to save settings' });
         } finally {
             setSaving(false);

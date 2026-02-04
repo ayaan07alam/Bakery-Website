@@ -27,6 +27,7 @@ D:\SahaBakery\backend\src\main\java\com\sahabakery\filter\JwtAuthenticationFilte
 D:\SahaBakery\backend\src\main\java\com\sahabakery\repository\VisitorSessionRepository.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\ProductController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\SiteSettingsController.java
+D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\SetupController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\CallbackRequestController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\service\VisitorSessionService.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\config\WebConfig.java

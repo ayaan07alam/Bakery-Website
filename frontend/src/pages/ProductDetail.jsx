@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Star, ShoppingCart, ArrowLeft, Plus, Minus } from 'lucide-react';
 import axios from 'axios';
@@ -15,20 +15,20 @@ const ProductDetail = () => {
     const [loading, setLoading] = useState(true);
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
-    useEffect(() => {
-        fetchProduct();
-    }, [id]);
-
-    const fetchProduct = async () => {
+    const fetchProduct = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/products/${id}`);
             setProduct(response.data);
             setLoading(false);
-        } catch (error) {
-            console.error('Error fetching product:', error);
+        } catch {
+            console.error('Error fetching product');
             setLoading(false);
         }
-    };
+    }, [API_URL, id]);
+
+    useEffect(() => {
+        fetchProduct();
+    }, [fetchProduct]);
 
     const handleAddToCart = () => {
         for (let i = 0; i < quantity; i++) {

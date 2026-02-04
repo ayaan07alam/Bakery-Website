@@ -30,7 +30,7 @@ const WelcomePopup = () => {
             await axios.post('http://localhost:8080/api/newsletter/subscribe', { email });
             setSuccess(true);
             setTimeout(() => setIsVisible(false), 2000);
-        } catch (error) {
+        } catch {
             alert('Failed to subscribe.');
         } finally {
             setLoading(false);

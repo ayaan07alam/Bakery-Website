@@ -45,8 +45,8 @@ const ExitIntentPopup = () => {
             await axios.post(`${API_URL}/newsletter/subscribe`, { email });
             setSuccess(true);
             setTimeout(() => setIsVisible(false), 2000);
-        } catch (error) {
-            alert('Failed to subscribe. Please try again.');
+        } catch {
+            console.error('Failed to post callback request');
         } finally {
             setLoading(false);
         }

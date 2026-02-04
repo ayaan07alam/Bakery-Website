@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Plus, Edit2, Trash2, Upload, X, Save, Search, Image as ImageIcon } from 'lucide-react';
 
@@ -17,20 +17,20 @@ const CategoryManager = () => {
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
-    const fetchCategories = async () => {
+    const fetchCategories = useCallback(async () => {
         try {
             const response = await axios.get(`${API_URL}/categories`);
             setCategories(response.data);
             setLoading(false);
-        } catch (error) {
-            console.error('Error fetching categories:', error);
+        } catch {
+            console.error('Error fetching categories');
             setLoading(false);
         }
-    };
+    }, [API_URL]);
+
+    useEffect(() => {
+        fetchCategories();
+    }, [fetchCategories]);
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
@@ -47,7 +47,7 @@ const CategoryManager = () => {
             const url = response.data.startsWith('http') ? response.data : `${API_URL.replace('/api', '')}${response.data}`;
             setFormData({ ...formData, imageUrl: url });
             setUploading(false);
-        } catch (error) {
+        } catch {
             alert('Image upload failed');
             setUploading(false);
         }
@@ -63,7 +63,7 @@ const CategoryManager = () => {
             }
             fetchCategories();
             closeModal();
-        } catch (error) {
+        } catch {
             alert('Failed to save category');
         }
     };
@@ -73,7 +73,7 @@ const CategoryManager = () => {
         try {
             await axios.delete(`${API_URL}/categories/${id}`);
             fetchCategories();
-        } catch (error) {
+        } catch {
             alert('Failed to delete category');
         }
     };
