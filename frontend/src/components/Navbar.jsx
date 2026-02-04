@@ -134,7 +134,7 @@ const Navbar = () => {
                                             </Link>
 
                                             {/* Dropdown */}
-                                            <div className={`absolute top-full left-0 pt-2 transition-all duration-200 z-[1000] ${activeDropdown === item.id ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+                                            <div className={`absolute top-full left-0 pt-8 transition-all duration-200 z-[1000] ${activeDropdown === item.id ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
                                                 <div className="bg-white rounded-2xl shadow-2xl border-2 border-brand-yellow p-6 w-80">
                                                     <h3 className="text-lg font-bold text-brand-dark mb-4 border-b-2 border-brand-yellow pb-2">{item.name}</h3>
                                                     <div className="space-y-2">
@@ -186,7 +186,7 @@ const Navbar = () => {
                                         </Link>
 
                                         {/* Dropdown */}
-                                        <div className={`absolute top-full left-0 pt-2 transition-all duration-200 z-[1000] ${activeDropdown === 'ourMenu' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
+                                        <div className={`absolute top-full left-0 pt-8 transition-all duration-200 z-[1000] ${activeDropdown === 'ourMenu' ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
                                             <div className="bg-white rounded-2xl shadow-2xl border-2 border-brand-yellow p-6 w-80">
                                                 <h3 className="text-lg font-bold text-brand-dark mb-4 border-b-2 border-brand-yellow pb-2">Browse by Category</h3>
                                                 <div className="space-y-2">
