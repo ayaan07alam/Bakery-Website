@@ -192,20 +192,20 @@ const Footer = () => {
                         <div className="flex flex-wrap justify-center items-center gap-8">
                             {/* FSSAI */}
                             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-gradient-to-br from-gray-50 to-white rounded-xl px-4 sm:px-6 py-3 sm:py-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <img src="/fssai-logo.png" alt="FSSAI" className="h-8 sm:h-10 object-contain" />
+                                <img src="/fssai-logo.png" alt="FSSAI" className="h-12 sm:h-16 object-contain" />
                                 <div className="flex flex-col text-center sm:text-left">
-                                    <span className="text-[10px] sm:text-[11px] font-bold text-gray-500 uppercase tracking-wider">License No.</span>
-                                    <span className="font-mono text-xs sm:text-sm font-bold text-gray-800">22820011000017</span>
+                                    <span className="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider">License No.</span>
+                                    <span className="font-mono text-base sm:text-lg font-bold text-gray-800">22820011000017</span>
                                 </div>
                             </div>
                             {/* MSME */}
                             <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 bg-gradient-to-br from-gray-50 to-white rounded-xl px-4 sm:px-6 py-3 sm:py-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                <div className="px-3 py-1.5 bg-gradient-to-br from-brand-red to-red-600 rounded-lg text-white text-xs font-bold shadow-sm">
+                                <div className="px-4 py-2 bg-gradient-to-br from-brand-red to-red-600 rounded-lg text-white text-base font-bold shadow-sm">
                                     ZED
                                 </div>
                                 <div className="flex flex-col text-center sm:text-left">
-                                    <span className="text-[10px] sm:text-[11px] font-bold text-gray-500 uppercase tracking-wider">MSME Reg.</span>
-                                    <span className="font-mono text-xs sm:text-sm font-bold text-gray-800">06122025676423</span>
+                                    <span className="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider">MSME Reg.</span>
+                                    <span className="font-mono text-base sm:text-lg font-bold text-gray-800">06122025676423</span>
                                 </div>
                             </div>
                         </div>

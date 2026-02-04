@@ -42,6 +42,7 @@ com\sahabakery\controller\ProductController.class
 com\sahabakery\entity\CallbackRequest.class
 com\sahabakery\config\DataInitializer.class
 com\sahabakery\entity\HeroSlide.class
+com\sahabakery\repository\ProductLabelRepository.class
 com\sahabakery\controller\AuthController.class
 com\sahabakery\entity\NewsletterSubscriber.class
 com\sahabakery\controller\NewsletterController.class

@@ -159,6 +159,16 @@ const ProductList = () => {
                                         {/* Premium Gradient Overlay */}
                                         <div className="absolute inset-0 bg-gradient-to-t from-brand-red/90 via-brand-red/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
+                                        {/* Product Label */}
+                                        {product.label && (
+                                            <div
+                                                className="absolute top-3 left-3 px-3 py-1.5 rounded-full text-xs font-bold shadow-lg z-10"
+                                                style={{ backgroundColor: product.label.color, color: product.label.textColor }}
+                                            >
+                                                {product.label.name}
+                                            </div>
+                                        )}
+
                                         {/* Rating Badge */}
                                         {product.rating && (
                                             <div className="absolute top-3 right-3 bg-gradient-to-r from-brand-yellow to-yellow-400 text-brand-dark px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-lg">

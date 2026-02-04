@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronLeft, ChevronRight, Star, Sparkles, Award, Truck, Wheat, ChefHat } from 'lucide-react';
 import axios from 'axios';
 import VideoGallery from '../components/VideoGallery';
+import Testimonials from '../components/Testimonials';
+import Newsletter from '../components/Newsletter';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -537,6 +539,11 @@ const Home = () => {
                     </div>
                 )}
             </section>
+            {/* Testimonials Section */}
+            <Testimonials />
+
+            {/* Newsletter Section */}
+            <Newsletter />
         </div>
     );
 };

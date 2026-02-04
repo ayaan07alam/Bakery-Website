@@ -1,5 +1,5 @@
 import React from 'react';
-import { Settings, Image, MessageSquare, Menu, ShoppingBag, Layers, ExternalLink } from 'lucide-react';
+import { Settings, Image, MessageSquare, Menu, ShoppingBag, Layers, ExternalLink, Tag, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
@@ -52,7 +52,31 @@ const AdminDashboard = () => {
                     <p className="text-gray-500 text-sm">Manage product categories.</p>
                 </Link>
 
-                {/* 5. Leads */}
+                {/* 5. Labels (NEW) */}
+                <Link to="/admin/labels" className="group p-6 bg-gradient-to-br from-pink-50 to-white border border-pink-100 rounded-2xl hover:shadow-lg transition-all duration-300">
+                    <div className="h-12 w-12 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <Tag size={24} />
+                    </div>
+                    <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">Labels</h3>
+                        <span className="bg-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">New</span>
+                    </div>
+                    <p className="text-gray-500 text-sm">Manage product tags like 'Trending'.</p>
+                </Link>
+
+                {/* 6. Reviews (NEW) */}
+                <Link to="/admin/reviews" className="group p-6 bg-gradient-to-br from-orange-50 to-white border border-orange-100 rounded-2xl hover:shadow-lg transition-all duration-300">
+                    <div className="h-12 w-12 bg-orange-100 text-orange-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <Star size={24} />
+                    </div>
+                    <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-800 mb-2">Reviews</h3>
+                        <span className="bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">New</span>
+                    </div>
+                    <p className="text-gray-500 text-sm">Manage customer testimonials.</p>
+                </Link>
+
+                {/* 7. Leads */}
                 <Link to="/admin/leads" className="group p-6 bg-gradient-to-br from-green-50 to-white border border-green-100 rounded-2xl hover:shadow-lg transition-all duration-300">
                     <div className="h-12 w-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                         <MessageSquare size={24} />

@@ -9,6 +9,7 @@ const ProductManager = () => {
     const [editingProduct, setEditingProduct] = useState(null);
     const [uploading, setUploading] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [labels, setLabels] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
     const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const ProductManager = () => {
         price: '',
         imageUrl: '',
         category: null,
+        label: null,
         available: true
     });
 
@@ -42,10 +44,20 @@ const ProductManager = () => {
         }
     }, [API_URL]);
 
+    const fetchLabels = useCallback(async () => {
+        try {
+            const response = await axios.get(`${API_URL}/product-labels`);
+            setLabels(response.data);
+        } catch {
+            console.error('Error fetching labels');
+        }
+    }, [API_URL]);
+
     useEffect(() => {
         fetchProducts();
         fetchCategories();
-    }, [fetchProducts, fetchCategories]);
+        fetchLabels();
+    }, [fetchProducts, fetchCategories, fetchLabels]);
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
@@ -109,6 +121,7 @@ const ProductManager = () => {
                 price: product.price,
                 imageUrl: product.imageUrl,
                 category: product.category,
+                label: product.label,
                 available: product.available !== undefined ? product.available : true
             });
         } else {
@@ -119,6 +132,7 @@ const ProductManager = () => {
                 price: '',
                 imageUrl: '',
                 category: categories.length > 0 ? categories[0] : null,
+                label: null,
                 available: true
             });
         }
@@ -134,6 +148,7 @@ const ProductManager = () => {
             price: '',
             imageUrl: '',
             category: null,
+            label: null,
             available: true
         });
     };
@@ -304,7 +319,7 @@ const ProductManager = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">Price (₹)</label>
                                         <div className="relative">
@@ -319,6 +334,23 @@ const ProductManager = () => {
                                                 placeholder="0.00"
                                             />
                                         </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-gray-700 mb-2">Product Label</label>
+                                        <select
+                                            value={formData.label?.id || ''}
+                                            onChange={(e) => {
+                                                const labelId = e.target.value;
+                                                const label = labels.find(l => l.id === parseInt(labelId));
+                                                setFormData({ ...formData, label: label || null });
+                                            }}
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent bg-white"
+                                        >
+                                            <option value="">No Label</option>
+                                            {labels.map(lbl => (
+                                                <option key={lbl.id} value={lbl.id}>{lbl.name}</option>
+                                            ))}
+                                        </select>
                                     </div>
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">Availability</label>
@@ -382,3 +414,4 @@ const ProductManager = () => {
 };
 
 export default ProductManager;
+
