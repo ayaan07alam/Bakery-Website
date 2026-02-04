@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/product-labels")
-@CrossOrigin(origins = "*") // Allow requests from frontend
 public class ProductLabelController {
 
     @Autowired
