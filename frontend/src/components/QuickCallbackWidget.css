@@ -179,8 +179,9 @@
 
 @media (max-width: 768px) {
   .callback-widget {
-    bottom: 170px;
-    right: 20px;
+    bottom: 30px;
+    left: 30px;
+    right: auto;
   }
 
   .callback-form-container {
