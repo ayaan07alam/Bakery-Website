@@ -50,9 +50,15 @@ public class SiteSettingsController {
     public ResponseEntity<SiteSettings> initializeSettings() {
         if (!siteSettingsRepository.existsById(1L)) {
             SiteSettings settings = new SiteSettings();
+            settings.setId(1L);
+            settings.setPhone("+91 95631 71459");
+            settings.setEmail("bakerysaha18@gmail.com");
+            settings.setAddress("Gorabazar, Berhampore, West Bengal 742101");
             siteSettingsRepository.save(settings);
             return ResponseEntity.ok(settings);
         }
-        return getSettings();
+        return siteSettingsRepository.findById(1L)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

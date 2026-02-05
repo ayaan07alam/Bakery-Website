@@ -75,13 +75,28 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Read from environment variable, split by comma
+        // Read from environment variable, split by comma and trim whitespace
         String[] origins = allowedOrigins.split(",");
+        for (int i = 0; i < origins.length; i++) {
+            origins[i] = origins[i].trim();
+        }
+
+        // Use allowedOriginPatterns instead of allowedOrigins to support wildcards with
+        // credentials
+        // If the pattern is exactly "*", replace with "**" to correctly allow all
+        // origins with credentials using patterns
+        for (int i = 0; i < origins.length; i++) {
+            if (origins[i].equals("*")) {
+                origins[i] = "**";
+            }
+        }
         configuration.setAllowedOriginPatterns(Arrays.asList(origins));
 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L); // Cache preflight response for 1 hour
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

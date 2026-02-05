@@ -13,6 +13,7 @@ D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\OrderController.ja
 D:\SahaBakery\backend\src\main\java\com\sahabakery\filter\JwtAuthenticationFilter.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\ProductController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\CustomerReviewController.java
+D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\FileUploadController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\repository\ProductLabelRepository.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\SetupController.java
 D:\SahaBakery\backend\src\main\java\com\sahabakery\controller\CallbackRequestController.java

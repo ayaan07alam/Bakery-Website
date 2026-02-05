@@ -9,6 +9,7 @@ com\sahabakery\entity\OrderItem.class
 com\sahabakery\service\ProductService.class
 com\sahabakery\controller\SiteSettingsController.class
 com\sahabakery\config\WebConfig.class
+com\sahabakery\controller\FileUploadController.class
 com\sahabakery\util\JwtUtil.class
 com\sahabakery\entity\CatalogueDownload.class
 com\sahabakery\controller\SetupController.class
@@ -16,9 +17,11 @@ com\sahabakery\entity\MenuItem.class
 com\sahabakery\repository\CatalogueDownloadRepository.class
 com\sahabakery\repository\VisitorSessionRepository.class
 com\sahabakery\repository\OrderRepository.class
+com\sahabakery\entity\CustomerReview.class
 com\sahabakery\repository\CallbackRequestRepository.class
 com\sahabakery\controller\CallbackRequestController.class
 com\sahabakery\controller\CategoryController.class
+com\sahabakery\controller\CustomerReviewController.class
 com\sahabakery\entity\Category.class
 com\sahabakery\entity\Product.class
 com\sahabakery\config\FileUploadConfig.class
@@ -27,10 +30,12 @@ com\sahabakery\repository\NewsletterSubscriberRepository.class
 com\sahabakery\entity\SiteSettings.class
 com\sahabakery\config\SecurityConfig.class
 com\sahabakery\controller\OrderController$OrderItemRequest.class
+com\sahabakery\controller\ProductLabelController.class
 com\sahabakery\controller\ContactController.class
 com\sahabakery\repository\HeroSlideRepository.class
 com\sahabakery\repository\ProductRepository.class
 com\sahabakery\service\FileUploadService.class
+com\sahabakery\entity\ProductLabel.class
 com\sahabakery\controller\HeroSlideController.class
 com\sahabakery\repository\MenuItemRepository.class
 com\sahabakery\entity\ContactInquiry.class
@@ -45,6 +50,7 @@ com\sahabakery\entity\HeroSlide.class
 com\sahabakery\repository\ProductLabelRepository.class
 com\sahabakery\controller\AuthController.class
 com\sahabakery\entity\NewsletterSubscriber.class
+com\sahabakery\repository\CustomerReviewRepository.class
 com\sahabakery\controller\NewsletterController.class
 com\sahabakery\filter\JwtAuthenticationFilter.class
 com\sahabakery\entity\User.class
