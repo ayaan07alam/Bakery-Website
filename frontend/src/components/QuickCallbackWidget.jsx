@@ -47,15 +47,15 @@ const QuickCallbackWidget = ({ sessionId, currentPage }) => {
     };
 
     return (
-        <div style={{ position: 'fixed', bottom: '170px', right: '20px', zIndex: 9999 }}>
+        <div style={{ position: 'fixed', bottom: '170px', right: '20px', left: 'auto', width: 'max-content', zIndex: 9999 }}>
             {!isExpanded ? (
                 <button
                     className="callback-button"
                     onClick={() => setIsExpanded(true)}
-                    aria-label="Request Callback"
+                    aria-label="Request a Callback"
                 >
                     <Phone size={24} />
-                    <span>Request Callback</span>
+                    <span>Request a Call</span>
                 </button>
             ) : (
                 <div className="callback-form-container">
