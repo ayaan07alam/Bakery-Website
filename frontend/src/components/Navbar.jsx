@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ShoppingCart, Search, Menu, Phone, MapPin, Clock, Download, X } from 'lucide-react';
+import { Heart, Search, Menu, Phone, MapPin, Clock, Download, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import axios from 'axios';
@@ -231,7 +231,7 @@ const Navbar = () => {
                                 className="h-10 w-10 flex items-center justify-center rounded-full bg-brand-yellow text-brand-dark border-2 border-white shadow-lg cursor-pointer hover:scale-110 transition-all relative"
                                 onClick={() => setIsCartOpen(true)}
                             >
-                                <ShoppingCart size={20} className="fill-current" />
+                                <Heart size={20} className="fill-current" />
                                 {cartCount > 0 && (
                                     <span className="absolute -top-1 -right-1 bg-white text-brand-red text-xs font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-brand-red animate-bounce shadow-sm">
                                         {cartCount}
