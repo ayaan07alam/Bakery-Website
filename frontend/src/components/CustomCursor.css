@@ -1,8 +1,4 @@
-/* Hide default cursor only on non-touch devices */
 @media (pointer: fine) {
-    /* Optional: hide default cursor globally or just use the custom one as an overlay
-       Ideally, we keep default cursor as fallback or hide it. 
-       Let's hide it for body but be careful. */
     body {
         cursor: none;
     }
@@ -18,38 +14,61 @@
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);
-    border-radius: 50%;
-    z-index: 9999;
     pointer-events: none;
+    z-index: 9999;
 }
 
 .cursor-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--brand-red, #E31837);
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
+    width: 24px;
+    height: 24px;
+    /* remove background color for dot div */
+    background-color: transparent; 
+    color: var(--brand-red, #E31837); /* Primary Brand Color */
+    /* Add a subtle drop shadow to pop */
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
+    transition: transform 0.2s ease-out;
+}
+
+.cursor-icon {
+    width: 100%;
+    height: 100%;
+    fill: var(--brand-yellow, #FFD700); /* Golden Fill */
+    stroke: var(--brand-red, #E31837); /* Red Outline */
+    stroke-width: 1.5;
 }
 
 .cursor-outline {
-    width: 40px;
-    height: 40px;
-    border: 2px solid var(--brand-yellow, #FFD700);
-    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-    background-color: rgba(255, 215, 0, 0.1); /* Slight doughy tint */
+    width: 48px;
+    height: 48px;
+    border: 1.5px solid var(--brand-yellow, #FFD700);
+    border-radius: 50%;
+    background-color: rgba(255, 215, 0, 0.05);
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s;
 }
 
 /* Hover State */
 body.hovering .cursor-dot {
-    width: 12px;
-    height: 12px;
-    background-color: var(--brand-dark, #333);
+    transform: translate(-50%, -50%) rotate(-15deg) scale(1.2); /* Slight Tilt & Scale */
+}
+
+body.hovering .cursor-icon {
+    /* Optional: Change color on hover */
+    fill: #FFF; /* White fill on hover? or stay gold */
+    stroke: var(--brand-dark, #333);
 }
 
 body.hovering .cursor-outline {
-    width: 60px;
-    height: 60px;
-    background-color: rgba(227, 24, 55, 0.1); /* Red tint on hover */
+    width: 64px;
+    height: 64px;
+    background-color: rgba(227, 24, 55, 0.05); /* Red tint */
     border-color: var(--brand-red, #E31837);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
 }
 
 /* Hide on mobile/touch devices */

@@ -33,12 +33,8 @@ const CustomCursor = () => {
         document.body.addEventListener('mouseenter', onMouseEnter);
         document.body.addEventListener('mouseleave', onMouseLeave);
 
-        // Add hover effects for interactive elements
-        // We defer this slightly to ensure DOM is ready? 
-        // Actually, delegating via mouseover on document is more performant for dynamic content
         const onMouseOver = (e) => {
             const target = e.target;
-            // Check if target or parent is interactive
             const interactive = target.closest('a, button, input, textarea, select, .cursor-pointer');
             if (interactive) {
                 onHoverStart();
@@ -55,7 +51,7 @@ const CustomCursor = () => {
             const dx = cursorPos.current.x - outlinePos.current.x;
             const dy = cursorPos.current.y - outlinePos.current.y;
 
-            // Smooth easing (0.15 factor usually feels nice)
+            // Smooth easing
             outlinePos.current.x += dx * 0.15;
             outlinePos.current.y += dy * 0.15;
 
@@ -78,17 +74,36 @@ const CustomCursor = () => {
         };
     }, []);
 
-    // Don't render on mobile/touch logic could be done here too via matchMedia, 
-    // but CSS handles display:none. We can just return null if we want to save resources.
-    // simpler to let CSS handle it for now.
-
     return (
         <>
             <div
                 ref={dotRef}
                 className="cursor-dot"
                 style={{ opacity: isVisible ? 1 : 0 }}
-            />
+            >
+                {/* Premium Golden Croissant Icon */}
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="cursor-icon"
+                >
+                    <path d="M4.6 13.11l5.79-3.21c1.89-1.05 4.79 1.78 3.71 3.71l-3.22 5.81" />
+                    <path d="M15.11 3.09l5.8 3.22a3.04 3.04 0 0 1 1 5.77L13.1 27.9" />
+                    <path d="M15 3a3.03 3.03 0 0 0-2.81 3.9" />
+                    <path d="M2.09 15.11l3.22 5.8a3.04 3.04 0 0 0 5.77 1l1.79-8.8" />
+                    {/* Simplified Croissant Shape */}
+                    <path d="m2.3 8.3 2.9-1.7a9.72 9.72 0 0 1 13.5 13.5l-1.7 2.9a2.04 2.04 0 0 1-2.8.5l-11.4-6.6a2.04 2.04 0 0 1-.5-2.8Z" />
+                    <path d="m14 8 2.3 4" />
+                    <path d="m10.6 10 2.3 4" />
+                    <path d="m7.3 12 2.3 4" />
+                </svg>
+            </div>
             <div
                 ref={outlineRef}
                 className="cursor-outline"
