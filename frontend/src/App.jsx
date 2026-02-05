@@ -34,6 +34,7 @@ import TermsOfService from './pages/TermsOfService';
 import ScrollToTop from './components/ScrollToTop';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import { useVisitorTracking } from './hooks/useVisitorTracking';
+import CustomCursor from './components/CustomCursor';
 
 function AppContent() {
   const location = useLocation();
@@ -47,6 +48,7 @@ function AppContent() {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <CustomCursor />
       <Navbar />
       <CartDrawer />
 
