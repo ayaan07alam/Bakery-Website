@@ -60,7 +60,8 @@ public class ProductController {
                     existing.setPrice(product.getPrice());
                     existing.setImageUrl(product.getImageUrl());
                     existing.setCategory(product.getCategory());
-                    // existing.setAvailable(product.getAvailable()); // If added later
+                    existing.setLabel(product.getLabel());
+                    existing.setAvailable(product.isAvailable());
                     return ResponseEntity.ok(productService.saveProduct(existing));
                 })
                 .orElse(ResponseEntity.notFound().build());
