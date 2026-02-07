@@ -9,9 +9,9 @@ const ExitIntentPopup = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
-        // Check if user has seen this popup
-        const hasSeenExitPopup = sessionStorage.getItem('hasSeenExitPopup');
-        if (hasSeenExitPopup) return;
+        // DISABLED: Exit intent popup causes frustration by showing when mouse leaves viewport
+        // If you want to re-enable, replace this with proper back navigation detection
+        return;
 
         // Track if user has scrolled or interacted (wait 5 seconds)
         let hasInteracted = false;
