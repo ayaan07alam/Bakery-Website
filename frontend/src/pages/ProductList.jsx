@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import SEO from '../components/SEO';
 import PremiumLoader from '../components/PremiumLoader';
+import ProductCardSkeleton from '../components/ProductCardSkeleton';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
