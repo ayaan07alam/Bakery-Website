@@ -10,6 +10,7 @@ const SearchModal = ({ isOpen, onClose }) => {
     const [hasSearched, setHasSearched] = useState(false);
     const inputRef = useRef(null);
     const navigate = useNavigate();
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
 
     // Focus input when modal opens
     useEffect(() => {
@@ -45,7 +46,7 @@ const SearchModal = ({ isOpen, onClose }) => {
         setLoading(true);
         const timer = setTimeout(async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/products/search?q=${encodeURIComponent(query)}`);
+                const response = await axios.get(`${API_URL}/products/search?q=${encodeURIComponent(query)}`);
                 console.log('Search results:', response.data);
                 setResults(response.data);
                 setHasSearched(true);
@@ -70,7 +71,7 @@ const SearchModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4">
+        <div className="fixed inset-0 z-[70] flex items-start justify-center pt-32 px-4">
             {/* Backdrop */}
             <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
