@@ -162,13 +162,13 @@ const ProductDetail = () => {
                             <p className="text-5xl font-bold">₹{product.price * quantity}</p>
                         </div>
 
-                        {/* Add to Cart Button */}
+                        {/* Add to Wishlist Button */}
                         <button
                             onClick={handleAddToCart}
                             className="group w-full bg-brand-yellow hover:bg-brand-red text-brand-dark hover:text-white font-bold py-6 px-8 rounded-full text-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-2xl hover:-translate-y-1"
                         >
                             <ShoppingCart size={24} />
-                            <span>Add to Cart</span>
+                            <span>Add to Wishlist</span>
                         </button>
 
                         {/* Product Info */}

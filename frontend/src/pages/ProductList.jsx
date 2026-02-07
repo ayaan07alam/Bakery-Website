@@ -187,7 +187,7 @@ const ProductList = () => {
                                                 className="w-full btn-premium-gold py-3 sm:py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl btn-press text-sm"
                                             >
                                                 <ShoppingCart size={16} />
-                                                Add to Cart
+                                                Add to Wishlist
                                             </button>
                                         </div>
                                     </div>
