@@ -47,7 +47,15 @@ const QuickCallbackWidget = ({ sessionId, currentPage }) => {
     };
 
     return (
-        <div className="callback-widget">
+        <div
+            className="callback-widget"
+            style={{
+                position: 'fixed',
+                bottom: '168px',
+                right: '20px',
+                zIndex: 9999
+            }}
+        >
             {!isExpanded ? (
                 <button
                     className="callback-button"
