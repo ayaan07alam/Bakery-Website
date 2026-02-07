@@ -12,7 +12,7 @@ const CartDrawer = () => {
     return (
         <div className="fixed inset-0 z-[60] overflow-hidden">
             <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity" onClick={() => setIsCartOpen(false)}></div>
-            <div className="absolute inset-y-0 right-0 max-w-full flex transition-transform transform translate-x-0">
+            <div className="absolute inset-y-0 right-0 max-w-full flex transition-transform transform translate-x-0 pt-20">
                 <div className="w-screen max-w-md bg-white shadow-xl flex flex-col">
                     <div className="flex items-center justify-between px-4 py-6 bg-gray-50 border-b">
                         <h2 className="text-lg font-medium text-red-950 flex items-center">
