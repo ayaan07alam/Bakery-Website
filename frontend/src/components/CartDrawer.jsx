@@ -11,8 +11,8 @@ const CartDrawer = () => {
     return (
         <div className="fixed inset-0 z-[60] overflow-hidden">
             <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity" onClick={() => setIsCartOpen(false)}></div>
-            {/* Fixed positioning from top with proper spacing */}
-            <div className="absolute top-20 bottom-0 right-0 w-full max-w-md bg-white shadow-2xl flex flex-col">
+            {/* Fixed positioning from top with proper spacing for navbar (top bar + main nav + wave) */}
+            <div className="absolute top-32 bottom-0 right-0 w-full max-w-md bg-white shadow-2xl flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between px-4 py-6 bg-gradient-to-r from-red-50 to-yellow-50 border-b-2 border-brand-yellow">
                     <h2 className="text-xl font-display font-bold text-red-950 flex items-center gap-2">
