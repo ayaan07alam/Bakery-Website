@@ -210,6 +210,8 @@ const CategoryManager = () => {
                                                         disabled={uploading}
                                                     />
                                                 </label>
+                                                <p className="text-xs text-gray-400 mt-2">PNG, JPG up to 2MB</p>
+                                                <p className="text-xs text-brand-blue font-semibold mt-1">📐 Recommended: 200x200px (Square Icon)</p>
                                             </div>
                                         )}
                                     </div>

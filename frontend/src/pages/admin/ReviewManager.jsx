@@ -219,6 +219,7 @@ const ReviewManager = () => {
                                                 <div className="flex flex-col items-center">
                                                     <Upload className="text-gray-400 mb-2" size={32} />
                                                     <span className="text-sm text-gray-500 font-medium">Click to upload photo</span>
+                                                    <p className="text-xs text-brand-blue font-semibold mt-2">📐 Recommended: 400x400px (Square)</p>
                                                 </div>
                                                 <input
                                                     type="file"

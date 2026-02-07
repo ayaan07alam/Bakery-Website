@@ -216,6 +216,8 @@ const HeroManager = () => {
                                                         disabled={uploading}
                                                     />
                                                 </label>
+                                                <p className="text-xs text-gray-400 mt-2">PNG, JPG up to 10MB</p>
+                                                <p className="text-xs text-brand-blue font-semibold mt-1">📐 Recommended: 1920x1080px (Landscape)</p>
                                             </div>
                                         )}
                                     </div>
