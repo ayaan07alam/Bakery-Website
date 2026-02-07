@@ -47,52 +47,58 @@ function AppContent() {
   }, [location.pathname, trackPageView]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <CustomCursor />
-      <Navbar />
-      <CartDrawer />
+    <>
+      <div className="flex flex-col min-h-screen">
+        <CustomCursor />
+        <Navbar />
+        <CartDrawer />
 
-      <FloatingWhatsApp currentPage={location.pathname} />
-      <ScrollToTop />
-      <ScrollToTopButton />
-      <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : location.pathname === '/' ? '' : 'pt-32 pb-8'}`}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<ProductList />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/checkout" element={<Checkout />} />
+        <FloatingWhatsApp currentPage={location.pathname} />
+        <ScrollToTop />
+        <ScrollToTopButton />
+        <main className={`flex-grow ${isAdminRoute ? 'pt-32 pb-8' : location.pathname === '/' ? '' : 'pt-32 pb-8'}`}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<ProductList />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/checkout" element={<Checkout />} />
 
-          {/* Admin Routes - Protected */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
-          <Route path="/admin/settings" element={<ProtectedRoute><SiteSettings /></ProtectedRoute>} />
-          <Route path="/admin/hero-slides" element={<ProtectedRoute><HeroManager /></ProtectedRoute>} />
-          <Route path="/admin/leads" element={<ProtectedRoute><LeadManager /></ProtectedRoute>} />
-          <Route path="/admin/menu" element={<ProtectedRoute><MenuManager /></ProtectedRoute>} />
-          <Route path="/admin/products" element={<ProtectedRoute><ProductManager /></ProtectedRoute>} />
-          <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
-          <Route path="/admin/labels" element={<ProtectedRoute><LabelManager /></ProtectedRoute>} />
-          <Route path="/admin/reviews" element={<ProtectedRoute><ReviewManager /></ProtectedRoute>} />
+            {/* Admin Routes - Protected */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/settings" element={<ProtectedRoute><SiteSettings /></ProtectedRoute>} />
+            <Route path="/admin/hero-slides" element={<ProtectedRoute><HeroManager /></ProtectedRoute>} />
+            <Route path="/admin/leads" element={<ProtectedRoute><LeadManager /></ProtectedRoute>} />
+            <Route path="/admin/menu" element={<ProtectedRoute><MenuManager /></ProtectedRoute>} />
+            <Route path="/admin/products" element={<ProtectedRoute><ProductManager /></ProtectedRoute>} />
+            <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
+            <Route path="/admin/labels" element={<ProtectedRoute><LabelManager /></ProtectedRoute>} />
+            <Route path="/admin/reviews" element={<ProtectedRoute><ReviewManager /></ProtectedRoute>} />
 
-          {/* Public Pages */}
-          <Route path="/about" element={<About />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-service" element={<TermsOfService />} />
-        </Routes>
-      </main>
-      <Footer />
+            {/* Public Pages */}
+            <Route path="/about" element={<About />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+          </Routes>
+        </main>
+        <Footer />
 
-      {/* Lead Generation Components - Only on non-admin routes */}
+        {/* Lead Generation Components - Only on non-admin routes */}
+        {!isAdminRoute && (
+          <>
+            <ExitIntentPopup />
+            <PhoneCollectorModal sessionId={sessionId} currentPage={location.pathname} />
+            <CookieConsent />
+          </>
+        )}
+      </div>
+
+      {/* Render QuickCallbackWidget OUTSIDE flex container for proper fixed positioning */}
       {!isAdminRoute && (
-        <>
-          <ExitIntentPopup />
-          <PhoneCollectorModal sessionId={sessionId} currentPage={location.pathname} />
-          <QuickCallbackWidget sessionId={sessionId} currentPage={location.pathname} />
-          <CookieConsent />
-        </>
+        <QuickCallbackWidget sessionId={sessionId} currentPage={location.pathname} />
       )}
-    </div>
+    </>
   );
 }
 
