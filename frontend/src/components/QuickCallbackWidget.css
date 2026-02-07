@@ -1,7 +1,7 @@
 .callback-widget {
   position: fixed;
   bottom: 170px;
-  right: 20px;
+  right: 24px;
   z-index: 9999;
 }
 
@@ -179,13 +179,13 @@
 
 @media (max-width: 768px) {
   .callback-widget {
-    bottom: 170px;
-    right: 20px;
-    left: auto;
+    bottom: 160px;
+    right: 16px;
   }
 
   .callback-form-container {
     width: 280px;
+    margin-right: 0;
   }
 
   .callback-button span {

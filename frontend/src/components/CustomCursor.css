@@ -15,7 +15,8 @@
     left: 0;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 999999;
+    will-change: transform;
 }
 
 .cursor-dot {
@@ -24,9 +25,9 @@
     /* remove background color for dot div */
     background-color: transparent; 
     color: var(--brand-red, #E31837); /* Primary Brand Color */
-    /* Add a subtle drop shadow to pop */
-    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
-    transition: transform 0.2s ease-out;
+    /* Add stronger drop shadow for better visibility */
+    filter: drop-shadow(0px 3px 8px rgba(0,0,0,0.4)) drop-shadow(0px 0px 12px rgba(227, 24, 55, 0.3));
+    transition: transform 0.2s ease-out, filter 0.2s ease-out;
 }
 
 .cursor-icon {
@@ -40,15 +41,17 @@
 .cursor-outline {
     width: 48px;
     height: 48px;
-    border: 1.5px solid var(--brand-yellow, #FFD700);
+    border: 2px solid var(--brand-yellow, #FFD700);
     border-radius: 50%;
-    background-color: rgba(255, 215, 0, 0.05);
-    transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s;
+    background-color: rgba(255, 215, 0, 0.08);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4), inset 0 0 10px rgba(255, 215, 0, 0.1);
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s, opacity 0.3s, box-shadow 0.3s;
 }
 
 /* Hover State */
 body.hovering .cursor-dot {
     transform: translate(-50%, -50%) rotate(-15deg) scale(1.2); /* Slight Tilt & Scale */
+    filter: drop-shadow(0px 4px 12px rgba(0,0,0,0.5)) drop-shadow(0px 0px 20px rgba(227, 24, 55, 0.5));
 }
 
 body.hovering .cursor-icon {
@@ -60,8 +63,9 @@ body.hovering .cursor-icon {
 body.hovering .cursor-outline {
     width: 64px;
     height: 64px;
-    background-color: rgba(227, 24, 55, 0.05); /* Red tint */
+    background-color: rgba(227, 24, 55, 0.1); /* Red tint */
     border-color: var(--brand-red, #E31837);
+    box-shadow: 0 0 30px rgba(227, 24, 55, 0.6), inset 0 0 15px rgba(227, 24, 55, 0.2);
     animation: pulse 1.5s infinite;
 }
 
