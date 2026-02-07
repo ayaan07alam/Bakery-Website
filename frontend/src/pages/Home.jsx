@@ -174,7 +174,7 @@ const Home = () => {
                         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
 
                         {/* Content with Stagger Animation */}
-                        <div className="relative z-10 h-full flex items-center px-6 md:px-12 lg:px-20 xl:px-32 pt-20">
+                        <div className="relative z-10 h-full flex items-center px-6 md:px-12 lg:px-20 xl:px-32 pt-28 md:pt-32">
                             <div className="max-w-4xl space-y-6 md:space-y-8">
                                 <div className="flex items-center gap-4 mb-2 animate-fade-in-up">
                                     <div className="h-px w-12 bg-brand-yellow"></div>
