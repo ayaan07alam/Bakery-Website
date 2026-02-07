@@ -25,7 +25,7 @@ import CartDrawer from './components/CartDrawer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import ExitIntentPopup from './components/ExitIntentPopup';
 import PhoneCollectorModal from './components/PhoneCollectorModal';
-import QuickCallbackWidget from './components/QuickCallbackWidget';
+import CallbackButton from './components/CallbackButton';
 import CookieConsent from './components/CookieConsent';
 import About from './pages/About';
 import PrivacyPolicy from './pages/PrivacyPolicy';
@@ -94,9 +94,9 @@ function AppContent() {
         )}
       </div>
 
-      {/* Render QuickCallbackWidget OUTSIDE flex container for proper fixed positioning */}
+      {/* Render CallbackButton OUTSIDE flex container for proper fixed positioning */}
       {!isAdminRoute && (
-        <QuickCallbackWidget sessionId={sessionId} currentPage={location.pathname} />
+        <CallbackButton sessionId={sessionId} currentPage={location.pathname} />
       )}
     </>
   );
