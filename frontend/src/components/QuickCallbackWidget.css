@@ -1,7 +1,7 @@
 .callback-widget {
   position: fixed;
   bottom: 110px;
-  right: 24px;
+  right: 20px;
   z-index: 9999;
 }
 
@@ -180,7 +180,7 @@
 @media (max-width: 768px) {
   .callback-widget {
     bottom: 100px;
-    right: 16px;
+    right: 20px;
   }
 
   .callback-form-container {
