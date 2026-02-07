@@ -1,8 +1,8 @@
 .callback-widget {
-  position: fixed;
-  bottom: 168px;
-  right: 20px;
-  z-index: 9999;
+  position: fixed !important;
+  bottom: 168px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
 }
 
 .callback-button {
@@ -179,8 +179,8 @@
 
 @media (max-width: 768px) {
   .callback-widget {
-    bottom: 164px;
-    right: 20px;
+    bottom: 164px !important;
+    right: 20px !important;
   }
 
   .callback-form-container {
