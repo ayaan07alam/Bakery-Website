@@ -62,6 +62,8 @@ public class ProductController {
                     existing.setCategory(product.getCategory());
                     existing.setLabel(product.getLabel());
                     existing.setAvailable(product.isAvailable());
+                    existing.setShowPrice(product.isShowPrice());
+                    existing.setWeight(product.getWeight());
                     return ResponseEntity.ok(productService.saveProduct(existing));
                 })
                 .orElse(ResponseEntity.notFound().build());

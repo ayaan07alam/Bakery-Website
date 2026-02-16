@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Plus, Edit2, Trash2, Upload, X, Save, Search, Image as ImageIcon } from 'lucide-react';
+import { Plus, Edit2, Trash2, Upload, X, Save, Search, Image as ImageIcon, Eye, EyeOff, Weight } from 'lucide-react';
 
 const ProductManager = () => {
     const [products, setProducts] = useState([]);
@@ -19,7 +19,9 @@ const ProductManager = () => {
         imageUrl: '',
         category: null,
         label: null,
-        available: true
+        available: true,
+        showPrice: true,
+        weight: ''
     });
 
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
@@ -86,7 +88,8 @@ const ProductManager = () => {
         try {
             const payload = {
                 ...formData,
-                price: parseFloat(formData.price)
+                price: parseFloat(formData.price),
+                weight: formData.weight || null
             };
 
             if (editingProduct) {
@@ -122,7 +125,9 @@ const ProductManager = () => {
                 imageUrl: product.imageUrl,
                 category: product.category,
                 label: product.label,
-                available: product.available !== undefined ? product.available : true
+                available: product.available !== undefined ? product.available : true,
+                showPrice: product.showPrice !== undefined ? product.showPrice : true,
+                weight: product.weight || ''
             });
         } else {
             setEditingProduct(null);
@@ -133,7 +138,9 @@ const ProductManager = () => {
                 imageUrl: '',
                 category: categories.length > 0 ? categories[0] : null,
                 label: null,
-                available: true
+                available: true,
+                showPrice: true,
+                weight: ''
             });
         }
         setShowModal(true);
@@ -149,7 +156,9 @@ const ProductManager = () => {
             imageUrl: '',
             category: null,
             label: null,
-            available: true
+            available: true,
+            showPrice: true,
+            weight: ''
         });
     };
 
@@ -201,9 +210,16 @@ const ProductManager = () => {
                                         <ImageIcon size={48} />
                                     </div>
                                 )}
-                                <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold text-brand-dark shadow-sm">
-                                    ₹{product.price}
-                                </div>
+                                {product.showPrice !== false && (
+                                    <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-lg text-sm font-bold text-brand-dark shadow-sm">
+                                        ₹{product.price}
+                                    </div>
+                                )}
+                                {product.showPrice === false && (
+                                    <div className="absolute top-2 right-2 bg-gray-200/90 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-bold text-gray-500 shadow-sm flex items-center gap-1">
+                                        <EyeOff size={12} /> Price Hidden
+                                    </div>
+                                )}
                             </div>
                             <div className="p-5">
                                 <div className="mb-3">
@@ -212,7 +228,12 @@ const ProductManager = () => {
                                     </span>
                                 </div>
                                 <h3 className="font-bold text-lg mb-2 text-gray-800 truncate">{product.name}</h3>
-                                <p className="text-gray-500 text-sm mb-4 line-clamp-2 h-10">{product.description}</p>
+                                <p className="text-gray-500 text-sm mb-2 line-clamp-2 h-10">{product.description}</p>
+                                {product.weight && (
+                                    <p className="text-xs text-amber-700 font-semibold mb-2 flex items-center gap-1">
+                                        ⚖️ {product.weight}
+                                    </p>
+                                )}
 
                                 <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                                     <span className={`text-xs font-bold flex items-center gap-1 ${product.available !== false ? 'text-green-600' : 'text-red-500'}`}>
@@ -320,7 +341,7 @@ const ProductManager = () => {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">Price (₹)</label>
                                         <div className="relative">
@@ -335,7 +356,38 @@ const ProductManager = () => {
                                                 placeholder="0.00"
                                             />
                                         </div>
+                                        {/* Show Price Checkbox */}
+                                        <label className="flex items-center gap-3 mt-3 cursor-pointer select-none group">
+                                            <div className="relative">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={formData.showPrice}
+                                                    onChange={(e) => setFormData({ ...formData, showPrice: e.target.checked })}
+                                                    className="sr-only peer"
+                                                />
+                                                <div className="w-10 h-6 bg-gray-300 rounded-full peer-checked:bg-green-500 transition-colors duration-300"></div>
+                                                <div className="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow-md peer-checked:translate-x-4 transition-transform duration-300"></div>
+                                            </div>
+                                            <span className="text-sm font-semibold text-gray-600 group-hover:text-gray-800 flex items-center gap-1.5">
+                                                {formData.showPrice ? <Eye size={14} className="text-green-500" /> : <EyeOff size={14} className="text-gray-400" />}
+                                                {formData.showPrice ? 'Price visible on website' : 'Price hidden on website'}
+                                            </span>
+                                        </label>
                                     </div>
+                                    <div>
+                                        <label className="block text-sm font-bold text-gray-700 mb-2">Weight</label>
+                                        <input
+                                            type="text"
+                                            value={formData.weight}
+                                            onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow"
+                                            placeholder="e.g. 500g, 1 kg"
+                                        />
+                                        <p className="text-xs text-gray-400 mt-1">Optional — displayed on the live site</p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     <div>
                                         <label className="block text-sm font-bold text-gray-700 mb-2">Product Label</label>
                                         <select

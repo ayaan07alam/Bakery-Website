@@ -77,12 +77,12 @@ const ProductDetail = () => {
                             "@type": "Brand",
                             "name": "Saha Bakery"
                         },
-                        "offers": {
+                        "offers": product.showPrice !== false ? {
                             "@type": "Offer",
                             "price": product.price,
                             "priceCurrency": "INR",
                             "availability": product.available ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
-                        }
+                        } : undefined
                     }}
                 />
             )}
@@ -129,11 +129,21 @@ const ProductDetail = () => {
                             </p>
                         </div>
 
+                        {/* Weight */}
+                        {product.weight && (
+                            <div className="bg-white rounded-2xl p-6 shadow-soft">
+                                <p className="text-sm text-amber-900/60 font-bold uppercase tracking-wider mb-2">Weight</p>
+                                <p className="text-3xl font-bold text-amber-800 flex items-center gap-2">⚖️ {product.weight}</p>
+                            </div>
+                        )}
+
                         {/* Price */}
-                        <div className="bg-white rounded-2xl p-6 shadow-soft">
-                            <p className="text-sm text-amber-900/60 font-bold uppercase tracking-wider mb-2">Price</p>
-                            <p className="text-5xl font-bold text-red-900">₹{product.price}</p>
-                        </div>
+                        {product.showPrice !== false && (
+                            <div className="bg-white rounded-2xl p-6 shadow-soft">
+                                <p className="text-sm text-amber-900/60 font-bold uppercase tracking-wider mb-2">Price</p>
+                                <p className="text-5xl font-bold text-red-900">₹{product.price}</p>
+                            </div>
+                        )}
 
                         {/* Quantity Selector */}
                         <div className="bg-white rounded-2xl p-6 shadow-soft">
@@ -157,10 +167,12 @@ const ProductDetail = () => {
                         </div>
 
                         {/* Total */}
-                        <div className="bg-gradient-to-r from-brand-red to-red-600 rounded-2xl p-6 text-white shadow-luxury">
-                            <p className="text-sm font-bold uppercase tracking-wider mb-2 opacity-90">Total</p>
-                            <p className="text-5xl font-bold">₹{product.price * quantity}</p>
-                        </div>
+                        {product.showPrice !== false && (
+                            <div className="bg-gradient-to-r from-brand-red to-red-600 rounded-2xl p-6 text-white shadow-luxury">
+                                <p className="text-sm font-bold uppercase tracking-wider mb-2 opacity-90">Total</p>
+                                <p className="text-5xl font-bold">₹{product.price * quantity}</p>
+                            </div>
+                        )}
 
                         {/* Add to Wishlist Button */}
                         <button

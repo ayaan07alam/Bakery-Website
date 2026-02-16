@@ -26,6 +26,10 @@ public class Product {
 
     private boolean available = true;
 
+    private boolean showPrice = true;
+
+    private String weight;
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

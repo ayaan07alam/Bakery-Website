@@ -203,7 +203,12 @@ const ProductList = () => {
 
                                     <div className="flex items-center justify-between pt-1">
                                         <div className="flex flex-col">
-                                            <span className="text-2xl font-bold text-red-800">₹{product.price}</span>
+                                            {product.showPrice !== false && (
+                                                <span className="text-2xl font-bold text-red-800">₹{product.price}</span>
+                                            )}
+                                            {product.weight && (
+                                                <span className="text-xs text-amber-800/70 font-semibold">⚖️ {product.weight}</span>
+                                            )}
                                             {product.category && (
                                                 <span className="text-xs text-amber-900/60 font-medium">{product.category.name}</span>
                                             )}
