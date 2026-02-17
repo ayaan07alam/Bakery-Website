@@ -386,10 +386,17 @@ const Home = () => {
                                         </h3>
                                         <div className="flex justify-between items-end">
                                             <div>
-                                                <p className="text-xs text-amber-900/60 font-bold uppercase tracking-wider mb-1">
-                                                    Price
-                                                </p>
-                                                <span className="text-3xl font-bold text-red-900">₹{item.price}</span>
+                                                {item.showPrice !== false && (
+                                                    <>
+                                                        <p className="text-xs text-amber-900/60 font-bold uppercase tracking-wider mb-1">
+                                                            Price
+                                                        </p>
+                                                        <span className="text-3xl font-bold text-red-900">₹{item.price}</span>
+                                                    </>
+                                                )}
+                                                {item.weight && (
+                                                    <p className="text-xs text-amber-800/70 font-semibold mt-1">⚖️ {item.weight}</p>
+                                                )}
                                             </div>
                                             <button className="bg-gray-50 hover:bg-brand-yellow text-brand-dark h-12 w-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:rotate-90 shadow-sm hover:shadow-md">
                                                 <span className="text-2xl font-bold">+</span>
