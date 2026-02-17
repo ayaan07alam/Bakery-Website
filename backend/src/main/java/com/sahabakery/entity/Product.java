@@ -24,8 +24,10 @@ public class Product {
 
     private String imageUrl; // Storing relative path or URL
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean available = true;
 
+    @Column(nullable = false, columnDefinition = "boolean default true")
     private boolean showPrice = true;
 
     private String weight;
