@@ -214,7 +214,7 @@ const Footer = () => {
                     {/* Bottom Bar */}
                     <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
                         <p className="flex items-center gap-1">
-                            © {new Date().getFullYear()} Saha Bakery. Crafted with <span className="text-brand-red">♥</span> in Kolkata.
+                            © {new Date().getFullYear()} Saha Bakery. Crafted with <span className="text-brand-red">♥</span> in Berhampore.
                         </p>
                         <div className="flex items-center gap-6">
                             <Link to="/privacy-policy" className="hover:text-brand-red transition-colors">Privacy Policy</Link>

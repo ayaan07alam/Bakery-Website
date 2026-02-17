@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Star, Search, Filter, ShoppingCart } from 'lucide-react';
+import { Star, Search, Filter, Heart } from 'lucide-react';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
 import SEO from '../components/SEO';
@@ -187,7 +187,7 @@ const ProductList = () => {
                                                 }}
                                                 className="w-full btn-premium-gold py-3 sm:py-3.5 rounded-xl flex items-center justify-center gap-2 shadow-xl hover:shadow-2xl btn-press text-sm"
                                             >
-                                                <ShoppingCart size={16} />
+                                                <Heart size={16} />
                                                 Add to Wishlist
                                             </button>
                                         </div>
@@ -214,7 +214,7 @@ const ProductList = () => {
                                             )}
                                         </div>
                                         <div className="w-10 h-10 rounded-full bg-brand-yellow/10 flex items-center justify-center group-hover:bg-brand-yellow/20 transition-colors">
-                                            <ShoppingCart size={18} className="text-brand-red" />
+                                            <Heart size={18} className="text-brand-red fill-brand-red" />
                                         </div>
                                     </div>
                                 </div>
