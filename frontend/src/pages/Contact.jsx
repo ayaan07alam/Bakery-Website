@@ -56,6 +56,9 @@ const Contact = () => {
                     <p className="text-amber-900/80 text-base max-w-2xl mx-auto">
                         Have a question about our cakes or want to place a custom order? We'd love to hear from you!
                     </p>
+                    <p className="text-brand-red font-semibold text-sm mt-2">
+                        🤝 Interested in a franchise? Fill out the form below or call us to discuss opportunities!
+                    </p>
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
