@@ -23,13 +23,13 @@ const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
     }, [fetchPhoneNumber]);
 
     const openWhatsApp = () => {
-        let message = 'Hello! I would like to inquire about your bakery products.';
+        let message = 'Hi Saha Bakery! 🎂 I visited your website and I\'d love to know more about your fresh cakes, pastries, and sweets. Could you help me with pricing and availability?';
 
         // Customize message based on context
         if (productName) {
-            message = `Hello! I'm interested in "${productName}". Could you provide more details?`;
+            message = `Hi Saha Bakery! 🎂 I just saw "${productName}" on your website and it looks amazing! Could you share the details — pricing, availability, and delivery options? Thank you!`;
         } else if (currentPage) {
-            message = `Hello! I was browsing ${currentPage} and would like to know more.`;
+            message = `Hi Saha Bakery! 🎂 I was browsing your website and I'm interested in placing an order. Could you help me with the menu options, pricing, and delivery? Thank you!`;
         }
 
         const encodedMessage = encodeURIComponent(message);
