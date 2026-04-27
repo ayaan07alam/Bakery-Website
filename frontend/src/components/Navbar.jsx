@@ -102,14 +102,28 @@ const Navbar = () => {
 
                         {/* Logo - Transparent with Bleeding Glow & Movement */}
                         <Link to="/" className="flex items-center group relative">
-                            <img
-                                src="/logo-transparent.png"
-                                alt="Saha Bakery"
-                                className={`object-contain transition-all duration-500 ease-out 
+                            <div className="relative inline-block">
+                                <img
+                                    src="/logo-transparent.png"
+                                    alt="Saha Bakery"
+                                    className={`object-contain transition-all duration-500 ease-out 
                             drop-shadow-md group-hover:drop-shadow-[0_0_15px_rgba(255,237,0,0.9)] 
                             group-hover:scale-110 group-hover:-rotate-2 
                             ${scrolled ? 'h-10' : 'h-14'}`}
-                            />
+                                />
+                                <span style={{
+                                    position: 'absolute',
+                                    top: '2px',
+                                    right: '-8px',
+                                    fontSize: '9px',
+                                    fontWeight: '700',
+                                    color: '#ffffff',
+                                    lineHeight: 1,
+                                    letterSpacing: '0.02em',
+                                    fontFamily: 'sans-serif',
+                                    textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+                                }}>TM</span>
+                            </div>
                         </Link>
 
                         {/* Desktop Menu - DYNAMIC */}

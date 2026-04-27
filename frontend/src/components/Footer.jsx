@@ -71,7 +71,20 @@ const Footer = () => {
 
                         {/* Brand Section */}
                         <div className="space-y-5">
-                            <img src="/logo-transparent.png" alt="Saha Bakery" className="h-20 object-contain drop-shadow-md" />
+                            <div className="relative inline-block">
+                                <img src="/logo-transparent.png" alt="Saha Bakery" className="h-20 object-contain drop-shadow-md" />
+                                <span style={{
+                                    position: 'absolute',
+                                    top: '4px',
+                                    right: '-10px',
+                                    fontSize: '10px',
+                                    fontWeight: '700',
+                                    color: '#E31E24',
+                                    lineHeight: 1,
+                                    letterSpacing: '0.02em',
+                                    fontFamily: 'sans-serif',
+                                }}>TM</span>
+                            </div>
                             <div>
                                 <h3 className="font-display font-bold text-xl text-brand-red mb-2">Since 1978</h3>
                                 <p className="text-gray-600 text-sm leading-relaxed">
