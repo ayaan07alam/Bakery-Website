@@ -1,5 +1,5 @@
 import React from 'react';
-import { Settings, Image, MessageSquare, Menu, ShoppingBag, Layers, ExternalLink, Tag, Star } from 'lucide-react';
+import { Settings, Image, MessageSquare, Menu, ShoppingBag, Layers, ExternalLink, Tag, Star, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
@@ -22,7 +22,14 @@ const AdminDashboard = () => {
                     <p className="text-gray-500 text-sm">Manage homepage carousel images and text.</p>
                 </Link>
 
-                {/* 2. Menu Manager */}
+                {/* 1b. About Page Manager */}
+                <Link to="/admin/about" className="group p-6 bg-gradient-to-br from-teal-50 to-white border border-teal-100 rounded-2xl hover:shadow-lg transition-all duration-300">
+                    <div className="h-12 w-12 bg-teal-100 text-teal-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <BookOpen size={24} />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800 mb-2">About Page</h3>
+                    <p className="text-gray-500 text-sm">Edit content, images &amp; team on About page.</p>
+                </Link>
                 <Link to="/admin/menu" className="group p-6 bg-gradient-to-br from-purple-50 to-white border border-purple-100 rounded-2xl hover:shadow-lg transition-all duration-300">
                     <div className="h-12 w-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                         <Menu size={24} />

@@ -15,6 +15,7 @@ import ProductManager from './pages/admin/ProductManager';
 import CategoryManager from './pages/admin/CategoryManager';
 import LabelManager from './pages/admin/LabelManager';
 import ReviewManager from './pages/admin/ReviewManager';
+import AboutManager from './pages/admin/AboutManager';
 import Contact from './pages/Contact';
 import Checkout from './pages/Checkout';
 import Footer from './components/Footer';
@@ -76,6 +77,7 @@ function AppContent() {
             <Route path="/admin/categories" element={<ProtectedRoute><CategoryManager /></ProtectedRoute>} />
             <Route path="/admin/labels" element={<ProtectedRoute><LabelManager /></ProtectedRoute>} />
             <Route path="/admin/reviews" element={<ProtectedRoute><ReviewManager /></ProtectedRoute>} />
+            <Route path="/admin/about" element={<ProtectedRoute><AboutManager /></ProtectedRoute>} />
 
             {/* Public Pages */}
             <Route path="/about" element={<About />} />
