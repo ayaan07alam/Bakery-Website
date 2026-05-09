@@ -21,7 +21,7 @@ const Navbar = () => {
         tagline: 'Freshly Baked Happiness!',
         address: 'Gorabazar, Berhampore, West Bengal 742101'
     });
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -228,6 +228,10 @@ const Navbar = () => {
                                             </div>
                                         </div>
                                     </div>
+
+                                    <Link to="/about" className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative group">
+                                        <span className="relative z-10">About</span>
+                                    </Link>
 
                                     <Link to="/contact" className="px-6 py-2 rounded-full text-white font-sans uppercase tracking-widest text-sm font-bold hover:bg-brand-yellow hover:text-brand-dark transition-all duration-300 relative group">
                                         <span className="relative z-10">Contact</span>

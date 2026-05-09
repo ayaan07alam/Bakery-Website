@@ -18,7 +18,7 @@ const ReviewManager = () => {
     const [uploading, setUploading] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
     const fetchReviews = useCallback(async () => {
         try {

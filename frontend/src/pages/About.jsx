@@ -1,11 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Award, Clock, Heart, Users, CheckCircle } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const About = () => {
+    const [settings, setSettings] = useState({
+        aboutHeroTitle: "Our Story",
+        aboutHeroSubtitle: "Baking happiness for nearly 50 years in the heart of Kolkata.",
+        aboutContentTitle: "Tradition Meets Passion",
+        aboutContentText: "Founded in 1978 by the Saha family, our bakery started as a humble storefront on Park Street with a single mission: to bring authentic, high-quality baked goods to our community.\n\nWhat began with just a few signature loaves of bread and simple tea cakes has grown into one of Kolkata's most beloved baking institutions. Despite our growth, our core philosophy remains unchanged – we never compromise on quality, we use only the finest ingredients, and we bake with love."
+    });
+
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
+
     useEffect(() => {
         window.scrollTo(0, 0);
+        fetchSettings();
     }, []);
+
+    const fetchSettings = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/site-settings`);
+            if (response.data) {
+                setSettings({
+                    aboutHeroTitle: response.data.aboutHeroTitle || "Our Story",
+                    aboutHeroSubtitle: response.data.aboutHeroSubtitle || "Baking happiness for nearly 50 years in the heart of Kolkata.",
+                    aboutContentTitle: response.data.aboutContentTitle || "Tradition Meets Passion",
+                    aboutContentText: response.data.aboutContentText || "Founded in 1978 by the Saha family, our bakery started as a humble storefront on Park Street with a single mission: to bring authentic, high-quality baked goods to our community.\n\nWhat began with just a few signature loaves of bread and simple tea cakes has grown into one of Kolkata's most beloved baking institutions. Despite our growth, our core philosophy remains unchanged – we never compromise on quality, we use only the finest ingredients, and we bake with love."
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching about settings', error);
+        }
+    };
 
     return (
         <div className="bg-red-50 min-h-screen">
@@ -28,10 +55,10 @@ const About = () => {
                 <div className="relative z-10 text-center text-white px-6 animate-fade-in-up">
                     <span className="inline-block text-brand-yellow font-bold tracking-[0.3em] text-sm uppercase mb-4">Since 1978</span>
                     <h1 className="text-5xl md:text-7xl font-display font-bold mb-6 drop-shadow-2xl">
-                        Our Story
+                        {settings.aboutHeroTitle}
                     </h1>
                     <p className="text-xl md:text-2xl font-light text-white/90 max-w-2xl mx-auto leading-relaxed border-l-4 border-brand-yellow pl-6">
-                        Baking happiness for nearly 50 years in the heart of Kolkata.
+                        {settings.aboutHeroSubtitle}
                     </p>
                 </div>
             </div>
@@ -42,12 +69,10 @@ const About = () => {
                     <div className="grid md:grid-cols-2 gap-16 items-center">
                         <div className="space-y-8 animate-fade-in-up">
                             <h2 className="text-4xl md:text-5xl font-display font-bold text-red-950">
-                                Tradition Meets <span className="text-brand-red">Passion</span>
+                                {settings.aboutContentTitle}
                             </h2>
-                            <p className="text-lg text-gray-700 leading-loose text-justify">
-                                Founded in 1978 by the Saha family, our bakery started as a humble storefront on Park Street with a single mission: to bring authentic, high-quality baked goods to our community.
-                                <br /><br />
-                                What began with just a few signature loaves of bread and simple tea cakes has grown into one of Kolkata's most beloved baking institutions. Despite our growth, our core philosophy remains unchanged – we never compromise on quality, we use only the finest ingredients, and we bake with love.
+                            <p className="text-lg text-gray-700 leading-loose text-justify whitespace-pre-line">
+                                {settings.aboutContentText}
                             </p>
 
                             <div className="grid grid-cols-2 gap-8 pt-8 border-t border-gray-200">

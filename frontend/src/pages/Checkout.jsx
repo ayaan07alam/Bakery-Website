@@ -13,7 +13,7 @@ const Checkout = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+        const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
         try {
             const orderData = {

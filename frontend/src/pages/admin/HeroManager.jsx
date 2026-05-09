@@ -18,7 +18,7 @@ const HeroManager = () => {
         displayOrder: 0
     });
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
     useEffect(() => {
         fetchSlides();
@@ -47,7 +47,8 @@ const HeroManager = () => {
             const response = await axios.post(`${API_URL}/hero-slides/upload`, formDataUpload, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            setFormData({ ...formData, imageUrl: `${API_URL.replace('/api', '')}${response.data}` });
+            const url = response.data.startsWith('http') ? response.data : `${API_URL.replace('/api', '')}${response.data}`;
+            setFormData({ ...formData, imageUrl: url });
             setUploading(false);
         } catch (error) {
             alert('Image upload failed');

@@ -6,7 +6,7 @@ const FloatingWhatsApp = ({ currentPage = '', productName = '' }) => {
     const [phone, setPhone] = useState('+919425950010'); // Saha Bakery contact number
 
     const fetchPhoneNumber = useCallback(async () => {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+        const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
         try {
             const response = await axios.get(`${API_URL}/site-settings`);
             if (response.data.phone) {

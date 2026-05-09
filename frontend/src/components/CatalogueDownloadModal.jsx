@@ -10,7 +10,7 @@ const CatalogueDownloadModal = ({ isOpen, onClose }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+        const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
         try {
             await axios.post(`${API_URL}/catalogue/download`, formData);

@@ -6,7 +6,7 @@ const Testimonials = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
     useEffect(() => {
         const fetchReviews = async () => {

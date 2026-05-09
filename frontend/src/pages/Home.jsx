@@ -56,7 +56,7 @@ const Home = () => {
     const [products, setProducts] = useState([]);
     const [productsLoading, setProductsLoading] = useState(true);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
     const fetchHeroSlides = useCallback(async () => {
         try {

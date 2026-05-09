@@ -12,13 +12,17 @@ const SiteSettings = () => {
         openingHours: '',
         facebookUrl: '',
         instagramUrl: '',
-        twitterUrl: ''
+        twitterUrl: '',
+        aboutHeroTitle: '',
+        aboutHeroSubtitle: '',
+        aboutContentTitle: '',
+        aboutContentText: ''
     });
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState({ type: '', text: '' });
 
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+    const API_URL = import.meta.env.VITE_API_URL || `http://${window.location.hostname}:8080/api`;
 
     useEffect(() => {
         fetchSettings();
@@ -27,7 +31,22 @@ const SiteSettings = () => {
     const fetchSettings = async () => {
         try {
             const response = await axios.get(`${API_URL}/site-settings`);
-            setSettings(response.data);
+            const data = response.data;
+            setSettings({
+                siteName: data.siteName || '',
+                tagline: data.tagline || '',
+                phone: data.phone || '',
+                email: data.email || '',
+                address: data.address || '',
+                openingHours: data.openingHours || '',
+                facebookUrl: data.facebookUrl || '',
+                instagramUrl: data.instagramUrl || '',
+                twitterUrl: data.twitterUrl || '',
+                aboutHeroTitle: data.aboutHeroTitle || '',
+                aboutHeroSubtitle: data.aboutHeroSubtitle || '',
+                aboutContentTitle: data.aboutContentTitle || '',
+                aboutContentText: data.aboutContentText || ''
+            });
             setLoading(false);
         } catch {
             console.error('Error fetching settings');
@@ -195,6 +214,53 @@ const SiteSettings = () => {
                                         value={settings.twitterUrl}
                                         onChange={handleChange}
                                         placeholder="https://twitter.com/..."
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* About Section */}
+                        <div className="border-t pt-6 mt-6">
+                            <h2 className="text-xl font-bold mb-4 text-gray-800">About Page Content</h2>
+                            <div className="grid grid-cols-1 gap-4">
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Hero Title</label>
+                                    <input
+                                        type="text"
+                                        name="aboutHeroTitle"
+                                        value={settings.aboutHeroTitle}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Hero Subtitle</label>
+                                    <input
+                                        type="text"
+                                        name="aboutHeroSubtitle"
+                                        value={settings.aboutHeroSubtitle}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Content Title</label>
+                                    <input
+                                        type="text"
+                                        name="aboutContentTitle"
+                                        value={settings.aboutContentTitle}
+                                        onChange={handleChange}
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-bold text-gray-700 mb-2">Content Text (Use Enter for new paragraphs)</label>
+                                    <textarea
+                                        name="aboutContentText"
+                                        value={settings.aboutContentText}
+                                        onChange={handleChange}
+                                        rows="6"
                                         className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand-yellow focus:border-transparent"
                                     />
                                 </div>
