@@ -102,7 +102,7 @@ const Navbar = () => {
 
                         {/* Logo - Transparent with Bleeding Glow & Movement */}
                         <Link to="/" className="flex items-center group relative">
-                            <div className="relative inline-block">
+                            <div className="flex items-start">
                                 <img
                                     src="/logo-transparent.png"
                                     alt="Saha Bakery"
@@ -112,16 +112,16 @@ const Navbar = () => {
                             ${scrolled ? 'h-10' : 'h-14'}`}
                                 />
                                 <span style={{
-                                    position: 'absolute',
-                                    top: '2px',
-                                    right: '-8px',
                                     fontSize: '9px',
                                     fontWeight: '700',
                                     color: '#ffffff',
                                     lineHeight: 1,
                                     letterSpacing: '0.02em',
                                     fontFamily: 'sans-serif',
-                                    textShadow: '0 1px 2px rgba(0,0,0,0.5)'
+                                    textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+                                    marginTop: '2px',
+                                    marginLeft: '2px',
+                                    flexShrink: 0
                                 }}>TM</span>
                             </div>
                         </Link>
